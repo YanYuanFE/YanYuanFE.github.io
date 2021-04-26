@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      深拷贝探秘 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  
+<script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>深拷贝探秘</h2>
+  <p class="post-date">2018-11-06</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>本文总结了一些解决深拷贝的常用方法，没有银弹，每种方法都有其优劣，使用时要区分其场景。</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/js3.jpg" alt="image"></p>
+<a id="more"></a>
+<p>在 JavaScript 中，深拷贝已经是一个老生常谈的问题，也无数次被面试官用来考核一个前端的 JS 水平，同时，在开发中，如果对深拷贝理解不够深刻，也会出现很难发现的 BUG。此前，我已经写过一篇文章《深入理解 JavaScript 之克隆》，其中分析了深拷贝的概念，但是其解决方法还很粗浅，这篇文章，记录了一些解决深拷贝的常用方法，没有银弹，每种方法都有其优劣，使用时要区分其场景。</p>
+<h3 id="递归拷贝"><a href="#递归拷贝" class="headerlink" title="递归拷贝"></a>递归拷贝</h3><p>递归拷贝应该是最开始了解深拷贝时遇到的解决办法，其原理是对引用类型进行遍历，判断其值是否为引用类型，如果为引用类型则递归调用该函数并传入该值，否则为简单数据类型则执行常规赋值拷贝。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result;</span><br><span class="line">  <span class="keyword">if</span> (!(obj <span class="keyword">instanceof</span> <span class="built_in">Object</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Function</span>) &#123;</span><br><span class="line">    result = <span class="built_in">eval</span>(obj.toString());</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    result = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    result[key] = deepClone(obj[key]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是一个简单的深拷贝方法，处理了对象、数组和函数，但是 Date、Regexp、Map 等引用类型都没有处理，而且无法解决对象循环引用的场景。</p>
+<h3 id="JSON-parse-JSON-stringify-object"><a href="#JSON-parse-JSON-stringify-object" class="headerlink" title="JSON.parse(JSON.stringify(object))"></a>JSON.parse(JSON.stringify(object))</h3><p>深拷贝一般用 JSON.parse(JSON.stringify(object))就可以解决了，</p>
+<p>这种方法的局限性：</p>
+<ul>
+<li>会忽略 undefined</li>
+<li>不能序列化函数</li>
+<li>不能解决循环引用的对象<br>undefined 和函数会被忽略，而尝试拷贝循环引用的对象则会报错：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Uncaught <span class="built_in">TypeError</span>：Converting circular structure to <span class="built_in">JSON</span></span><br></pre></td></tr></table></figure>
+<p>另外，诸如 Map, Set, RegExp, Date, ArrayBuffer 和其他内置类型在进行序列化时会丢失。</p>
+<p>但是在通常情况下，复杂数据都是可以序列化的，所以这个函数可以解决大部分问题，并且该函数是内置函数中处理深拷贝性能最快的。</p>
+<h3 id="Structured-Clone-结构化克隆算法"><a href="#Structured-Clone-结构化克隆算法" class="headerlink" title="Structured Clone 结构化克隆算法"></a>Structured Clone 结构化克隆算法</h3><p>Structured cloning 是一种现有的算法，用于将值从一个地方转移到另一地方。例如，每当您调用 postMessage 将消息发送到另一个窗口或 WebWorker 时，都会使用它。关于结构化克隆的好处在于它处理循环对象并 支持大量的内置类型。结构化克隆包含使用 MessageChannel 和 History API。</p>
+<h4 id="MessageChannel"><a href="#MessageChannel" class="headerlink" title="MessageChannel"></a>MessageChannel</h4><p>MessageChannel API 允许我们创建一个新的消息通道，并通过它的两个 MessagePort 属性发送数据。<br>我们可以创建一个 MessageChannel 并发送消息。在接收端，消息包含我们原始数据对象的结构化克隆。<br>MessageChannel 的 postMessage 传递的数据也是深拷贝的，这和 web worker 的 postMessage 一样。而且还可以拷贝 undefined 和循环引用的对象。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 有undefined + 循环引用</span></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  b: &#123;</span><br><span class="line">    c: <span class="number">2</span>,</span><br><span class="line">    d: <span class="number">3</span></span><br><span class="line">  &#125;,</span><br><span class="line">  f: <span class="literal">undefined</span></span><br><span class="line">&#125;;</span><br><span class="line">obj.c = obj.b;</span><br><span class="line">obj.e = obj.a;</span><br><span class="line">obj.b.c = obj.c;</span><br><span class="line">obj.b.d = obj.b;</span><br><span class="line">obj.b.e = obj.b.c;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; port1, port2 &#125; = <span class="keyword">new</span> MessageChannel();</span><br><span class="line">    port2.onmessage = <span class="function"><span class="params">ev</span> =&gt;</span> resolve(ev.data);</span><br><span class="line">    port1.postMessage(obj);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MessageChannel是异步的</span></span><br><span class="line">deepCopy(obj).then(<span class="function"><span class="params">copy</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> copyObj = copy;</span><br><span class="line">  <span class="built_in">console</span>.log(copyObj, obj);</span><br><span class="line">  <span class="built_in">console</span>.log(copyObj == obj);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>但拷贝有函数的对象时，还是会报错：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Uncaught （in promise） DOMException：Failed to execute &apos;postMessage&apos; on &apos;MessagePort&apos;: function() &#123;&#125; could not be cloned.</span><br></pre></td></tr></table></figure>
+<p>这种方法的缺点是它是异步的，但是你可以使用 await 来解决。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> clone = <span class="keyword">await</span> structuralClone(obj);</span><br></pre></td></tr></table></figure>
+<h4 id="History"><a href="#History" class="headerlink" title="History"></a>History</h4><p>如果你曾经使用 history.pushState()写过 SPA，你可以提供一个状态对象来保存 URL。事实证明，这个状态对象使用结构化克隆，而且是同步的。我们必须小心使用，不要把原有的路由状态搞乱了，所以我们需要在完成克隆之后恢复原始状态。为了防止发生任何意外，请使用 history.replaceState()而不是 history.pushState()。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> structuralClone = <span class="function"><span class="params">obj</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> oldState = history.state;</span><br><span class="line">  history.replaceState(obj, <span class="built_in">document</span>.title);</span><br><span class="line">  <span class="keyword">const</span> copy = history.state;</span><br><span class="line">  history.replaceState(oldState, <span class="built_in">document</span>.title);</span><br><span class="line">  <span class="keyword">return</span> copy;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>此方法的优点是：能解决循环对象的问题，并且支持许多内置类型的克隆，也是同步的。缺点是有的浏览器对调用频率有限制。比如 Safari 30 秒内只允许调用 100 次</p>
+<h4 id="Notification"><a href="#Notification" class="headerlink" title="Notification"></a>Notification</h4><p>Notification 是用于桌面通知的。也可以用来实现 JS 对象的深拷贝。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">structuralClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Notification(<span class="string">''</span>, &#123;<span class="attr">data</span>: obj, <span class="attr">silent</span>: <span class="literal">true</span>&#125;).data;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> obj = <span class="comment">/* ... */</span>;</span><br><span class="line"><span class="keyword">const</span> clone = structuralClone(obj);</span><br></pre></td></tr></table></figure>
+<p>此方法的优点就是可以解决循环对象问题，也支持许多内置类型的克隆，并且是同步的。缺点就是这个 api 的使用需要向用户请求权限，但是用在这里克隆数据的时候，不经用户授权也可以使用。在 http 协议的情况下会提示你再 https 的场景下使用。<br>由于某种原因，Safari 总是返回 undefined。</p>
+<h3 id="lodash-的深拷贝函数"><a href="#lodash-的深拷贝函数" class="headerlink" title="lodash 的深拷贝函数"></a>lodash 的深拷贝函数</h3><p>lodash 的_.cloneDeep()支持循环对象，和大量的内置类型，对很多细节都处理的比较不错，推荐使用。</p>
+<h3 id="解决循环引用"><a href="#解决循环引用" class="headerlink" title="解决循环引用"></a>解决循环引用</h3><p>通过分析上述的方法，发现只有结构化克隆算法才能解决循环引用的问题，那么使用原生 JS 如何解决呢？这里尝试使用闭包来解决循环问题。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">object</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> memo = &#123;&#125;;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">clone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result;</span><br><span class="line">    <span class="keyword">if</span> (!(obj <span class="keyword">instanceof</span> <span class="built_in">Object</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> obj;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Function</span>) &#123;</span><br><span class="line">      result = <span class="built_in">eval</span>(obj.toString());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      result = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">      <span class="keyword">if</span> (memo[obj[key]]) &#123;</span><br><span class="line">        result[key] = memo[obj[key]];</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        memo[obj[key]] = obj[key];</span><br><span class="line">        result[key] = clone(obj[key]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> clone(object);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> b = &#123; obj &#125;;</span><br><span class="line">obj.b = b;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = deepClone(obj);</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，对递归拷贝进行了优化，使用闭包来解决循环拷贝的问题，使用了 memo 这个变量来记录被拷贝的引用地址，在每次递归前，记录递归的参数值，这样在递归内部就可以跳出递归，解决循环引用问题。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>如果您没有循环对象，并且不需要保留内置类型，则可以使用跨浏览器的 JSON.parse(JSON.stringify())获得最快的克隆性能。</li>
+<li>如果你想要一个适当的结构化克隆，MessageChannel 是你唯一可靠的跨浏览器的选择。</li>
+</ul>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#JavaScript" >
+    <span class="tag-code">JavaScript</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2018/10/30/Webpack%E4%B9%8B%E6%89%93%E5%8C%85%E4%BD%93%E7%A7%AF%E4%BC%98%E5%8C%96/">
+        <span class="nav-arrow">← </span>
+        
+          Webpack之打包体积优化
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2018/11/16/%E5%85%B3%E4%BA%8E%E4%B8%80%E9%81%93%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9A%84%E6%80%9D%E8%80%83/">
+        
+          关于一道字符串格式化面试题的思考
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%80%92%E5%BD%92%E6%8B%B7%E8%B4%9D"><span class="toc-nav-text">递归拷贝</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#JSON-parse-JSON-stringify-object"><span class="toc-nav-text">JSON.parse(JSON.stringify(object))</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Structured-Clone-%E7%BB%93%E6%9E%84%E5%8C%96%E5%85%8B%E9%9A%86%E7%AE%97%E6%B3%95"><span class="toc-nav-text">Structured Clone 结构化克隆算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#MessageChannel"><span class="toc-nav-text">MessageChannel</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#History"><span class="toc-nav-text">History</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Notification"><span class="toc-nav-text">Notification</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#lodash-%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%87%BD%E6%95%B0"><span class="toc-nav-text">lodash 的深拷贝函数</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8"><span class="toc-nav-text">解决循环引用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-nav-text">总结</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yanyuanfe.cn/2018/11/06/深拷贝探秘/';
+    var banner = 'http://img.yanyuanfe.cn/js3.jpg'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "深拷贝探秘",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

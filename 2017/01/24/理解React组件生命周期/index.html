@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      理解React组件生命周期 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  
+<script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>理解React组件生命周期</h2>
+  <p class="post-date">2017-01-24</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>了解组件生命周期将使你能够在创建或销毁组件时执行某些操作。 此外，它让您有机会决定是否应该首先更新组件，并相应地对属性（props）或状态（state）更改做出反应。</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/react_illo_800x600_1x.png" alt="image"></p>
+<a id="more"></a>
+<div class="tip"><br>    在公司实习已经一个月了，第一个项目是使用React+React-Redux架构的Webapp，在项目过程中对React的理解从入门到逐渐加深，所以写下这篇文章总结一下心得。<br></div>
+
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>React通过调用React.createClass（）方法来创建组件，React.createClass（）方法需要一个render方法，并触发一个生命周期，它可以通过一些所谓的生命周期方法来实现。</p>
+<p>为了清楚地理解生命周期，我们需要区分组件被创建的初始创建阶段，状态和属性变化触发的更新阶段以及组件被卸载的阶段。</p>
+<h3 id="初始化（Initialization）"><a href="#初始化（Initialization）" class="headerlink" title="初始化（Initialization）"></a>初始化（Initialization）</h3><p><img src="http://img.yanyuanfe.cn/initial.png" alt="image"></p>
+<p>从上面的图我们可以看到，前两个方法被调用的是getDefaultProps和getInitialState。这两个方法只在最初渲染组件时调用一次。 getInitialState方法允许设置初始状态值，这是通过this.state在组件内部可访问的。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="comment">/* something here */</span>&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类似地，getDefaultProps可以用于定义可以通过this.props访问的任何默认属性。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">getDefaultProps: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="comment">/* something here */</span>&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一个只有在初始化组件时才调用的方法是componentWillMount和componentDidMount。  </p>
+<p>  <strong>componentWillMount</strong>在执行render方法之前被调用。重要的是要注意，在此阶段中设置状态不会触发重新渲染。  </p>
+<p><strong>render</strong>方法返回所需的组件标记，它可以是单个子组件或null或false（以防您不想要任何渲染）。<br>这是生命周期中解释属性和状态值以创建正确输出的部分。在这个函数里面不应该修改属性和状态。这一点很重要，因为根据定义，render必须是纯函数，这意味着每次调用该方法时返回相同的结果。  </p>
+<p>  一旦render方法被执行，<strong>componentDidMount</strong>函数被调用。在此方法中可以访问DOM，从而能够定义DOM操作或数据请求操作。任何DOM交互应该总是发生在这个阶段，而不是render方法内部。</p>
+<h3 id="状态变化（State-Changes）"><a href="#状态变化（State-Changes）" class="headerlink" title="状态变化（State Changes）"></a>状态变化（State Changes）</h3><p>状态更改将触发许多钩子函数。<br><img src="http://img.yanyuanfe.cn/statechange.png" alt="image">  </p>
+<p><strong>shouldComponentUpdate</strong>总是在render方法之前调用，并允许定义是否需要或跳过重新渲染。显然，这种方法从来没有在初始渲染时调用。必须返回布尔值。  </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">shouldComponentUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps, nextState</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// return a boolean value</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此方法可以访问当前以及即将到来的属性和状态确保可以检测到可能的改变以确定是否需要渲染。<br>shouldComponentUpdate方法 允许我们手动地判断是否要进行组件更新，根据组件的应用场景设置函数的合理返回值能够帮我们避免不必要的更新。很多人不了解这个方法而不知道它的重要性。</p>
+<p><strong>componentWillUpdate</strong>在shouldComponentUpdate返回true时立即被调用。不允许通过this.setState进行任何状态更改，因为此方法应严格用于准备即将到来的更新而不触发更新本身。  </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">componentWillUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps, nextState</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// perform any preparations for an upcoming update</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，在render方法之后调用<strong>componentDidUpdate</strong>。与componentDidMount类似，此方法可用于在数据更新后执行DOM操作。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">componentDidUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">prevProps, prevState</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="属性变更（Props-Changes）"><a href="#属性变更（Props-Changes）" class="headerlink" title="属性变更（Props Changes）"></a>属性变更（Props Changes）</h3><p>对props对象的任何更改也将触发生命周期函数，并且几乎与状态更改相同，且有一个额外的方法被调用。<br><img src="http://img.yanyuanfe.cn/changeprops.png" alt="image"><br><strong>componentWillReceiveProps</strong>仅在属性已更改并且不是初始渲染时调用。 componentWillReceiveProps允许根据现在和即将到来的属性来更新状态，而不触发另一个渲染。这里需要记住的一个有趣的事情是，没有等效的状态的方法，因为状态变化不应该触发任何属性的变化。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">componentWillReceiveProps: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    <span class="comment">// set something </span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>剩余的生命周期函数与状态改变触发方法相同，在这里没有什么不同。</p>
+<h3 id="卸载（Unmounting）"><a href="#卸载（Unmounting）" class="headerlink" title="卸载（Unmounting）"></a>卸载（Unmounting）</h3><p><img src="http://img.yanyuanfe.cn/unmount.png" alt="image">  </p>
+<p>组件卸载会触发的唯一一个方法是<strong>componentWillUnmount</strong>，当组件从DOM中移除之前调用componentWillUnmount。当需要执行清理操作时，该方法可能是有益的。删除componentDidMount中定义的任何计时器。</p>
+<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><blockquote>
+<p>在生命周期中的哪一步你应该发起 AJAX 请求？  </p>
+</blockquote>
+<p>我们应当将AJAX 请求放到 componentDidMount 函数中执行，主要原因有下：  </p>
+<ul>
+<li><p>React 下一代调和算法 Fiber 会通过开始或停止渲染的方式优化应用性能，其会影响到 componentWillMount 的触发次数。对于 componentWillMount 这个生命周期函数的调用次数会变得不确定，React 可能会多次频繁调用 componentWillMount。如果我们将 AJAX 请求放到 componentWillMount 函数中，那么显而易见其会被触发多次，自然也就不是好的选择。</p>
+</li>
+<li><p>如果我们将 AJAX 请求放置在生命周期的其他函数中，我们并不能保证请求仅在组件挂载完毕后才会要求响应。如果我们的数据请求在组件挂载之前就完成，并且调用了setState函数将数据添加到组件状态中，对于未挂载的组件则会报错。而在 componentDidMount 函数中进行 AJAX 请求则能有效避免这个问题。</p>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://facebook.github.io/react/docs/react-component.html" target="_blank" rel="noopener">React官方文档</a></li>
+</ul>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#React" >
+    <span class="tag-code">React</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2017/01/21/Ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BA%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+        <span class="nav-arrow">← </span>
+        
+          Ubuntu下搭建前端开发环境和常用工具
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2017/02/02/%E7%90%86%E8%A7%A3ES6%E4%B9%8B%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/">
+        
+          理解ES6之箭头函数
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-nav-text">生命周期</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%88Initialization%EF%BC%89"><span class="toc-nav-text">初始化（Initialization）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%EF%BC%88State-Changes%EF%BC%89"><span class="toc-nav-text">状态变化（State Changes）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%B1%9E%E6%80%A7%E5%8F%98%E6%9B%B4%EF%BC%88Props-Changes%EF%BC%89"><span class="toc-nav-text">属性变更（Props Changes）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8D%B8%E8%BD%BD%EF%BC%88Unmounting%EF%BC%89"><span class="toc-nav-text">卸载（Unmounting）</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%80%9D%E8%80%83"><span class="toc-nav-text">思考</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-nav-text">参考资料</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yanyuanfe.cn/2017/01/24/理解React组件生命周期/';
+    var banner = 'http://img.yanyuanfe.cn/react_illo_800x600_1x.png'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "理解React组件生命周期",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

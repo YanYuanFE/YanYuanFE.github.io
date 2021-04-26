@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      聊聊Vue组件通信方式 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  
+<script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>聊聊Vue组件通信方式</h2>
+  <p class="post-date">2020-07-09</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>组件是现代前端框架最强大的功能，但是组件的作用域是相互独立的，那么不同组件之间如何传递数据呢？</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/vue.png" alt="image"></p>
+<a id="more"></a>
+<p>为了构建大型Web应用，现代前端框架都引入了组件系统，将模版和逻辑抽象为可复用的组件，可以提高项目的开发效率和可维护性。而组件间的通信一直是一个老生常谈的问题，今天来讨论一下Vue中的组件通信。</p>
+<h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3><p>通过props可以实现父组件向子组件传递数据，prop是定义在组件上的一些自定义属性，需要提前在子组件中的props声明。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 子组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123;text&#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    export default &#123;</span><br><span class="line">        name: &apos;Confirm&apos;,</span><br><span class="line">        props: &#123;</span><br><span class="line">            text: &#123;</span><br><span class="line">                type: String,</span><br><span class="line">                default: &apos;&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 父组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;confirm :text=&quot;文字&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><p>通过自定义事件的方式可以在子组件中向父组件传递数据。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 子组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;button @click=&quot;confirm&quot;&gt;Click&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    export default &#123;</span><br><span class="line">        name: &apos;Confirm&apos;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            confirm() &#123;</span><br><span class="line">              this.$emit(&apos;confirm&apos;,&quot;data&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 父组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;confirm @confirm=&quot;handleConfirm&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    export default &#123;</span><br><span class="line">        methods: &#123;</span><br><span class="line">            confirm(data) &#123;</span><br><span class="line">              console.log(data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>子组件使用this.$emit可以触发自定义事件，第一个参数是自定义事件名称，第二个参数为传递的参数（可选）。父组件使用@监听子组件的自定义事件。</p>
+<h3 id="事件总线"><a href="#事件总线" class="headerlink" title="事件总线"></a>事件总线</h3><p>props只适用于父子组件之间数据的传递，兄弟组件之间的通信可以使用eventBus的方式，具体使用方式如下：</p>
+<p>新建eventBus.js:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;;  </span><br><span class="line">export default new Vue();</span><br></pre></td></tr></table></figure>
+<p>触发事件的组件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import eventBus from &apos;./eventBus.js&apos;; </span><br><span class="line"></span><br><span class="line">methods: &#123;  </span><br><span class="line">   onClick(event) &#123;  </span><br><span class="line">       eventBus.$emit(&apos;clickEvent&apos;, event.target);   </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>监听事件的组件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import eventBus from &apos;./eventBus.js&apos;; </span><br><span class="line"></span><br><span class="line">methods: &#123;  </span><br><span class="line">   onClick(event) &#123;  </span><br><span class="line">       eventBus.$on(&apos;clickEvent&apos;, (data) =&gt; &#123;</span><br><span class="line">           console.log(data);</span><br><span class="line">       &#125;);   </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>eventBus的方法实现了一个全局的状态管理，在任意组件之间都能非常便捷的传递数据。</p>
+<h3 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h3><p>在大型Web应用中，上述组件通信方式已经不能很好的满足实际的需求，Vue官网提供了一个全局状态管理库：Vuex。具体可参考官方文档。</p>
+<h3 id="root和-parent"><a href="#root和-parent" class="headerlink" title="$root和$parent"></a>$root和$parent</h3><p>在每个 new Vue 实例的子组件中，其根实例可以通过 $root property 进行访问。<br>所有的子组件都可以将这个实例作为一个全局 store 来访问或使用。<br>和 $root 类似，$parent 可以用来从一个子组件访问父组件的实例。因此可以利用$root或者$root作为桥梁在子组件之间传递数据。</p>
+<p>触发事件的组件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">methods: &#123;  </span><br><span class="line">   onClick(event) &#123;  </span><br><span class="line">       this.$root.$emit(&apos;clickEvent&apos;, event.target);   </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>监听事件的组件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">methods: &#123;  </span><br><span class="line">   onClick(event) &#123;  </span><br><span class="line">       this.$root.$on(&apos;clickEvent&apos;, (data) =&gt; &#123;</span><br><span class="line">           console.log(data);</span><br><span class="line">       &#125;);   </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="children"><a href="#children" class="headerlink" title="$children"></a>$children</h3><p>父组件也可以使用$children来访问子组件实现父子组件的通信。</p>
+<p>this.$children是当前实例的直接子组件。需要注意 $children 并不保证顺序，也不是响应式的。</p>
+<blockquote>
+<p>慎重使用 $parent 和 $children，它们的主要目的是作为访问组件的应急方法。更推荐用 props 和 events 实现父子组件通信。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//父组件</span><br><span class="line"></span><br><span class="line">this.$children[0].xx = xx;</span><br></pre></td></tr></table></figure>
+<h3 id="refs"><a href="#refs" class="headerlink" title="$refs"></a>$refs</h3><p>$refs可以创建一个子元素或者子组件的引用，使用$refs可以很方便的调用子组件的方法或者获取子组件的数据。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 父组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">   &lt;base-input ref=&quot;usernameInput&quot;&gt;&lt;/base-input&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    export default &#123;</span><br><span class="line">        methods: &#123;</span><br><span class="line">            focus() &#123;</span><br><span class="line">              this.$refs.usernameInput.focus();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 子组件</span><br><span class="line">&lt;template&gt;</span><br><span class="line">   &lt;input ref=&quot;input&quot;&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    export default &#123;</span><br><span class="line">        methods: &#123;</span><br><span class="line">            focus: function () &#123;</span><br><span class="line">                this.$refs.input.focus()</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="attrs和-listeners"><a href="#attrs和-listeners" class="headerlink" title="$attrs和$listeners"></a>$attrs和$listeners</h3><p>$attrs中包含了父组件传入子组件，且未在子组件props中定义的属性（class和style除外），$attrs会被自动添加到子组件的根元素上，如果你不希望组件的根元素继承 attribute，你可以在组件的选项中设置 inheritAttrs: false。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//子组件</span><br><span class="line">Vue.component(&apos;base-input&apos;, &#123;</span><br><span class="line">  inheritAttrs: false,</span><br><span class="line">  props: [&apos;label&apos;, &apos;value&apos;],</span><br><span class="line">  template: `</span><br><span class="line">    &lt;label&gt;</span><br><span class="line">      &#123;&#123; label &#125;&#125;</span><br><span class="line">      &lt;input</span><br><span class="line">        v-bind=&quot;$attrs&quot;</span><br><span class="line">        v-bind:value=&quot;value&quot;</span><br><span class="line">        v-on:input=&quot;$emit(&apos;input&apos;, $event.target.value)&quot;</span><br><span class="line">      &gt;</span><br><span class="line">    &lt;/label&gt;</span><br><span class="line">  `</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//父组件</span><br><span class="line"></span><br><span class="line">&lt;base-input</span><br><span class="line">  v-model=&quot;username&quot;</span><br><span class="line">  required</span><br><span class="line">  placeholder=&quot;Enter your username&quot;</span><br><span class="line">&gt;&lt;/base-input&gt;</span><br></pre></td></tr></table></figure>
+<p>同理，$listeners可以将父组件传入的所有事件监听函数指向子组件的某个特定的子元素。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vue.component(&apos;base-input&apos;, &#123;</span><br><span class="line">  inheritAttrs: false,</span><br><span class="line">  props: [&apos;label&apos;, &apos;value&apos;],</span><br><span class="line">  computed: &#123;</span><br><span class="line">    inputListeners: function () &#123;</span><br><span class="line">      var vm = this</span><br><span class="line">      return Object.assign(&#123;&#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          input: function (event) &#123;</span><br><span class="line">            vm.$emit(&apos;input&apos;, event.target.value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;label&gt;</span><br><span class="line">      &#123;&#123; label &#125;&#125;</span><br><span class="line">      &lt;input</span><br><span class="line">        v-bind=&quot;$attrs&quot;</span><br><span class="line">        v-bind:value=&quot;value&quot;</span><br><span class="line">        v-on=&quot;inputListeners&quot;</span><br><span class="line">      &gt;</span><br><span class="line">    &lt;/label&gt;</span><br><span class="line">  `</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="provide-inject"><a href="#provide-inject" class="headerlink" title="provide/inject"></a>provide/inject</h3><p>provide和inject是Vue中依赖注入的实现，provide 选项允许我们指定我们想要提供给后代组件的数据/方法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 提供数据的组件</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  provide() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      form: this</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在组件上的属性：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  inject: [&quot;form&quot;],</span><br><span class="line">  methods: &#123;</span><br><span class="line">    validate() &#123;</span><br><span class="line">      console.log(this.form);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>Vue官方的状态管理库-Vuex的原理也是使用了provide/inject。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上述就是Vue中的组件通信方案，不同的方案适用场景不同，没有银弹，在项目开发中，需要根据项目需求来选择适合的方案。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Vue" >
+    <span class="tag-code">Vue</span>
+  </a>
+
+  <a href="/tags#组件" >
+    <span class="tag-code">组件</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2018/12/02/JavaScript%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%B9%8B%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E5%92%8C%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
+        <span class="nav-arrow">← </span>
+        
+          JavaScript排序算法之选择排序和插入排序
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2020/08/03/%E8%87%AA%E5%AE%9A%E4%B9%89Hook%E5%9C%A8React%E4%B8%AD%E7%9A%84%E5%AE%9E%E8%B7%B5/">
+        
+          自定义Hook在React中的实践
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#props"><span class="toc-nav-text">props</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6"><span class="toc-nav-text">自定义事件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BA%BF"><span class="toc-nav-text">事件总线</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Vuex"><span class="toc-nav-text">Vuex</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#root%E5%92%8C-parent"><span class="toc-nav-text">$root和$parent</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#children"><span class="toc-nav-text">$children</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#refs"><span class="toc-nav-text">$refs</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#attrs%E5%92%8C-listeners"><span class="toc-nav-text">$attrs和$listeners</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#provide-inject"><span class="toc-nav-text">provide&#x2F;inject</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-nav-text">总结</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yanyuanfe.cn/2020/07/09/聊聊Vue组件通信方式/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "聊聊Vue组件通信方式",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

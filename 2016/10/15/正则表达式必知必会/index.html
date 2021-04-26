@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      正则表达式必知必会 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  
+<script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>正则表达式必知必会</h2>
+  <p class="post-date">2016-10-15</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>正则表达式可以用来完成各种复杂的文本处理工作，更重要的是，它可以在几乎所有的程序设计语言里和几乎所有的计算机平台上使用。</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/reg.jpg" alt="image"></p>
+<a id="more"></a>
+<h3 id="正则表达式初识"><a href="#正则表达式初识" class="headerlink" title="正则表达式初识"></a>正则表达式初识</h3><p>正则表达式是被用来匹配字符串中的字符组合的模式。在JavaScript中，正则表达式也是对象。这种模式可以被用于 RegExp 的 exec 和 test 方法以及 String 的 match、replace、search 和 split 方法。</p>
+<h3 id="JavaScript中的正则表达式"><a href="#JavaScript中的正则表达式" class="headerlink" title="JavaScript中的正则表达式"></a>JavaScript中的正则表达式</h3><p>在JavaScript中，通过下面两种方法创建一个正则表达式：</p>
+<p>使用一个正则表达式字面量，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/ab+c/</span>;</span><br></pre></td></tr></table></figure>
+<p>正则表达式字面量在脚本加载后编译。若你的正则表达式是常量，使用这种方式可以获得更好的性能。</p>
+<p>调用RegExp对象的构造函数，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"ab+c"</span>);</span><br></pre></td></tr></table></figure>
+<p>使用构造函数，提供了对正则表达式运行时的编译。当你知道正则表达式的模式会发生改变， 或者你事先并不了解它的模式或者是从其他地方（比如用户的输入），得到的代码这时比较适合用构造函数的方式。</p>
+<h3 id="正则表达式特殊符号"><a href="#正则表达式特殊符号" class="headerlink" title="正则表达式特殊符号"></a>正则表达式特殊符号</h3><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\</td>
+<td>匹配将依照下列规则：反斜杠,对于其后的平常被当作字面量的字符，将其转义为特殊字符。比如，/b/匹配了字符’b’.通过在b的前面放一个反斜杠，即用作/\b/，这个字符变成了一个特殊意义的字符，意思是匹配一个字符边界。反斜杠也可以将其后的特殊字符，转义为字面量。例如，模式 /a<em>/ 代表会匹配 0 个或者多个 a。相反，模式 /a\</em>/ 将 ‘<em>‘ 的特殊性移除，从而可以匹配像 “a</em>“ 这样的字符串。使用 new RegExp(“pattern”) 的时候不要忘记将 \ 进行转义，因为 \ 在字符串里面也是一个转义字符。</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入的开始。如果多行标志被设置为true，那么也匹配换行符后紧跟的位置。例如，/^A/ 并不会匹配 “an A” 中的 ‘A’，但是会匹配 “An E” 中的 ‘A’。当 ‘^’ 作为第一个字符出现在一个字符集合模式时，它将会有不同的含义。补充字符集合 一节有详细介绍和示例。</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入的结束。如果多行标示被设置为true，那么也匹配换行符前的位置。例如，/t$/ 并不会匹配 “eater” 中的 ‘t’，但是会匹配 “eat” 中的 ‘t’。</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前一个表达式0次或多次。等价于 {0,}。例如，/bo*/会匹配 “A ghost boooooed” 中的 ‘booooo’ 和 “A bird warbled” 中的 ‘b’，但是在 “A goat grunted” 中将不会匹配任何东西。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面一个表达式1次或者多次。等价于 {1,}。例如，/a+/匹配了在 “candy” 中的 ‘a’，和在 “caaaaaaandy” 中所有的 ‘a’。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面一个表达式0次或者1次。等价于 {0,1}。例如，/e?le?/ 匹配 “angel” 中的 ‘el’，和 “angle” 中的 ‘le’ 以及”oslo’ 中的’l’。如果紧跟在任何量词 *、 +、? 或 {} 的后面，将会使量词变为非贪婪的（匹配尽量少的字符），和缺省使用的贪婪模式（匹配尽可能多的字符）正好相反。例如，对 “123abc” 应用 /\d+/ 将会返回 “123”，如果使用 /\d+?/,那么就只会匹配到 “1”。还可以运用于向前断言，在本表格的 x(?=y) 和 x(?!y) 中有描述。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>（小数点）匹配除了换行符（\n）之外的任何单个字符。例如，/.n/将会匹配 “nay, an apple is on the tree” 中的 ‘an’ 和 ‘on’，但是不会匹配 ‘nay’。</td>
+</tr>
+<tr>
+<td>(x)</td>
+<td>匹配 ‘x’ 并且记住匹配项，就像下面的例子展示的那样。括号被称为 <strong>捕获括号</strong>。模式 /(foo) (bar) \1 \2/ 中的 ‘(foo)’ 和 ‘(bar)’ 匹配并记住字符串 “foo bar foo bar” 中前两个单词。模式中的 \1 和 \2 匹配字符串的后两个单词。注意 \1、\2、\n 是用在正则表达式的匹配环节。在正则表达式的替换环节，则要使用像 $1、$2、$n 这样的语法，例如，’bar foo’.replace( /(…) (…)/, ‘$2 $1’ )。</td>
+</tr>
+<tr>
+<td>(?:x)</td>
+<td>匹配 ‘x’ 但是不记住匹配项。这种叫作非捕获括号，使得你能够定义为与正则表达式运算符一起使用的子表达式。来看示例表达式 /(?:foo){1,2}/。如果表达式是 /foo{1,2}/，{1,2}将只对 ‘foo’ 的最后一个字符 ’o‘ 生效。如果使用非捕获括号，则{1,2}会匹配整个 ‘foo’ 单词。</td>
+</tr>
+<tr>
+<td>x(?=y)</td>
+<td>匹配’x’仅仅当’x’后面跟着’y’.这种叫做正向肯定查找。例如，/Jack(?=Sprat)/会匹配到’Jack’仅仅当它后面跟着’Sprat’。/Jack(?=Sprat&#124;Frost)/匹配‘Jack’仅仅当它后面跟着’Sprat’或者是‘Frost’。但是‘Sprat’和‘Frost’都不是匹配结果的一部分。</td>
+</tr>
+<tr>
+<td>x(?!y)</td>
+<td>匹配’x’仅仅当’x’后面不跟着’y’,这个叫做正向否定查找。例如，/\d+(?!.)/匹配一个数字仅仅当这个数字后面没有跟小数点的时候。正则表达式/\d+(?!.)/.exec(“3.141”)匹配‘141’但是不是‘3.141’</td>
+</tr>
+<tr>
+<td>x&#124;y</td>
+<td>匹配‘x’或者‘y’。例如，/green&#124; red/匹配“green apple”中的‘green’和“red apple”中的‘red’</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n是一个正整数，匹配了前面一个字符刚好发生了n次。比如，/a{2}/不会匹配“candy”中的’a’,但是会匹配“caandy”中所有的a，以及“caaandy”中的前两个’a’。</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>n 和 m 都是正整数。匹配前面的字符至少n次，最多m次。如果 n 或者 m 的值是0， 这个值被忽略。例如，/a{1, 3}/ 并不匹配“cndy”中得任意字符，匹配“candy”中得a，匹配“caandy”中得前两个a，也匹配“caaaaaaandy”中得前三个a。注意，当匹配”caaaaaaandy“时，匹配的值是“aaa”，即使原始的字符串中有更多的a。</td>
+</tr>
+<tr>
+<td>[xyz]</td>
+<td>一个字符集合。匹配方括号的中任意字符。你可以使用破折号（-）来指定一个字符范围。对于点（.）和星号（*）这样的特殊符号在一个字符集中没有特殊的意义。他们不必进行转意，不过转意也是起作用的。例如，[abcd] 和[a-d]是一样的。他们都匹配”brisket”中得‘b’,也都匹配“city”中的‘c’。/[a-z.]+/ 和/[\w.]+/都匹配“test.i.ng”中得所有字符。</td>
+</tr>
+<tr>
+<td>[^xyz]</td>
+<td>一个反向字符集。也就是说， 它匹配任何没有包含在方括号中的字符。你可以使用破折号（-）来指定一个字符范围。任何普通字符在这里都是起作用的。例如，[^abc] 和 [^a-c] 是一样的。他们匹配”brisket”中得‘r’，也匹配“chop”中的‘h’。</td>
+</tr>
+<tr>
+<td>[\b]</td>
+<td>匹配一个退格(U+0008)。（不要和\b混淆了。）</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个词的边界。一个词的边界就是一个词不被另外一个词跟随的位置或者不是另一个词汇字符前边的位置。注意，一个匹配的词的边界并不包含在匹配的内容中。换句话说，一个匹配的词的边界的内容的长度是0。（不要和[\b]混淆了）例子：/\bm/匹配“moon”中得‘m’；/oo\b/并不匹配”moon”中得’oo’，因为’oo’被一个词汇字符’n’紧跟着。/oon\b/匹配”moon”中得’oon’，因为’oon’是这个字符串的结束部分。这样他没有被一个词汇字符紧跟着。/\w\b\w/将不能匹配任何字符串，因为一个单词中的字符永远也不可能被一个非词汇字符和一个词汇字符同时紧跟着。</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配一个非单词边界。他匹配一个前后字符都是相同类型的位置：都是单词或者都不是单词。一个字符串的开始和结尾都被认为是非单词。例如，/\B../匹配”noonday”中得’oo’, 而/y\B./匹配”possibly yesterday”中得’ye‘</td>
+</tr>
+<tr>
+<td>\cX</td>
+<td>当X是处于A到Z之间的字符的时候，匹配字符串中的一个控制符。当X是处于A到Z之间的字符的时候，匹配字符串中的一个控制符。例如，/\cM/ 匹配字符串中的 control-M (U+000D)。</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配一个数字。等价于[0-9]。例如， /\d/ 或者 /[0-9]/ 匹配”B2 is the suite number.”中的’2’。</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配一个非数字字符。等价于[^0-9]。例如， /\D/ 或者 /[^0-9]/ 匹配”B2 is the suite number.”中的’B’ 。</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>匹配一个换页符 (U+000C)。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配一个换行符 (U+000A)。</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>匹配一个回车符 (U+000D)。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配一个空白字符，包括空格、制表符、换页符和换行符。等价于[\f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]。例如, /\s\w*/ 匹配”foo bar.”中的’ bar’。</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配一个非空白字符。等价于[^ \f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]。例如， /\S\w*/ 匹配”foo bar.”中的’foo’。</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>匹配一个水平制表符 (U+0009)。</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>匹配一个垂直制表符 (U+000B)。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配一个单字字符（字母、数字或者下划线）。等价于[A-Za-z0-9_]。例如, /\w/ 匹配 “apple,” 中的 ‘a’，”$5.28,”中的 ‘5’ 和 “3D.” 中的 ‘3’。</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配一个非单字字符。等价于[^A-Za-z0-9_]。例如, /\W/ 或者 /[^A-Za-z0-9_]/ 匹配 “50%.” 中的 ‘%’。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>当 n 是一个正整数，一个返回引用到最后一个与有n插入的正值表达式(counting left parentheses)匹配的副字符串。比如 /apple(,)\sorange\1/ 匹配”apple, orange, cherry, peach.”中的’apple, orange,’ 。</td>
+</tr>
+<tr>
+<td>\0</td>
+<td>匹配 NULL (U+0000) 字符， 不要在这后面跟其它小数，因为 \0<digits> 是一个八进制转义序列。</digits></td>
+</tr>
+<tr>
+<td>\xhh</td>
+<td>匹配带有两位小数代码（hh）的字符</td>
+</tr>
+<tr>
+<td>\uhhhh</td>
+<td>匹配带有四位小数代码（hh）的字符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="在JavaScript中使用正则表达式"><a href="#在JavaScript中使用正则表达式" class="headerlink" title="在JavaScript中使用正则表达式"></a>在JavaScript中使用正则表达式</h3><p>正则表达式可以被用于RegExp的exec和test方法以及 String的match、replace、search和split方法。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exec</td>
+<td>一个在字符串中执行查找匹配的RegExp方法，它返回一个数组（未匹配到则返回null）。</td>
+</tr>
+<tr>
+<td>test</td>
+<td>一个在字符串中测试是否匹配的RegExp方法，它返回true或false。</td>
+</tr>
+<tr>
+<td>match</td>
+<td>一个在字符串中执行查找匹配的String方法，它返回一个数组或者在未匹配到时返回null。</td>
+</tr>
+<tr>
+<td>search</td>
+<td>一个在字符串中测试匹配的String方法，它返回匹配到的位置索引，或者在失败时返回-1。</td>
+</tr>
+<tr>
+<td>replace</td>
+<td>一个在字符串中执行查找匹配的String方法，并且使用替换字符串替换掉匹配到的子字符串。</td>
+</tr>
+<tr>
+<td>split</td>
+<td>一个使用正则表达式或者一个固定字符串分隔一个字符串，并将分隔后的子字符串存储到数组中的String方法。</td>
+</tr>
+</tbody>
+</table>
+<p>当你想要知道在一个字符串中的一个匹配是否被找到，你可以使用test或search方法；想得到更多的信息（但是比较慢）则可以使用exec或match方法。如果你使用exec或match方法并且匹配成功了，那么这些方法将返回一个数组并且更新相关的正则表达式对象的属性和预定义的正则表达式对象）。如果匹配失败，那么exec方法返回null（也就是false）。</p>
+<p>下面是一个例子：<br>使用exec方法在一个字符串中查找一个匹配。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myRe = <span class="regexp">/d(b+)d/g</span>;</span><br><span class="line"><span class="keyword">var</span> myArray = myRe.exec(<span class="string">"cdbbdbsbz"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>通过这些JavaScript，匹配成功后将返回一个数组并且更新正则表达式的属性，如下表所示。</p>
+<h4 id="正则表达式执行返回信息"><a href="#正则表达式执行返回信息" class="headerlink" title="正则表达式执行返回信息"></a>正则表达式执行返回信息</h4><table>
+<thead>
+<tr>
+<th>对象</th>
+<th>属性或索引</th>
+<th>描述</th>
+<th>在例子中对应的值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>myArray</td>
+<td></td>
+<td>匹配到的字符串和所有被记住的子字符串。</td>
+<td>[“dbbd”, “bb”]</td>
+</tr>
+<tr>
+<td>  myArray</td>
+<td>index</td>
+<td>在输入的字符串中匹配到的以0开始的索引值。</td>
+<td>1</td>
+</tr>
+<tr>
+<td>  myArray</td>
+<td>input</td>
+<td>初始字符串。</td>
+<td>“cdbbdbsbz”</td>
+</tr>
+<tr>
+<td>    myArray</td>
+<td>[0]</td>
+<td>匹配到的所有字符串（并不是匹配后记住的字符串）。</td>
+<td>“dbbd”</td>
+</tr>
+<tr>
+<td>myRe</td>
+<td>lastIndex</td>
+<td>下一个匹配的索引值。（这个属性只有在使用g参数时可用)</td>
+<td>5</td>
+</tr>
+<tr>
+<td>myRe</td>
+<td>source</td>
+<td>模式文本。在正则表达式创建时更新，不执行。</td>
+<td>“d(b+)d”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="通过标志进行高级搜索"><a href="#通过标志进行高级搜索" class="headerlink" title="通过标志进行高级搜索"></a>通过标志进行高级搜索</h3><p>正则表达式有四个可选参数进行全局和不分大小写搜索。这些参数既可以单独使用也可以一起使用在任何顺序和包含正则表达式的部分中。</p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>g</td>
+<td>全局搜索。</td>
+</tr>
+<tr>
+<td>i</td>
+<td>不区分大小写搜索。</td>
+</tr>
+<tr>
+<td>m</td>
+<td>多行搜索。</td>
+</tr>
+<tr>
+<td>y</td>
+<td>执行“粘性”搜索,匹配从目标字符串的当前位置开始，可以使用y标志。</td>
+</tr>
+</tbody>
+</table>
+<p>例如，re = /\w+\s/g 将创建一个查找一个或多个字符后有一个空格的正则表达式，或者组合起来像此要求的字符串。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> re = <span class="regexp">/\w+\s/g</span>; <span class="comment">//var re = new RegExp("\\w+\\s", "g");</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"fee fi fo fum"</span>;</span><br><span class="line"><span class="keyword">var</span> myArray = str.match(re);</span><br><span class="line"><span class="built_in">console</span>.log(myArray);</span><br></pre></td></tr></table></figure>
+<p>这段代码将输出 :</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[<span class="string">"fee "</span>, <span class="string">"fi "</span>, <span class="string">"fo "</span>]</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#正则" >
+    <span class="tag-code">正则</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/10/06/%E5%88%9D%E8%AF%86Node-js/">
+        <span class="nav-arrow">← </span>
+        
+          初识Node.js
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2017/01/21/Ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BA%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/">
+        
+          Ubuntu下搭建前端开发环境和常用工具
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%88%9D%E8%AF%86"><span class="toc-nav-text">正则表达式初识</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#JavaScript%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-nav-text">JavaScript中的正则表达式</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="toc-nav-text">正则表达式特殊符号</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%9C%A8JavaScript%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-nav-text">在JavaScript中使用正则表达式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A7%E8%A1%8C%E8%BF%94%E5%9B%9E%E4%BF%A1%E6%81%AF"><span class="toc-nav-text">正则表达式执行返回信息</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%80%9A%E8%BF%87%E6%A0%87%E5%BF%97%E8%BF%9B%E8%A1%8C%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2"><span class="toc-nav-text">通过标志进行高级搜索</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yanyuanfe.cn/2016/10/15/正则表达式必知必会/';
+    var banner = 'http://img.yanyuanfe.cn/reg.jpg'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "正则表达式必知必会",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

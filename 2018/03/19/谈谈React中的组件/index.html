@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      谈谈React中的组件 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  
+<script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>谈谈React中的组件</h2>
+  <p class="post-date">2018-03-19</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>React的核心思想是一切皆组件</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/react.png" alt="image"></p>
+<a id="more"></a>
+<p>在React中，一切皆组件。组件可以将UI切分为一系列独立的、可复用的部件，这样使我们可以专注于构建每一个单独的部件。</p>
+<p>理解React中各种各样的组件对于更好的学习React变得尤为重要，如UI组件、容器组件、无状态组件、函数式组件，对react了解不够深入的人通常对于这些概念理解不够清晰，很难写出高质量的react组件，本文是我对于React的组件的一些理解。</p>
+<h3 id="Component"><a href="#Component" class="headerlink" title="Component"></a>Component</h3><p>Compoent在这里指React.Component，大多数人一开始学习React了解最多的便是Component。使用Component可以非常方便的定义一个组件。<br>使用ES6的class来定义一个组件如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Welcome</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="PureComponent"><a href="#PureComponent" class="headerlink" title="PureComponent"></a>PureComponent</h3><p>PureComponent在这里指React.PureComponent，PureComponent与Component几乎完全相同，但是PureComponent通过props和state的浅对比来实现shouldComponentUpdate（）。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Welcome</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在React的生命周期中，当组件的props和state发生改变时，会执行组件的shouldComponentUpdate函数，当该函数返回为true时组件重新渲染，返回为false则不重新渲染。使用Component定义的组件中，shouldComponentUpdate默认返回为true，通常当组件遭遇性能问题时，可以在shouldComponent中对新旧属性和状态进行相等判断，来减少不必要的重新渲染。</p>
+<p>PureComponent是react v15.3.0中新加入的特性，默认实现了shouldComponentUpdate中对于新旧属性和状态的相等比较，减少不必要的重新渲染来提升性能。</p>
+<p>注意：PureComponent的shouldComponentUpdate只会对对象进行浅比较，当对象层级较深或者结构复杂时，可能会出现对象深层数据已改变而视图没有更新的问题，使用时需要注意。</p>
+<h3 id="函数式组件"><a href="#函数式组件" class="headerlink" title="函数式组件"></a>函数式组件</h3><p>上述使用Component和PureComponent定义的组件称为声明式组件。在react中，还可以使用函数定义一个组件，称为函数式组件。如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Text = <span class="function">(<span class="params">&#123; children = <span class="string">'Hello World!'</span> &#125;</span>) =&gt;</span></span><br><span class="line">  &lt;p&gt;&#123;children&#125;&lt;<span class="regexp">/p&gt;</span></span><br></pre></td></tr></table></figure>
+<p>函数式组件又称无状态（stateless）组件，在组件中不能对状态（state）进行操作，使用函数式组件使react的代码更具有可读性，可以减少诸如class、constructor等冗余代码，有利于组件复用。<br>函数式组件具有以下特点：</p>
+<ol>
+<li>函数式组件不会被实例化，提升了整体渲染性能。</li>
+</ol>
+<p>函数式组件没有class声明，仅使用render方法实现，不存在组件实例化的过程，因此不需要分配多余的内存，从而提升了渲染性能。</p>
+<ol start="2">
+<li>函数式组件不能访问this对象。</li>
+</ol>
+<p>函数式组件内部不能访问this.state，无法操作状态。</p>
+<ol start="3">
+<li>函数式组件没有生命周期。</li>
+<li>函数式组件只接受props和context参数，没有副作用。</li>
+</ol>
+<h3 id="UI组件和容器组件"><a href="#UI组件和容器组件" class="headerlink" title="UI组件和容器组件"></a>UI组件和容器组件</h3><p>在结合redux管理数据流的应用中，redux将组件分为UI组件（presentational component）和容器组件（container component）。UI组件又称为展示型组件。在早期的Redux的版本中，作者将上述两种组件定义为智能（Smart）组件和木桶（Dumb）组件，两者的区别是看是否有数据操作。Dumb组件对应UI组件，Smart组件对应容器组件。UI组件只负责UI的呈现，不负责业务逻辑;内部没有状态，数据由this.props参数提供;容器组件负责处理业务逻辑，不负责UI呈现;有内部状态;使用Redux的API连接UI组件。</p>
+<p>通常在项目的文件结构中，components文件夹包含UI组件，containers文件夹包含容器组件。</p>
+<h3 id="纯组件"><a href="#纯组件" class="headerlink" title="纯组件"></a>纯组件</h3><p>提到纯组件，先来回顾一下函数式编程中的“纯函数”，纯函数由三大原则构成：</p>
+<ul>
+<li>给定相同的输入，总是返回相同的输出;</li>
+<li>函数执行过程中不会产生副作用（side effect）;</li>
+<li>没有额外的状态依赖;</li>
+</ul>
+<p>在react中，使用纯组件可以提高Virtual DOM的执行效率，那么，怎样的组件才是纯组件呢？</p>
+<p>首先，PureComponent并不是纯组件，因为在组件中存在生命周期，并且拥有内部状态state，可以产生副作用。</p>
+<p>通常，函数式组件、UI组件、无状态组件这类仅接受props参数进行数据渲染的组件可以称为纯组件，它们接受相同的输入参数props，返回相同的输出，且不具有副作用。</p>
+<h3 id="受控组件"><a href="#受控组件" class="headerlink" title="受控组件"></a>受控组件</h3><p>在HTML中，像input,textarea, 和 select这类表单元素会维持自身状态，并根据用户输入进行更新。但在React中，可变的状态通常保存在组件的状态属性中，并且只能用 setState(). 方法进行更新。</p>
+<p>在react中，使用state来控制表单元素的数据的显示，同时控制表单元素输入引起值的变化并更新state来进行表单元素数据的更新，其值由React控制的输入表单元素称为“受控组件”。<br>考虑如下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Form</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;<span class="attr">value</span>: <span class="string">''</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.handleChange = <span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.handleSubmit = <span class="keyword">this</span>.handleSubmit.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleChange(event) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;<span class="attr">value</span>: event.target.value&#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleSubmit(event) &#123;</span><br><span class="line">    alert(<span class="string">'A name was submitted: '</span> + <span class="keyword">this</span>.state.value);</span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;form onSubmit=&#123;<span class="keyword">this</span>.handleSubmit&#125;&gt;</span><br><span class="line">        &lt;label&gt;</span><br><span class="line">          Name:</span><br><span class="line">          &lt;input type=<span class="string">"text"</span> value=&#123;<span class="keyword">this</span>.state.value&#125; onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span><br><span class="line">        &lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">        &lt;input type="submit" value="Submit" /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/form&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上述代码是一个受控组件的示例，由于 value 属性是在我们的表单元素上设置的，因此显示的值将始终为 React数据源上this.state.value 的值。由于每次按键都会触发 handleChange 来更新当前React的state，所展示的值也会随着不同用户的输入而更新。</p>
+<h3 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h3><p>在大多数情况下，我们推荐使用 受控组件 来实现表单。 在受控组件中表单数据由 React 组件处理。如果让表单数据由 DOM 处理时，替代方案为使用非受控组件。</p>
+<p>要编写一个非受控组件，而非为每个状态更新编写事件处理程序，你可以 使用 ref 从 DOM 获取表单值。<br>考虑如下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Form</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.handleSubmit = <span class="keyword">this</span>.handleSubmit.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleSubmit(event) &#123;</span><br><span class="line">    alert(<span class="string">'A name was submitted: '</span> + <span class="keyword">this</span>.input.value);</span><br><span class="line">    event.preventDefault();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;form onSubmit=&#123;<span class="keyword">this</span>.handleSubmit&#125;&gt;</span><br><span class="line">        &lt;label&gt;</span><br><span class="line">          Name:</span><br><span class="line">          &lt;input type=<span class="string">"text"</span> ref=&#123;(input) =&gt; <span class="keyword">this</span>.input = input&#125; /&gt;</span><br><span class="line">        &lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">        &lt;input type="submit" value="Submit" /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/form&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p> 由于非受控组件将真实数据保存在 DOM 中，因此在使用非受控组件时，更容易同时集成 React 和非 React 代码。如果你想快速而随性，这样做可以减小代码量。否则，你应该使用受控组件。</p>
+<p>通常，不建议使用非受控组件。</p>
+<h3 id="高阶组件"><a href="#高阶组件" class="headerlink" title="高阶组件"></a>高阶组件</h3><p>高阶组件（HOC）是react中对组件逻辑进行重用的高级技术。但高阶组本身并不是React API。它只是一种模式，这种模式是由react自身的组合性质必然产生的。</p>
+<p>具体而言，高阶组件类似于高阶函数，且该函数接受一个React组件作为参数，并返回一个新的组件。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> EnhancedComponent = higherOrderComponent(WrappedComponent);</span><br></pre></td></tr></table></figure>
+<p>你或许没听过高阶组件之前已经使用过了，在react的一些第三方库，如react-redux的connect，react-router-dom的withRouter等等。</p>
+<p>高阶组件可以让代码更具有复用性、逻辑性与抽象特性。它可以对render方法做劫持，也可以控制props与state。</p>
+<p>考虑以下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Form</span>(<span class="params">Comp</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">WrapperComp</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">      <span class="keyword">super</span>(props);</span><br><span class="line">      <span class="keyword">this</span>.state = &#123;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.handleChange = <span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleChange(key, val) &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        [key]: val</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Comp</span> &#123;<span class="attr">...this.props</span>&#125; <span class="attr">handleChange</span>=<span class="string">&#123;this.handleChange&#125;</span> <span class="attr">state</span>=<span class="string">&#123;this.state&#125;/</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码是一个高阶组件，为了解决使用表单组件时频繁的编写时间处理函数来管理表单数据的问题。使用方法如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.handleChange = <span class="keyword">this</span>.handleChange.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleChange(key, val) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      [key]: val</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"login"</span>&gt;</span><br><span class="line">        &lt;input</span><br><span class="line">          type=<span class="string">"text"</span></span><br><span class="line">          value=&#123;<span class="keyword">this</span>.props.state.user&#125;</span><br><span class="line">          onChange=&#123;(e) =&gt; <span class="keyword">this</span>.props.handleChange(<span class="string">'user'</span>, e.target.value)&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">        &lt;input</span><br><span class="line">          type=<span class="string">"password"</span></span><br><span class="line">          value=&#123;<span class="keyword">this</span>.props.state.psw&#125;</span><br><span class="line">          onChange=&#123;(e) =&gt; <span class="keyword">this</span>.props.handleChange(<span class="string">'psw'</span>, e.target.value)&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Form(Login);</span></span><br></pre></td></tr></table></figure>
+<p>这样，对于需要在很多地方使用表单的组件，可以提供组件复用度，减少样板代码。</p>
+<blockquote>
+<p>参考：<a href="https://react.bootcss.com/" target="_blank" rel="noopener">https://react.bootcss.com/</a></p>
+</blockquote>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#React" >
+    <span class="tag-code">React</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2018/03/12/%E6%89%8B%E6%91%B8%E6%89%8B%E6%92%B8%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Redux%EF%BC%88%E5%9B%9B%EF%BC%89/">
+        <span class="nav-arrow">← </span>
+        
+          手摸手撸一个简单的Redux（四）
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2018/03/30/%E4%BD%BF%E7%94%A8webpack4%E5%92%8Creact-router%204%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2/">
+        
+          使用webpack4和react-router 4实现代码分割
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Component"><span class="toc-nav-text">Component</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#PureComponent"><span class="toc-nav-text">PureComponent</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6"><span class="toc-nav-text">函数式组件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#UI%E7%BB%84%E4%BB%B6%E5%92%8C%E5%AE%B9%E5%99%A8%E7%BB%84%E4%BB%B6"><span class="toc-nav-text">UI组件和容器组件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%BA%AF%E7%BB%84%E4%BB%B6"><span class="toc-nav-text">纯组件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8F%97%E6%8E%A7%E7%BB%84%E4%BB%B6"><span class="toc-nav-text">受控组件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%9D%9E%E5%8F%97%E6%8E%A7%E7%BB%84%E4%BB%B6"><span class="toc-nav-text">非受控组件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6"><span class="toc-nav-text">高阶组件</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yanyuanfe.cn/2018/03/19/谈谈React中的组件/';
+    var banner = 'http://img.yanyuanfe.cn/photo-1454165804606-c3d57bc86b40%20%281%29.jpeg'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "谈谈React中的组件",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

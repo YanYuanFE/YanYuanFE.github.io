@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      在React和TypeScript中使用emotion | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  
+<script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+<meta name="generator" content="Hexo 5.4.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>在React和TypeScript中使用emotion</h2>
+  <p class="post-date">2021-01-13</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>本文介绍如何在React项目中使用CSS in JS方案：emotion。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/emotion-js/emotion/master/emotion.png" alt="image"></p>
+<a id="more"></a>
+<h3 id="emotion"><a href="#emotion" class="headerlink" title="emotion"></a>emotion</h3><p>emotion是一种高性能且灵活的CSS-in-JS库。它本身与框架无关，你可以在vue或者react中搭配使用。目前我们使用的是react，已经有多个项目在生产环境稳定运行。emotion11是对emotion10的略微改进，主要侧重于开发者的体验，TS的类型改进，以及使用新版本的解析器：Stylis。<br>本文主要介绍在React和TypeScript中如何集成emotion11。</p>
+<h3 id="变化"><a href="#变化" class="headerlink" title="变化"></a>变化</h3><h4 id="包重命名"><a href="#包重命名" class="headerlink" title="包重命名"></a>包重命名</h4><p>emotion11最重要的变化之一是大部分面向用户的package都已经重命名。</p>
+<p>重命名包的列表：</p>
+<ul>
+<li>@emotion/core → @emotion/react</li>
+<li>emotion → @emotion/css</li>
+<li>emotion-theming → moved into @emotion/react</li>
+<li>emotion-server → @emotion/server</li>
+<li>create-emotion → @emotion/css/create-instance</li>
+<li>create-emotion-server → @emotion/server/create-instance</li>
+<li>babel-plugin-emotion → @emotion/babel-plugin</li>
+<li>eslint-plugin-emotion → @emotion/eslint-plugin<br>jest-emotion → @emotion/jest</li>
+</ul>
+<h4 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h4><p>在内部使用钩子以优化包的大小并在React DevTools中展示更好的DOM树。</p>
+<h4 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h4><h5 id="TypeScript-类型已经被完全重写。"><a href="#TypeScript-类型已经被完全重写。" class="headerlink" title="TypeScript 类型已经被完全重写。"></a>TypeScript 类型已经被完全重写。</h5><ol>
+<li>减少使用emotion时的构建时间，尤其是在大型项目中。</li>
+<li>在许多情况下，不再需要为emotion组件手动指定通用参数</li>
+<li>作为props的联合类型得到了更好的支持，应该正确推断</li>
+<li>限制了css函数以防止传递无效的类型</li>
+<li>styled 的通用参数已更改，如果您指定ComponentType，则需要删除该通用参数</li>
+<li>styled不再需要第二个参数ExtraProps，代替地将其移动至styled调用之后。因此，styled<typeof mycomponent, extraprops>(MyComponent)应该被改写为styled(MyComponent)<extraprops>({})</extraprops></typeof></li>
+</ol>
+<h5 id="Theme类型"><a href="#Theme类型" class="headerlink" title="Theme类型"></a>Theme类型</h5><p>现在，为主题提供类型更加容易。您可以像这样创建内置的Theme接口，而不是像以前那样创建自定义实例：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'@emotion/react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">module</span> '@emotion/react' &#123;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">interface</span> Theme &#123;</span><br><span class="line">    primaryColor: <span class="built_in">string</span></span><br><span class="line">    secondaryColor: <span class="built_in">string</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="css-prop-类型"><a href="#css-prop-类型" class="headerlink" title="css prop 类型"></a>css prop 类型</h5><p>基于使用的不同JSX运行时，emotion11为css prop提供TypeScript支持的方式已经更改，可以仅对支持className prop的组件添加对应css prop的支持（因为emotion的JSX工厂函数采用提供的css prop，对其解析并将生成的className传递给渲染的组件）。</p>
+<h4 id="Stylis-V4"><a href="#Stylis-V4" class="headerlink" title="Stylis V4"></a>Stylis V4</h4><p>emotion使用的css解析器Stylis得到了升级，它修复了一些长期存在的解析边缘情况，同时变得更小，更快。</p>
+<h4 id="Emotion的缓存"><a href="#Emotion的缓存" class="headerlink" title="Emotion的缓存"></a>Emotion的缓存</h4><p>创建高速缓存的自定义实例时，现在需要key选项。请确保它是唯一的（并且不等于“ css”），因为它用于将样式链接到缓存。如果多个缓存共享同一个键，它们可能会为彼此的样式元素“争斗”。 新的prepend选项可以使Emotion在指定DOM容器的开头而不是结尾处添加样式标签。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yarn add @emotion/react</span><br></pre></td></tr></table></figure>
+<h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement</span><br><span class="line">/** @jsx jsx */</span><br><span class="line">import &#123; jsx, css &#125; from &apos;@emotion/react&apos;</span><br><span class="line"></span><br><span class="line">const style = css`</span><br><span class="line">  color: hotpink;</span><br><span class="line">`</span><br><span class="line"></span><br><span class="line">const SomeComponent = (&#123; children &#125;) =&gt; (</span><br><span class="line">  &lt;div css=&#123;style&#125;&gt;</span><br><span class="line">    Some hotpink text.</span><br><span class="line">    &#123;children&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">const anotherStyle = css(&#123;</span><br><span class="line">  textDecoration: &apos;underline&apos;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const AnotherComponent = () =&gt; (</span><br><span class="line">  &lt;div css=&#123;anotherStyle&#125;&gt;Some text with an underline.&lt;/div&gt;</span><br><span class="line">)</span><br><span class="line">render(</span><br><span class="line">  &lt;SomeComponent&gt;</span><br><span class="line">    &lt;AnotherComponent /&gt;</span><br><span class="line">  &lt;/SomeComponent&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="css-prop"><a href="#css-prop" class="headerlink" title="css prop"></a>css prop</h4><p>emotion提供主要的书写style的方式是使用css prop，它提供了一个简洁灵活的API来对组件进行样式设定。</p>
+<p>有两种方式使用css prop：</p>
+<h5 id="Babel-Preset"><a href="#Babel-Preset" class="headerlink" title="Babel Preset"></a>Babel Preset</h5><p>Babel预设可在使用classic JSX运行时时自动启用Emotion的css prop。如果要使用新的JSX运行时，请不要使用此预设，而应使用@emotion/babel-plugin</p>
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yarn add @emotion/babel-preset-css-prop</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用</li>
+</ul>
+<p>.babelrc<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> &quot;presets&quot;: [</span><br><span class="line">   [</span><br><span class="line">     &quot;@emotion/babel-preset-css-prop&quot;,</span><br><span class="line">     &#123;</span><br><span class="line">       &quot;autoLabel&quot;: &quot;dev-only&quot;,</span><br><span class="line">       &quot;labelFormat&quot;: &quot;[local]&quot;</span><br><span class="line">     &#125;</span><br><span class="line">   ]</span><br><span class="line"> ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果您使用兼容的React版本（&gt;=16.14.0），则可以通过以下配置选择使用新的JSX运行时：</p>
+<p>.babelrc<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [</span><br><span class="line">    [</span><br><span class="line">      &quot;@babel/preset-react&quot;,</span><br><span class="line">      &#123; &quot;runtime&quot;: &quot;automatic&quot;, &quot;importSource&quot;: &quot;@emotion/react&quot; &#125;</span><br><span class="line">    ]</span><br><span class="line">  ],</span><br><span class="line">  &quot;plugins&quot;: [&quot;@emotion/babel-plugin&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="JSX-Pragma"><a href="#JSX-Pragma" class="headerlink" title="JSX Pragma"></a>JSX Pragma</h4><p>在使用CSS prop的源文件顶部设置jsx编译指示。此选项最适合测试css prop功能或在无法配置babel配置的项目（create-react-app，codesandbox等）中。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/** @jsx jsx */</span><br></pre></td></tr></table></figure>
+<p>与包含linter配置的注释类似，此配置将jsx babel插件配置为使用jsx函数而不是React.createElement。 </p>
+<p>如果您正在使用零配置工具来自动检测应该使用哪个运行时（classic还是automatic），并且您已经在使用具有新JSX运行时的React版本（因此运行时为您自动配置了runtime: ‘automatic’），例如Create React App 4，然后<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/ ** @jsx jsx * /</span><br></pre></td></tr></table></figure></p>
+<p>编译指示可能不起作用，您应该使用<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/** @jsx jsx */</span><br><span class="line">import &#123; jsx &#125; from &apos;@emotion/react&apos;</span><br></pre></td></tr></table></figure></p>
+<p>。</p>
+<h4 id="使用css-prop"><a href="#使用css-prop" class="headerlink" title="使用css prop"></a>使用css prop</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/** @jsx jsx */</span><br><span class="line">import &#123; jsx &#125; from &apos;@emotion/react&apos;</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;div</span><br><span class="line">    css=&#123;&#123;</span><br><span class="line">      backgroundColor: &apos;hotpink&apos;,</span><br><span class="line">      &apos;&amp;:hover&apos;: &#123;</span><br><span class="line">        color: &apos;lightgreen&apos;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &gt;</span><br><span class="line">    This has a hotpink background.</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>Theme包含在@ emotion / react包中。</p>
+<p>将ThemeProvider添加到应用程序的顶层，并在样式化组件中使用props.theme来访问主题，或者提供一个接受该主题作为css prop的函数。</p>
+<h4 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h4><h5 id="css-function"><a href="#css-function" class="headerlink" title="css function"></a>css function</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; ThemeProvider &#125; from &apos;@emotion/react&apos;</span><br><span class="line"></span><br><span class="line">const theme = &#123;</span><br><span class="line">  colors: &#123;</span><br><span class="line">    primary: &apos;hotpink&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;ThemeProvider theme=&#123;theme&#125;&gt;</span><br><span class="line">    &lt;div css=&#123;theme =&gt; (&#123; color: theme.colors.primary &#125;)&#125;&gt;</span><br><span class="line">      some other text</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/ThemeProvider&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h5 id="useTheme-hook"><a href="#useTheme-hook" class="headerlink" title="useTheme hook"></a>useTheme hook</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; ThemeProvider, useTheme &#125; from &apos;@emotion/react&apos;</span><br><span class="line"></span><br><span class="line">const theme = &#123;</span><br><span class="line">  colors: &#123;</span><br><span class="line">    primary: &apos;hotpink&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function SomeText (props) &#123;</span><br><span class="line">  const theme = useTheme()</span><br><span class="line">  return (</span><br><span class="line">    &lt;div</span><br><span class="line">      css=&#123;&#123; color: theme.colors.primary &#125;&#125;</span><br><span class="line">      &#123;...props&#125;</span><br><span class="line">    /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;ThemeProvider theme=&#123;theme&#125;&gt;</span><br><span class="line">    &lt;SomeText&gt;some text&lt;/SomeText&gt;</span><br><span class="line">  &lt;/ThemeProvider&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><p>主题的类型需要在类型文件中声明，否则TS类型会报错。</p>
+<p>types/emotion.d.ts</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &quot;@emotion/react&quot;;</span><br><span class="line"></span><br><span class="line">declare module &quot;@emotion/react&quot; &#123;</span><br><span class="line">  export interface Theme &#123;</span><br><span class="line">    colors: &#123;</span><br><span class="line">      layoutBodyBackground: string;</span><br><span class="line">      headingColor: string;</span><br><span class="line">      textColorSecondary: string;</span><br><span class="line">      success: string;</span><br><span class="line">      warning: string;</span><br><span class="line">      error: string;</span><br><span class="line">      primary: string;</span><br><span class="line">      textColor: string;</span><br><span class="line">    &#125;;</span><br><span class="line">    fontSizes: &#123;</span><br><span class="line">      base: number;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>tsconfig.json</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">        &quot;paths&quot;: &#123;</span><br><span class="line">          &quot;*&quot;: [</span><br><span class="line">            &quot;types/*&quot;</span><br><span class="line">          ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>CSS in JS的方案使用下来相比传统的less、sass等优点的确不少，而emotion的类似方案也有很多，对我感受最深的一点是，打包速度提升很多，没有冗余的CSS出现，但是对于习惯了css写法的人来说还是需要时间熟悉，总之，不妨一试。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#CSS in JS" >
+    <span class="tag-code">CSS in JS</span>
+  </a>
+
+  <a href="/tags#emotion" >
+    <span class="tag-code">emotion</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2020/11/05/Webpack5%E5%8D%87%E7%BA%A7%E6%8C%87%E5%8D%97/">
+        <span class="nav-arrow">← </span>
+        
+          Webpack5升级指南
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#emotion"><span class="toc-nav-text">emotion</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8F%98%E5%8C%96"><span class="toc-nav-text">变化</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%8C%85%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-nav-text">包重命名</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Hooks"><span class="toc-nav-text">Hooks</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#TypeScript"><span class="toc-nav-text">TypeScript</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#TypeScript-%E7%B1%BB%E5%9E%8B%E5%B7%B2%E7%BB%8F%E8%A2%AB%E5%AE%8C%E5%85%A8%E9%87%8D%E5%86%99%E3%80%82"><span class="toc-nav-text">TypeScript 类型已经被完全重写。</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Theme%E7%B1%BB%E5%9E%8B"><span class="toc-nav-text">Theme类型</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#css-prop-%E7%B1%BB%E5%9E%8B"><span class="toc-nav-text">css prop 类型</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Stylis-V4"><span class="toc-nav-text">Stylis V4</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Emotion%E7%9A%84%E7%BC%93%E5%AD%98"><span class="toc-nav-text">Emotion的缓存</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-nav-text">使用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="toc-nav-text">使用</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#css-prop"><span class="toc-nav-text">css prop</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#Babel-Preset"><span class="toc-nav-text">Babel Preset</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#JSX-Pragma"><span class="toc-nav-text">JSX Pragma</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8css-prop"><span class="toc-nav-text">使用css prop</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-nav-text">主题</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8-2"><span class="toc-nav-text">使用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#css-function"><span class="toc-nav-text">css function</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#useTheme-hook"><span class="toc-nav-text">useTheme hook</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-nav-text">类型</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-nav-text">总结</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yanyuanfe.cn/2021/01/13/在React和TypeScript中使用emotion/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "在React和TypeScript中使用emotion",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

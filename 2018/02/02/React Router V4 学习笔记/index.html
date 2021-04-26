@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      React Router V4学习笔记 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  
+<script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>React Router V4学习笔记</h2>
+  <p class="post-date">2018-02-02</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>React Router现在已经是React开发单页应用必备技能，自升级V4版本以来，许多核心API都进行了重写，践行路由即组件的概念，本文是我学习React Router V4以来的一些总结。</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/recatrouter.png" alt="image"></p>
+<a id="more"></a>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>React-Router V4是react-router的一次重大更新，许多核心API都已改变，使用react-router4不需要对路由进行集中式配置，react-router 4的核心是一切皆组件。 </p>
+<p>react-router 4一共被拆分为三个包：react-router、react-router-dom、react-router-native，react-router提供了React Router的核心路由功能，包括Router, Route, Switch等，但是我们不会直接使用它。react-router-dom和react-router-native提供在特定运行环境下的路由组件。如果你需要开发在浏览器中运行的Web应用，则应该安装react-router-dom。同样，如果你需要开发React Native应用程序，则应该安装react-router-native。这两者都将安装react-router作为依赖项。</p>
+<h3 id="react-router-dom"><a href="#react-router-dom" class="headerlink" title="react-router-dom"></a>react-router-dom</h3><p>react-router使用react-router-dom作为浏览器端的路由，提供了BrowserRouter,Route,Link等api,通过DOM的事件控制路由。在Web开发过程中，我们更多是使用react-router-dom。本文的讨论也仅限于react-router-dom。</p>
+<p><strong>安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install react-router-dom --save</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h4><p>react-router4的使用首先需要选择Router，Router用于包裹在应用最外层。Router有两种类型：HashRouter和BrowserRouter，其表现方式也有所不同，使用时需要区分。</p>
+<h4 id="HashRouter与BrowserRouter"><a href="#HashRouter与BrowserRouter" class="headerlink" title="HashRouter与BrowserRouter"></a>HashRouter与BrowserRouter</h4><p>从表面区分HashRouter和BrowserRouter的方法就是HashRouter的url中有个#，例如localhost:3000/#，HashRouter通过hash值来对路由进行控制。如果你使用HashRouter，你的路由就会默认有这个#。  </p>
+<p>BrowserRouter的url中没有#，它的url如<a href="http://localhost:3001/user/login，BrowserRouter的原理是依赖HTML5的history" target="_blank" rel="noopener">http://localhost:3001/user/login，BrowserRouter的原理是依赖HTML5的history</a> API实现的路由机制。  </p>
+<p>HashRouter和BrowserRouter都具有basename属性，如果你的URL不是位于网站根目录，而是放在子目录里，你需要设置这个属性。如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;BrowserRouter basename=<span class="string">"/calendar"</span>/&gt;</span><br><span class="line">&lt;Link to=<span class="string">"/today"</span>/&gt; <span class="comment">// 渲染为 &lt;a href="/calendar/today"&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h4><p>Route是Router的子元素，控制路径对应显示的组件。常用属性有exact、path以及component。<br>考虑以下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;Route path=<span class="string">"/"</span> exact component=&#123;HomePage&#125; /&gt;</span><br><span class="line">&lt;Route path=<span class="string">"/users"</span> component=&#123;UsersPage&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<p>react-router4的路由是包含性的，多个Route可以同时进行匹配和渲染，exact控制到路径匹配成功时不会再继续向下匹配，在面代码中，我们试图根据路径渲染 HomePage 或者 UsersPage。如果从Route删除了 exact 属性，那么在浏览器中访问 /users 时，HomePage 和 UsersPage 组件将同时被渲染。</p>
+<h4 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h4><p>在Router组件中的任意位置创建多个<route>，但通常我们会把它们放在同一个位置。使用<switch>组件来包裹一组<route>。<switch>会遍历自身的子元素（即路由）并对第一个匹配当前路径的元素进行渲染。考虑如下代码：</switch></route></switch></route></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;Switch&gt;</span><br><span class="line">  &lt;Route exact path=<span class="string">"/"</span> component=&#123;DashBoard&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/user"</span> component=&#123;User&#125; /&gt;</span><br><span class="line">&lt;<span class="regexp">/Switch&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果去掉Switch组件，当我们访问/user的时候，路由会同时匹配“/”和/user，将同时渲染DashBoard和User组件。</p>
+<h4 id="Link-vs-NavLink"><a href="#Link-vs-NavLink" class="headerlink" title="Link vs NavLink"></a>Link vs NavLink</h4><p>react-router4提供了两种导航API，用于页面切换，当页面切换时，页面不会重新加载，但是组件会被重新渲染。它们作用相同，但NavLink在匹配URL成功时，可以提供一些额外的样式能力。</p>
+<p><strong>Link</strong></p>
+<p>Link提供to属性控制跳转地址，可传入字符串或者对象。如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;Link to=<span class="string">"/courses"</span>/&gt;to: object</span><br><span class="line">&lt;Link to=&#123;&#123;</span><br><span class="line">  pathname: <span class="string">'/courses'</span>,</span><br><span class="line">  search: <span class="string">'?sort=name'</span>,</span><br><span class="line">  hash: <span class="string">'#the-hash'</span>,</span><br><span class="line">  state: &#123; <span class="attr">fromDashboard</span>: <span class="literal">true</span> &#125;</span><br><span class="line">&#125;&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>NavLink</strong></p>
+<p>NavLink可以给当前匹配成功的链接提供一个className类名，常在Tab导航中使用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;nav&gt;</span><br><span class="line">  &lt;NavLinkto=<span class="string">"/app"</span>exact activeClassName=<span class="string">"active"</span>&gt;Home&lt;<span class="regexp">/NavLink&gt;</span></span><br><span class="line"><span class="regexp">  &lt;NavLinkto="/</span>app/users<span class="string">"activeClassName="</span>active<span class="string">"&gt;Users&lt;/NavLink&gt;</span></span><br><span class="line"><span class="string">  &lt;NavLinkto="</span>/app/products<span class="string">"activeClassName="</span>active<span class="string">"&gt;Products&lt;/NavLink&gt;</span></span><br><span class="line"><span class="string">&lt;/nav&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="路径参数"><a href="#路径参数" class="headerlink" title="路径参数"></a>路径参数</h4><p>在react router4中，match用于获取路径上的参数，match是使用<route>渲染时传递到组件内的一个props，在react组件内部通过this.props.match获取match的属性，<br>考虑如下代码：</route></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;Switch&gt;</span><br><span class="line">  &lt;Route exact path=<span class="string">"/"</span> component=&#123;DashBoard&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/user/:id"</span> component=&#123;User&#125; /&gt;</span><br><span class="line">  &lt;Route path=<span class="string">"/user"</span> component=&#123;User&#125; /&gt;</span><br><span class="line">&lt;<span class="regexp">/Switch&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当访问<a href="http://localhost:3001/user/123时，打印this.props.match的内容。" target="_blank" rel="noopener">http://localhost:3001/user/123时，打印this.props.match的内容。</a><br>match获取的属性主要有：<br><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_167.png" alt="image"></p>
+<p>然后，通过this.props.match.params.id就可以获取路由匹配的id了。</p>
+<h4 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a>withRouter</h4><p>试想，如果组件没有通过<route>渲染，该如何获取history、match、location等props呢？react router4提供了一个高阶组件withRouter。使用方法如下：</route></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; withRouter &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br></pre></td></tr></table></figure>
+<p>使用withRouter有两种办法，第一种简洁的方法是使用装饰器，如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">@withRouter</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AuthRoute</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一种方法直接调用withRouter包裹原来的组件返回一个新的组件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Auth</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> AuthRoute = withRouter(Auth)</span><br></pre></td></tr></table></figure>
+<p>通过以上两种方法，就能在组件内部使用路由的props了。如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; match，location，history&#125; = <span class="keyword">this</span>.props;</span><br></pre></td></tr></table></figure>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>关于react router4,本文只是讲解了一些常用的api和用法，需要学习的还有很多，这里只是开始。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://reacttraining.cn/" target="_blank" rel="noopener">react router 官方文档</a></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#React" >
+    <span class="tag-code">React</span>
+  </a>
+
+  <a href="/tags#React Router" >
+    <span class="tag-code">React Router</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2018/01/04/React%20Native%C2%A0%E5%B0%81%E8%A3%85HTTP%E8%AF%B7%E6%B1%82/">
+        <span class="nav-arrow">← </span>
+        
+          React Native 封装HTTP请求
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2018/02/06/%E7%90%86%E8%A7%A3Redux/">
+        
+          理解Redux
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-nav-text">介绍</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#react-router-dom"><span class="toc-nav-text">react-router-dom</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-nav-text">使用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Router"><span class="toc-nav-text">Router</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#HashRouter%E4%B8%8EBrowserRouter"><span class="toc-nav-text">HashRouter与BrowserRouter</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Route"><span class="toc-nav-text">Route</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Switch"><span class="toc-nav-text">Switch</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#Link-vs-NavLink"><span class="toc-nav-text">Link vs NavLink</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#%E8%B7%AF%E5%BE%84%E5%8F%82%E6%95%B0"><span class="toc-nav-text">路径参数</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#withRouter"><span class="toc-nav-text">withRouter</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-nav-text">结语</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#%E5%8F%82%E8%80%83"><span class="toc-nav-text">参考</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yanyuanfe.cn/2018/02/02/React Router V4 学习笔记/';
+    var banner = 'http://img.yanyuanfe.cn/stock-photo-245282361.jpg'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "React Router V4学习笔记",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>

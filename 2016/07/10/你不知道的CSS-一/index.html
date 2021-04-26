@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      你不知道的CSS(一) | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  
+<script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>你不知道的CSS(一)</h2>
+  <p class="post-date">2016-07-10</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>“像是语言的进化，它让CSS更强大”。<br>— Nicole Sullivan</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/css%20module.png" alt="image"></p>
+<a id="more"></a>
+<p>   CSS（Cascading Style Sheets）指层叠样式表，我相信没有前端开发者不认识它，CSS在网页中负责样式层的展现，它只是网页样式的一种描述方法，不能算是编程语言。因此，众多的开发者都忽视了CSS的能力，认为其太过简单，是一种机械的工作。后来在CSS的发展历程中，出现了越来越高级的应用。比如CSS 3D（硬件加速）、CSS Sprites、媒体查询等等。同时，CSS也在朝着编程语言的方向发展，像LESS、SASS的出现，都表示着，前端开发者再也不能小觑CSS的力量，在某些地方，使用CSS时的性能不输于JavaScript。在这里，我想谈一谈你不知道的CSS，诸如OOCSS、SMACSS、ACSS、BEM。它们是CSS的设计模式，或者叫最佳实践。</p>
+<h2 id="一-OOCSS"><a href="#一-OOCSS" class="headerlink" title="一. OOCSS"></a>一. OOCSS</h2><p>  OOCSS（Object-Oriented CSS）即为面向对象的CSS，关于什么是面向对象，乔布斯曾经有一句经典的解释：</p>
+<blockquote>
+<p> 对象就像人一样，也是活生生的生命。他们有知识，知道怎么完成任务；他们有记忆，可以把发生的事情记下来。你和他们不在低层次上交互，而是像我们现在的对话一样，在一个高度抽象的层面上交互。<br>——乔布斯</p>
+</blockquote>
+<p>从这里这里看到，把所有的这些复杂流程都封装在对象内部，对象对外呈现接口，我们通过接口来使用对象，对象的接口是高层次的，抽象的。</p>
+<p>这样，你应该对OOCSS有一定的了解了，OOCSS是一种编写CSS代码的方法，它将页面可重用元素抽象成一个类，用Class加以描述，而与其对应的HTML即可看成是此类的一个实例。OOCSS的核心思想是使用最简单的方式编写干净整洁的CSS代码，从而使CSS代码具有可重用性、可维护性、可扩展性。其关键在于在页面中识别、创建和模块化可重用的对象，并在页面中其他所有需要的地方重用，并扩展其功能。</p>
+<p><strong>类：</strong></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">overflow</span>:hidden;</span><br><span class="line">    <span class="attribute">_overflow</span>:visible;</span><br><span class="line">    <span class="attribute">zoom</span>:<span class="number">1</span>;</span><br><span class="line">    <span class="attribute">margin</span>:<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.text</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>:table-cell;</span><br><span class="line">    <span class="attribute">zoom</span>:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.img</span>&#123;</span><br><span class="line">    <span class="attribute">float</span>:left;</span><br><span class="line">    <span class="attribute">margin-right</span>:<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.img</span> <span class="selector-tag">img</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>:block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>实例：</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"img"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"myimg.png"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"text"</span>&gt;</span></span><br><span class="line">		Cascading Style Sheets</span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>总体来讲，使用OOCSS有这些好处：</p>
+<ol>
+<li>加强代码复用以便方便维护。</li>
+<li>减小CSS体积。</li>
+<li>提升渲染效率。</li>
+<li>使用组件库思想、可共用栅格布局、减少选择器、方便扩展。</li>
+</ol>
+<p> 那么，该如何使用使用面向对象的CSS？下面通过实践来编写OOCSS代码。</p>
+<h4 id="1-不要直接定义子节点，应把共性声明放到父类。"><a href="#1-不要直接定义子节点，应把共性声明放到父类。" class="headerlink" title="1. 不要直接定义子节点，应把共性声明放到父类。"></a>1. 不要直接定义子节点，应把共性声明放到父类。</h4><figure class="highlight"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">.container .inner&#123;...&#125;     //container中的子元素</span><br><span class="line"></span><br><span class="line">.inner&#123;...&#125;    //不是很建议的声明</span><br></pre></td></tr></table></figure>
+<p>在这个demo里面，container定义了很多共有的属性，如color、font-size，应使用.container .inner定义特性声明。将类的属性（内部的子节点）通过联合定义类的形式（形如 .类名 .属性/子节点{}）进行封装，即子节点必须用对象名作为开头，并可通过给根元素设置多个class来实现继承（class=”class1 class2”）。</p>
+<h4 id="2-结构和皮肤相分离。"><a href="#2-结构和皮肤相分离。" class="headerlink" title="2. 结构和皮肤相分离。"></a>2. 结构和皮肤相分离。</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container skin"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h3</span>&gt;</span>Text<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>所谓结构和皮肤相分离即是将页面的结构布局和皮肤样式分别又两个class分别控制，在demo里面，container类为控制结构的class，用于控制页面布局结构的样式，如展现元素的位置、浏览器bug和所有比较复杂的问题；skin类为控制皮肤的class，用于控制元素皮肤样式，处理比较简单的问题，如color、border、background等等。<br>多个皮肤可以重用一种结构，使得复杂的结构可以被重用，皮肤的修改工作变得很简单。</p>
+<h4 id="3-容器和内容相分离。"><a href="#3-容器和内容相分离。" class="headerlink" title="3. 容器和内容相分离。"></a>3. 容器和内容相分离。</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"news"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h3</span>&gt;</span>今日新闻<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>...<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		....</span><br><span class="line">	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>.<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.news ul&#123;&#125;</span><br><span class="line">.news li&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>子元素ul依赖了父容器。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"news"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h3</span>&gt;</span>今日新闻<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>...<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		....</span><br><span class="line">	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.news</span>&#123;&#125;</span><br><span class="line"><span class="selector-class">.news</span> <span class="selector-class">.list</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>子元素list解除了与容器相关的依赖关系，便于重用，子元素可以从一个容器转移到任意容器。以此将容器和内容独立出来。</p>
+<h4 id="4-抽象出可重用的元素，建好组件库，在组件库内寻找可用的元素组装页面。"><a href="#4-抽象出可重用的元素，建好组件库，在组件库内寻找可用的元素组装页面。" class="headerlink" title="4. 抽象出可重用的元素，建好组件库，在组件库内寻找可用的元素组装页面。"></a>4. 抽象出可重用的元素，建好组件库，在组件库内寻找可用的元素组装页面。</h4><p>做一个页面就像建造一座房子一样，造房子之前我们先将房子的每一部分造好，然后一点一点将各个部分组装起来。每一个部分可看作页面的一个个组件，做页面时，需要什么组件就去组件库里面寻找相应的元素，同时页面的每个组件元素又是可重用的。</p>
+<h4 id="5-向你想要扩展的对象本身增加Class而不是它的父节点"><a href="#5-向你想要扩展的对象本身增加Class而不是它的父节点" class="headerlink" title="5. 向你想要扩展的对象本身增加Class而不是它的父节点"></a>5. 向你想要扩展的对象本身增加Class而不是它的父节点</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"modal"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>...<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span>&gt;</span>...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.modal .inner&#123;...&#125;</span><br><span class="line"></span><br><span class="line">.modal h3&#123;...&#125; //h3本身就是可重用对象</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"modal"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">"list"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">p</span>&gt;</span>...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">.modal&#123;...&#125;</span><br><span class="line">.list&#123;...&#125;//如果扩展h3，直接在其本身增加class，而不是通过父节点的层叠来扩展</span><br></pre></td></tr></table></figure>
+<p>在同一个对象内总是使用层叠关系，一个对象内的所有子节点必须用这个对象的class名作为开头，比如：.modal .inner{…}。对象之间可以嵌套，但不要层叠。<br>当需要为基础对象扩展其功能的时候，应该根据上下文，通过向父节点增加更多的类名，而不是通过父节点的层叠关系来扩展。</p>
+<h4 id="6-对象应保持独立性"><a href="#6-对象应保持独立性" class="headerlink" title="6. 对象应保持独立性"></a>6. 对象应保持独立性</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"modal"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mybox"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.mybox&#123;...&#125;</span><br><span class="line">.modal .mybox&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"modal mybox"</span>&gt;</span></span><br><span class="line">		...</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.mybox&#123;...&#125;</span><br><span class="line">.modal&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>每个对象应该保持其独立性，每个class类名应保持自己的结构，保证自己的功能。自己的问题自己解决，而不是让父母出面。</p>
+<h4 id="7-避免使用ID选择器，权重太高，无法重用。"><a href="#7-避免使用ID选择器，权重太高，无法重用。" class="headerlink" title="7. 避免使用ID选择器，权重太高，无法重用。"></a>7. 避免使用ID选择器，权重太高，无法重用。</h4><p>在CSS选择器的优先级中，ID选择器的权重仅次于内联样式，而且ID选择器在一个页面中只能出现一次，无法进行重用，容易和JS用的id混淆，不便于区分，因此应该避免使用ID选择器。</p>
+<h4 id="8-避免位置相关的样式。"><a href="#8-避免位置相关的样式。" class="headerlink" title="8. 避免位置相关的样式。"></a>8. 避免位置相关的样式。</h4><figure class="highlight"><table><tr><td class="code"><pre><span class="line">#header .linkList&#123;...&#125;</span><br><span class="line">#footer .linkList&#123;...&#125;</span><br><span class="line">#header ul&#123;...&#125;</span><br><span class="line">.news ul&#123;...&#125;</span><br><span class="line">.weather h3&#123;...&#125;</span><br><span class="line">.tab h4&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>而应该写成</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.linkList&#123;...&#125;</span><br><span class="line">.mainNav&#123;...&#125;</span><br><span class="line">.subNav&#123;...&#125;</span><br><span class="line">h3,.h3&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>当对象的class不能满足其要求时，通过class直接在对象上面进行扩充，避免通过层叠关系来改变对象的显示。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#weather</span> <span class="selector-tag">h3</span>&#123;<span class="attribute">color</span>:red;&#125;</span><br><span class="line"><span class="selector-id">#tab</span> <span class="selector-tag">h3</span>&#123;<span class="attribute">color</span>:blue&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，由于没有定义全局的h3，所以每一个新的模块里面的h3是没有样式的，开发者必须针对同样的样式写许多的CSS。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">h3</span>&#123;<span class="attribute">color</span>:black&#125;</span><br><span class="line"><span class="selector-id">#weather</span> <span class="selector-tag">h3</span>&#123;<span class="attribute">color</span>:red&#125;</span><br><span class="line"><span class="selector-id">#tab</span> <span class="selector-tag">h3</span>&#123;<span class="attribute">color</span>:blue&#125;</span><br></pre></td></tr></table></figure>
+<p>这里就不一样了，为h3定义了全局的颜色样式，weather和tab重写了默认的h3，而weather和tab里面的h3也无法在外面使用。</p>
+<h4 id="9-保证选择器相同的权重"><a href="#9-保证选择器相同的权重" class="headerlink" title="9. 保证选择器相同的权重"></a>9. 保证选择器相同的权重</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"classA classB"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.classA</span>&#123;<span class="attribute">color</span>:red;&#125;</span><br><span class="line"><span class="selector-class">.classB</span>&#123;<span class="attribute">color</span>:blue;&#125;</span><br></pre></td></tr></table></figure>
+<p>在HTML中，class类名出现的先后顺序与优先级无关，在CSS样式表中的先后顺序与优先级有关。</p>
+<p><strong>推荐写法：</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"media mediaExt attribution"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.media&#123;...&#125;</span><br><span class="line">.mediaExt&#123;...&#125;</span><br><span class="line">.attribution&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.modal .hd&#123;...&#125;</span><br><span class="line">.modalExt .hd&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>而不是</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">html body .modal div .hd&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>样式表中后出现的覆盖掉前面的，保证选择器有相同的权重。</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.mod</span> <span class="selector-class">.hd</span>&#123;<span class="attribute">color</span>:red;<span class="attribute">_zoom</span>:<span class="number">1</span>;&#125;</span><br><span class="line">.weather .hd&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>而不是</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">.mod .hd&#123;...&#125;</span><br><span class="line">.ie .mod .hd&#123;...&#125;</span><br><span class="line">.weather .hd&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>这样是为了有节制地使用hack，不要让hack改变你的权重。</p>
+<h4 id="10-类名要简短、清晰、语义化，OOCSS的名字并不影响HTML的语义化"><a href="#10-类名要简短、清晰、语义化，OOCSS的名字并不影响HTML的语义化" class="headerlink" title="10. 类名要简短、清晰、语义化，OOCSS的名字并不影响HTML的语义化"></a>10. 类名要简短、清晰、语义化，OOCSS的名字并不影响HTML的语义化</h4><p><strong>Class命名的几个目标：</strong></p>
+<p>简短——每一个字节都很重要，尽可能简短</p>
+<p>清晰——根据名称可以很快知道它的功能</p>
+<p>语义——对象的外观不重要，重要的是它是什么，它的功能是什么</p>
+<p>大众化——过于特殊的名字会减少它的应用场景或导致语义化的class以非语义化的方式使用</p>
+<p>使用OOCSS不妨碍HTML标签的语义，在具体的SEO场景中，搜索引擎主要看HTML代码是否语义化。但也在语义和可维护性之间做了权衡。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#CSS" >
+    <span class="tag-code">CSS</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/07/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8D%9A%E5%AE%A2%EF%BC%8CHexo%E5%BC%BA%E5%8A%9B%E9%A9%B1%E5%8A%A8/">
+        <span class="nav-arrow">← </span>
+        
+          我的第一个博客，Hexo强力驱动
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2016/07/14/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E4%B9%8Bthis/">
+        
+          深入理解JavaScript之this
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E4%B8%80-OOCSS"><span class="toc-nav-text">一. OOCSS</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#1-%E4%B8%8D%E8%A6%81%E7%9B%B4%E6%8E%A5%E5%AE%9A%E4%B9%89%E5%AD%90%E8%8A%82%E7%82%B9%EF%BC%8C%E5%BA%94%E6%8A%8A%E5%85%B1%E6%80%A7%E5%A3%B0%E6%98%8E%E6%94%BE%E5%88%B0%E7%88%B6%E7%B1%BB%E3%80%82"><span class="toc-nav-text">1. 不要直接定义子节点，应把共性声明放到父类。</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#2-%E7%BB%93%E6%9E%84%E5%92%8C%E7%9A%AE%E8%82%A4%E7%9B%B8%E5%88%86%E7%A6%BB%E3%80%82"><span class="toc-nav-text">2. 结构和皮肤相分离。</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3-%E5%AE%B9%E5%99%A8%E5%92%8C%E5%86%85%E5%AE%B9%E7%9B%B8%E5%88%86%E7%A6%BB%E3%80%82"><span class="toc-nav-text">3. 容器和内容相分离。</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#4-%E6%8A%BD%E8%B1%A1%E5%87%BA%E5%8F%AF%E9%87%8D%E7%94%A8%E7%9A%84%E5%85%83%E7%B4%A0%EF%BC%8C%E5%BB%BA%E5%A5%BD%E7%BB%84%E4%BB%B6%E5%BA%93%EF%BC%8C%E5%9C%A8%E7%BB%84%E4%BB%B6%E5%BA%93%E5%86%85%E5%AF%BB%E6%89%BE%E5%8F%AF%E7%94%A8%E7%9A%84%E5%85%83%E7%B4%A0%E7%BB%84%E8%A3%85%E9%A1%B5%E9%9D%A2%E3%80%82"><span class="toc-nav-text">4. 抽象出可重用的元素，建好组件库，在组件库内寻找可用的元素组装页面。</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#5-%E5%90%91%E4%BD%A0%E6%83%B3%E8%A6%81%E6%89%A9%E5%B1%95%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%9C%AC%E8%BA%AB%E5%A2%9E%E5%8A%A0Class%E8%80%8C%E4%B8%8D%E6%98%AF%E5%AE%83%E7%9A%84%E7%88%B6%E8%8A%82%E7%82%B9"><span class="toc-nav-text">5. 向你想要扩展的对象本身增加Class而不是它的父节点</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#6-%E5%AF%B9%E8%B1%A1%E5%BA%94%E4%BF%9D%E6%8C%81%E7%8B%AC%E7%AB%8B%E6%80%A7"><span class="toc-nav-text">6. 对象应保持独立性</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#7-%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8ID%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%8C%E6%9D%83%E9%87%8D%E5%A4%AA%E9%AB%98%EF%BC%8C%E6%97%A0%E6%B3%95%E9%87%8D%E7%94%A8%E3%80%82"><span class="toc-nav-text">7. 避免使用ID选择器，权重太高，无法重用。</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#8-%E9%81%BF%E5%85%8D%E4%BD%8D%E7%BD%AE%E7%9B%B8%E5%85%B3%E7%9A%84%E6%A0%B7%E5%BC%8F%E3%80%82"><span class="toc-nav-text">8. 避免位置相关的样式。</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#9-%E4%BF%9D%E8%AF%81%E9%80%89%E6%8B%A9%E5%99%A8%E7%9B%B8%E5%90%8C%E7%9A%84%E6%9D%83%E9%87%8D"><span class="toc-nav-text">9. 保证选择器相同的权重</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#10-%E7%B1%BB%E5%90%8D%E8%A6%81%E7%AE%80%E7%9F%AD%E3%80%81%E6%B8%85%E6%99%B0%E3%80%81%E8%AF%AD%E4%B9%89%E5%8C%96%EF%BC%8COOCSS%E7%9A%84%E5%90%8D%E5%AD%97%E5%B9%B6%E4%B8%8D%E5%BD%B1%E5%93%8DHTML%E7%9A%84%E8%AF%AD%E4%B9%89%E5%8C%96"><span class="toc-nav-text">10. 类名要简短、清晰、语义化，OOCSS的名字并不影响HTML的语义化</span></a></li></ol></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://yanyuanfe.cn/2016/07/10/你不知道的CSS-一/';
+    var banner = 'http://img.yanyuanfe.cn/css%20module.png'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "你不知道的CSS(一)",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>
