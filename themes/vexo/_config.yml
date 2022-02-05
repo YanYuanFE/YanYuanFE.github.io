@@ -1,0 +1,58 @@
+author: 合拾 # 作者
+description: YanYuan's blog
+keyword: 合拾, 前端, FE
+favicon:
+
+excerpt_link: Read more
+
+menu:
+ Home: /
+ Tags: /tags/
+ Archives: /archives/
+ Projects: /project/
+ About: /about/
+
+# highlight
+highlight:
+  dracula
+
+# catalog
+catalog: true
+
+# donate
+donate: true
+
+# qrcode
+qrcode: true
+
+# comment
+# you can set gitment or uyan
+
+comment: gitment
+
+# gitment config
+gitment_owner: yanyuanfe
+gitment_repo: YanYuanFE.github.io
+gitment_oauth_id: 00c0950e46847a4acbc6
+gitment_oauth_secret: d8bd99572bbb807db2aae40bb13de8e3c2ee9049
+
+# uyan
+# if you want to use uyan as your blog comment, plz remove/comment out gitment config
+ba_track_id: yanyuanfe
+baidu_id: c8d6cdf0afa74827b1f06d751a403910
+
+about:
+  banner: http://file.muyutech.com/about.jpg
+  avatar: https://avatars1.githubusercontent.com/u/17774285?v=4&s=460
+  description: Everything that kills me makes me feel alive.
+  weibo_username: p/1005052895305341
+#  twitter_username: yanm1ng
+  github_username: YanYuanFE
+  zhihu_username: yan-yuan-91-78
+#  douban_username: yanm1ng
+
+# MathJax Support
+mathjax:
+  enable: false
+  per_page: false
+  cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
