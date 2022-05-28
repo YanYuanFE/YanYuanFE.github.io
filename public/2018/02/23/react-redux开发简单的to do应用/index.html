@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      react-redux开发简单的To do应用 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>react-redux开发简单的To do应用</h2>
+  <p class="post-date">2018-02-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>redux专注于状态管理，和react解耦，为了方便使用，redux的作者封装了一个react专用的库react-redux。</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/bg2016092101.jpg" alt="image"></p>
+<a id="more"></a>
+<p>前面通过一个简单的计数器应用来学习redux的基本原理和用法，在本篇文章，将介绍redux如何与react结合使用。<br>为了方便使用，redux的作者封装了一个react专用的库react-redux，这也是接下来的重点。</p>
+<blockquote>
+<p>本文完整代码请查看Github：<a href="https://github.com/YanYuanFE/redux-app" target="_blank" rel="noopener">https://github.com/YanYuanFE/redux-app</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// <span class="built_in">clone</span> repo</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/YanYuanFE/redux-app.git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> redux-app</span><br><span class="line"></span><br><span class="line">// checkout branch</span><br><span class="line">git checkout part-2</span><br><span class="line"></span><br><span class="line">// install</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">// start</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install react-redux --save</span><br></pre></td></tr></table></figure>
+<h3 id="基本API"><a href="#基本API" class="headerlink" title="基本API"></a>基本API</h3><h4 id="组件"><a href="#组件" class="headerlink" title="组件"></a><provider>组件</provider></h4><p>react-redux提供Provider组件，包裹在根组件最外层，用于传递store到组件内部，让应用内部的任何子孙组件非常方便地获取到全局状态，核心原理是react提供的context API。<br>示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">'./reducers'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer);</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">    &lt;App/&gt;</span><br><span class="line">  &lt;<span class="regexp">/Provider&gt;,</span></span><br><span class="line"><span class="regexp">  document.getElementById('root')</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
+<h4 id="connect"><a href="#connect" class="headerlink" title="connect()"></a>connect()</h4><p>react-redux提供connect方法用于将react组件与redux的store进行连接,通过connect方法，可以在任何react组件中，将store中的全局state和Action Creator传递到组件的props中，以供组件使用。</p>
+<p>connect方法接受两个参数，<strong>mapStateToProps</strong>和<strong>mapDispatchToProps</strong>，用于定义组件的输入输出。mapStateToProps负责输入逻辑，将state映射到组件的props，后者负责输出逻辑，将Action Creator方法传递到组件的props中，在组件内即可发起Action。<br>示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> FilterLink = connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(Link);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> FilterLink;</span><br></pre></td></tr></table></figure>
+<h4 id="mapStateToProps"><a href="#mapStateToProps" class="headerlink" title="mapStateToProps"></a>mapStateToProps</h4><p>mapStateToProps是一个函数，接受两个参数，state和props，state包含整个全局对象树，props代表组件的props，一般情况下使用state情况最多。执行后返回一个对象，对象的键值对就是一个映射。<br>示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state, ownProps</span>) =&gt;</span> (&#123;</span><br><span class="line">  active: ownProps.filter === state.visibilityFilter</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码中，在mapStateToProps中，通过全局state和组件的props进行计算，得到包含键active的对象，传入组件，在组件中即可通过this.props.active来获取值。</p>
+<h4 id="mapDispatchToProps"><a href="#mapDispatchToProps" class="headerlink" title="mapDispatchToProps"></a>mapDispatchToProps</h4><p>mapDispatch是一个函数或者对象，用于将store.dispatch映射到组件的props。当mapDiapatchToProps是一个函数时，传入dispatch和ownProps两个参数，返回一个对象，对象的键值对定义了组件的props传递的方法以及对应的action。<br>示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mapDispatchToProps = (</span><br><span class="line">  dispatch,</span><br><span class="line">  ownProps</span><br><span class="line">) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    onClick: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">'SET_VISIBILITY_FILTER'</span>,</span><br><span class="line">        filter: ownProps.filter</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码将dispatch方法映射到组件的props参数onClick，在组件内部即可通过this.props.onClick（）进行调用。</p>
+<p>当mapDispatch是一个对象时，它的键值对分别是组件的props参数和一个作为Action Creator的函数，通常在大型应用中，会在专门的文件中定义actionCreators文件，如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> setVisibilityFilter = <span class="function">(<span class="params">filter</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'SET_VISIBILITY_FILTER'</span>,</span><br><span class="line">  filter</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>上述代码就是一系列actionCreator之一，返回一个Action，由Redux自动发出，上述代码使用如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; setVisibilityFilter &#125; <span class="keyword">from</span> <span class="string">'../actions'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function">(<span class="params">dispatch, ownProps</span>) =&gt;</span> (&#123;</span><br><span class="line">  onClick: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(setVisibilityFilter(ownProps.filter))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这种方法跟写成函数的方法其实是一样的，只是将action进行了单独的抽离，这样可以避免更多的冗余代码，如需要在多个组件中发起相同的action时。</p>
+<h3 id="实战To-do应用"><a href="#实战To-do应用" class="headerlink" title="实战To do应用"></a>实战To do应用</h3><p>前面已经了解了react-redux的核心API，下面来完成一个完整的应用。</p>
+<p>整个应用实现的界面如下：</p>
+<p><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_183.png" alt="image"></p>
+<p>功能主要有，输入文字添加todo事项，显示todo list，点击todo项切换状态，点击tab筛选不同的todo 状态。</p>
+<p>在应用开发过程中，使用components，首先，使用create-react-app来初始化react应用，src为主要的开发目录，src目录下，分别新建actions、components、containers、reducers文件夹，actions用于编写actionCreator，reducers文件夹下用于编写应用的reducer，component文件夹下编写UI组件，即无状态组件，只负责UI的呈现，不负责业务逻辑，数据通过props传入，也不操作redux相关的api。containers文件夹下编写容器组件，负责管理数据和业务逻辑，操作redux的api。</p>
+<p>首先，在<strong>App.js</strong>中，包含了整个应用的UI界面。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> Footer <span class="keyword">from</span> <span class="string">'./components/Footer'</span>;</span><br><span class="line"><span class="keyword">import</span> AddTodo <span class="keyword">from</span> <span class="string">'./containers/AddTodo'</span>;</span><br><span class="line"><span class="keyword">import</span> VisibleTodoList <span class="keyword">from</span> <span class="string">'./containers/VisibleTodoList'</span>;</span><br><span class="line"><span class="keyword">import</span> logo <span class="keyword">from</span> <span class="string">'./logo.svg'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./App.css'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"App"</span>&gt;</span><br><span class="line">        &lt;div className=<span class="string">"todoapp"</span>&gt;</span><br><span class="line">          &lt;AddTodo/&gt;</span><br><span class="line">          &lt;VisibleTodoList/&gt;</span><br><span class="line">          &lt;Footer/&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+<p>可以看到，整个应用包含三个组件<strong>AddTodo</strong>、<strong>VisibleTodoList</strong>、<strong>Footer</strong>。</p>
+<p>下面逐步介绍整个界面的实现。<br>从containers文件夹开始，首先是AddTodo组件，用于添加todo。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; addTodo &#125; <span class="keyword">from</span> <span class="string">'../actions'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> AddTodo = <span class="function">(<span class="params">&#123; dispatch &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> input</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;form onSubmit=&#123;e =&gt; &#123;</span><br><span class="line">        e.preventDefault()</span><br><span class="line">        <span class="keyword">if</span> (!input.value.trim()) &#123;</span><br><span class="line">          <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        dispatch(addTodo(input.value))</span><br><span class="line">        input.value = <span class="string">''</span></span><br><span class="line">      &#125;&#125;&gt;</span><br><span class="line">        &lt;input ref=&#123;node =&gt; &#123;</span><br><span class="line">          input = node</span><br><span class="line">        &#125;&#125; /&gt;</span><br><span class="line">        &lt;button type=<span class="string">"submit"</span>&gt;</span><br><span class="line">          Add Todo</span><br><span class="line">        &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>form&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">AddTodo = connect()(AddTodo)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default AddTodo</span></span><br></pre></td></tr></table></figure>
+<p>AddTodo包含一个Form表单，在Form表单的onSubmit事件中，获取输入值，提交至action，整个组件被redux的connect组件包裹，从而使得dispatch传入到组件的props中。</p>
+<p>下面是actions的addTodo方法。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> nextTodoId = <span class="number">0</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> addTodo = <span class="function">(<span class="params">text</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'ADD_TODO'</span>,</span><br><span class="line">  id: nextTodoId++,</span><br><span class="line">  text</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>addTodo用于新建Todo，将todo的id加1,传入todo的text属性。</p>
+<p>下面是VisibleTodoList组件，根据当前选中的tab来显示不同状态下的todo list。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; toggleTodo &#125; <span class="keyword">from</span> <span class="string">'../actions'</span></span><br><span class="line"><span class="keyword">import</span> TodoList <span class="keyword">from</span> <span class="string">'../components/TodoList'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getVisibleTodos = <span class="function">(<span class="params">todos, filter</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (filter) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'SHOW_ALL'</span>:</span><br><span class="line">      <span class="keyword">return</span> todos</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'SHOW_COMPLETED'</span>:</span><br><span class="line">      <span class="keyword">return</span> todos.filter(<span class="function"><span class="params">t</span> =&gt;</span> t.completed)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'SHOW_ACTIVE'</span>:</span><br><span class="line">      <span class="keyword">return</span> todos.filter(<span class="function"><span class="params">t</span> =&gt;</span> !t.completed)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Unknown filter: '</span> + filter)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> (&#123;</span><br><span class="line">  todos: getVisibleTodos(state.todos, state.visibilityFilter)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = &#123;</span><br><span class="line">  onTodoClick: toggleTodo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> VisibleTodoList = connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(TodoList)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> VisibleTodoList</span><br></pre></td></tr></table></figure>
+<p>从代码中可以看到，VisibleTodoList没有界面相关的部分，仅仅是将TodoList组件进行包裹返回一个新的组件。mapStateToProps中，根据当前所有的todos和筛选条件visibilityFilter，通过getVisibleTodos函数，返回一个筛选后的todos，mapDispatchToProps则是将actionCreator方法通过props传入到UI组件。</p>
+<p>在actions文件夹下，index.js中，定义了toggleTodo如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> toggleTodo = <span class="function">(<span class="params">id</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'TOGGLE_TODO'</span>,</span><br><span class="line">  id</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>toggleTodo通过传入的id对当前操作的todo进行处理。</p>
+<p>下面是components下的TodoList组件，负责显示todo list。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">'prop-types'</span></span><br><span class="line"><span class="keyword">import</span> Todo <span class="keyword">from</span> <span class="string">'./Todo'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TodoList = <span class="function">(<span class="params">&#123; todos, onTodoClick &#125;</span>) =&gt;</span> (</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &#123;todos.map(<span class="function"><span class="params">todo</span> =&gt;</span></span><br><span class="line">      &lt;Todo</span><br><span class="line">        key=&#123;todo.id&#125;</span><br><span class="line">        &#123;...todo&#125;</span><br><span class="line">        onClick=&#123;() =&gt; onTodoClick(todo.id)&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    )&#125;</span><br><span class="line">  &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">TodoList.propTypes = &#123;</span></span><br><span class="line"><span class="regexp">  todos: PropTypes.arrayOf(PropTypes.shape(&#123;</span></span><br><span class="line"><span class="regexp">    id: PropTypes.number.isRequired,</span></span><br><span class="line"><span class="regexp">    completed: PropTypes.bool.isRequired,</span></span><br><span class="line"><span class="regexp">    text: PropTypes.string.isRequired</span></span><br><span class="line"><span class="regexp">  &#125;).isRequired).isRequired,</span></span><br><span class="line"><span class="regexp">  onTodoClick: PropTypes.func.isRequired</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default TodoList</span></span><br></pre></td></tr></table></figure>
+<p>从上述代码可以看到，TodoList接收props中的todos, onTodoClick，并对todos进行渲染，每个todo又抽离成单独的Todo组件，在每个Todo上传递点击事件，点击事件中，调用onTodoClick，并传入当前todo的id，以此来改变todo的状态。</p>
+<p>Todo组件如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">'prop-types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Todo = <span class="function">(<span class="params">&#123; onClick, completed, text &#125;</span>) =&gt;</span> (</span><br><span class="line">  &lt;li</span><br><span class="line">    onClick=&#123;onClick&#125;</span><br><span class="line">    style=&#123;&#123;</span><br><span class="line">      textDecoration: completed ? <span class="string">'line-through'</span> : <span class="string">'none'</span></span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &gt;</span><br><span class="line">    &#123;text&#125;</span><br><span class="line">  &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">Todo.propTypes = &#123;</span></span><br><span class="line"><span class="regexp">  onClick: PropTypes.func.isRequired,</span></span><br><span class="line"><span class="regexp">  completed: PropTypes.bool.isRequired,</span></span><br><span class="line"><span class="regexp">  text: PropTypes.string.isRequired</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Todo</span></span><br></pre></td></tr></table></figure>
+<p>在TodoList组件中，渲染所有的todo list时，将每个todo进行对象解构，传入Todo组件的props，在Todo组件中，获取到组件需要的参数onClick, completed, text，onClick用于绑定到todo的点击事件，completed用于表示todo的状态是否为完成，根据completed的值来渲染todo的样式，text渲染为todo的内容。<br>下面是components中的Footer组件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> FilterLink <span class="keyword">from</span> <span class="string">'../containers/FilterLink'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Footer = <span class="function"><span class="params">()</span> =&gt;</span> (</span><br><span class="line">  &lt;p&gt;</span><br><span class="line">    Show:</span><br><span class="line">    &#123;<span class="string">" "</span>&#125;</span><br><span class="line">    &lt;FilterLink filter=<span class="string">"SHOW_ALL"</span>&gt;</span><br><span class="line">      All</span><br><span class="line">    &lt;<span class="regexp">/FilterLink&gt;</span></span><br><span class="line"><span class="regexp">    &#123;", "&#125;</span></span><br><span class="line"><span class="regexp">    &lt;FilterLink filter="SHOW_ACTIVE"&gt;</span></span><br><span class="line"><span class="regexp">      Active</span></span><br><span class="line"><span class="regexp">    &lt;/</span>FilterLink&gt;</span><br><span class="line">    &#123;<span class="string">", "</span>&#125;</span><br><span class="line">    &lt;FilterLink filter=<span class="string">"SHOW_COMPLETED"</span>&gt;</span><br><span class="line">      Completed</span><br><span class="line">    &lt;<span class="regexp">/FilterLink&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>p&gt;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Footer</span><br></pre></td></tr></table></figure>
+<p>Footer组件中，用于对todos的状态进行筛选，共包含三个筛选项，SHOW_ALL显示所有todos，SHOW_ACTIVE显示刚添加的todo，SHOW_COMPLETED显示已经完成的todo。每个筛选项又抽离成FilterLink组件，传入filter作为筛选参数。</p>
+<p>下面是container中FilterLink的代码。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; setVisibilityFilter &#125; <span class="keyword">from</span> <span class="string">'../actions'</span></span><br><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">'../components/Link'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state, ownProps</span>) =&gt;</span> (&#123;</span><br><span class="line">  active: ownProps.filter === state.visibilityFilter</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function">(<span class="params">dispatch, ownProps</span>) =&gt;</span> (&#123;</span><br><span class="line">  onClick: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(setVisibilityFilter(ownProps.filter))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> FilterLink = connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(Link)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> FilterLink</span><br></pre></td></tr></table></figure>
+<p>FilterLink组件也仅仅是负责数据的逻辑，没有UI呈现。mapStateToProps中判断当前组件的props.filter与筛选条件state.visibilityFilter来计算active属性传入props，mapDispatchToProps定义onClick方法，用于dispatch一个action来改变当前的筛选条件，即state.visibilityFilter，传入当前组件的filter属性作为参数。</p>
+<p>actions的setVisibilityFilter代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> setVisibilityFilter = <span class="function">(<span class="params">filter</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'SET_VISIBILITY_FILTER'</span>,</span><br><span class="line">  filter</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>下面是Link组件。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">'prop-types'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Link = <span class="function">(<span class="params">&#123; active, children, onClick &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (active) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;children&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="comment">// eslint-disable-next-line</span></span><br><span class="line">    &lt;a href=<span class="string">"#"</span></span><br><span class="line">       onClick=&#123;e =&gt; &#123;</span><br><span class="line">         e.preventDefault()</span><br><span class="line">         onClick()</span><br><span class="line">       &#125;&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &#123;children&#125;</span><br><span class="line">    &lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">Link.propTypes = &#123;</span></span><br><span class="line"><span class="regexp">  active: PropTypes.bool.isRequired,</span></span><br><span class="line"><span class="regexp">  children: PropTypes.node.isRequired,</span></span><br><span class="line"><span class="regexp">  onClick: PropTypes.func.isRequired</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Link</span></span><br></pre></td></tr></table></figure>
+<p>Link组件通过props接收active，children，onClick属性值，当active为true时，Link渲染为span，否则渲染为a，a标签绑定点击事件，点击时，触发props中的onClick方法。</p>
+<p>自此，界面部分的代码都已经介绍完毕，下面是reducer的编写。<br>在reducer的编写中，为了让reducer的职责更为清晰，将reducer拆分为todos和visibilityFilter，todos.js中，用于处理todo的添加，状态改变。代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> todos = <span class="function">(<span class="params">state = [], action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'ADD_TODO'</span>:</span><br><span class="line">      <span class="keyword">return</span> [</span><br><span class="line">        ...state,</span><br><span class="line">        &#123;</span><br><span class="line">          id: action.id,</span><br><span class="line">          text: action.text,</span><br><span class="line">          completed: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'TOGGLE_TODO'</span>:</span><br><span class="line">      <span class="keyword">return</span> state.map(<span class="function"><span class="params">todo</span> =&gt;</span></span><br><span class="line">        (todo.id === action.id)</span><br><span class="line">          ? &#123;...todo, <span class="attr">completed</span>: !todo.completed&#125;</span><br><span class="line">          : todo</span><br><span class="line">      )</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> todos</span><br></pre></td></tr></table></figure>
+<p>此处，todos初始化为一个空数组，reducer必须为纯函数，处理actions，不能直接对state进行修改，应该每次都返回一个新的state，当添加Todo时，使用数组展开运算符对state进行解构，并且，将新的todo对象作为数组的最后一个值，最终，生成一个全新的state。当修改todo状态时，使用数组的map方法，同样返回一个新的state，在map方法内部，使用三元运算符对action参数id和数组每一项的id进行判断，目的是寻找到当前被点击时的todo，将其completed值取反，否则直接返回当前todo。</p>
+<p>visibilityFilter.js中，主要是用于更改todo list的筛选条件，代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> visibilityFilter = <span class="function">(<span class="params">state = <span class="string">'SHOW_ALL'</span>, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'SET_VISIBILITY_FILTER'</span>:</span><br><span class="line">      <span class="keyword">return</span> action.filter</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> visibilityFilter</span><br></pre></td></tr></table></figure>
+<p>此时，state初始化为SHOW_ALL，即应用加载时，默认显示为全部的todos，当处理actions，直接返回action.filter。</p>
+<p>当reducer被拆分为单个文件时，上述const 命名的函数名即为全局状态树中的state值，还需要将拆分的reducer进行组合，组合reducer主要使用了redux的combineReducers API，以下为reducers文件夹下index.js代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> todos <span class="keyword">from</span> <span class="string">'./todos'</span></span><br><span class="line"><span class="keyword">import</span> visibilityFilter <span class="keyword">from</span> <span class="string">'./visibilityFilter'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todoApp = combineReducers(&#123;</span><br><span class="line">  todos,</span><br><span class="line">  visibilityFilter</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> todoApp</span><br></pre></td></tr></table></figure>
+<p>最后一步，需要使用react-redux的Provider API包裹整个应用，src下index.js中：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">'./reducers'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer);</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">&lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">&lt;App/&gt;</span><br><span class="line">&lt;<span class="regexp">/Provider&gt;,</span></span><br><span class="line"><span class="regexp">document.getElementById('root')</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
+<p>浏览器运行效果如下：</p>
+<p><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_209.png" alt="image"></p>
+<p>至此，整个To do应用就开发完毕了，对比使用redux开发，react-redux让我们开发react应用的时候更加简单。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#React" >
+    <span class="tag-code">React</span>
+  </a>
+
+  <a href="/tags#Redux" >
+    <span class="tag-code">Redux</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2018/02/07/Redux实现简单计数器/">
+        <span class="nav-arrow">← </span>
+        
+          Redux实现简单计数器
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2018/02/26/手摸手撸一个简单的Redux（一）/">
+        
+          手摸手撸一个简单的Redux（一）
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#安装"><span class="toc-nav-text">安装</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基本API"><span class="toc-nav-text">基本API</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#组件"><span class="toc-nav-text">组件</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#connect"><span class="toc-nav-text">connect()</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#mapStateToProps"><span class="toc-nav-text">mapStateToProps</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#mapDispatchToProps"><span class="toc-nav-text">mapDispatchToProps</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#实战To-do应用"><span class="toc-nav-text">实战To do应用</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanyuanfe.github.io/2018/02/23/react-redux开发简单的to do应用/';
+    var banner = 'http://img.yanyuanfe.cn/photo-1454165804606-c3d57bc86b40%20%281%29.jpeg'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "react-redux开发简单的To do应用",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

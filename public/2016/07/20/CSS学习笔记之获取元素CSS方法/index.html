@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      CSS学习笔记之获取元素Style方法 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>CSS学习笔记之获取元素Style方法</h2>
+  <p class="post-date">2016-07-20</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>CSS 已经如此壮大,以致于一个普通人已经无法把它完整地装进自己的头脑了。</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/css.png" alt="image"></p>
+<a id="more"></a>
+<h3 id="从CSS样式说起"><a href="#从CSS样式说起" class="headerlink" title="从CSS样式说起"></a>从CSS样式说起</h3><p>最近一直在使用原生JavaScript，在获取元素的样式的时候发现了一些CSS的小秘密，关于CSS的style、currentStyle、getComputedStyle。什么？后面两个你没见过！！！在看了这篇文章之后你就知道了。</p>
+<p>在讲干货之前，我想我们应该来复习下关于CSS的基础。</p>
+<p>关于这个层叠样式表（CSS），在HTML文档里有三种表现形式。</p>
+<ol>
+<li>内联样式表</li>
+</ol>
+<p>内联样式表是指将CSS样式编码写在HTML标签中，如下所示：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">"font-size:16px;color:#000FFF"</span>&gt;</span></span><br><span class="line">内联CSS样式。</span><br><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>内联样式表由HTML元素的HTML元素的style支持，只需将CSS代码用分号隔开写在style=””之中。这是最基本的形式，但是它没有实现表现与内容分离且不能灵活的控制多个页面所以我们很少使用。</p>
+<ol start="2">
+<li>内部样式表</li>
+</ol>
+<p>内部样式表与内联样式表相似都是把CSS代码写在HTML页面中，稍微不同的是前者可以将样式表放在一个固定的位置，如下所示：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>内部样式表<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line"><span class="css">   <span class="selector-tag">h1</span>&#123;<span class="attribute">font-size</span>:<span class="number">16px</span>;</span></span><br><span class="line"><span class="css">      <span class="selector-tag">color</span>:<span class="selector-id">#000FFF</span></span></span><br><span class="line">      &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>内部CSS样式。<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>内部样式表编码是初级的应用形式，不能跨页面使用所以不适合使用。</p>
+<ol start="3">
+<li>外部样式表</li>
+</ol>
+<p>外部样式表是CSS应用中最好的一中形式，它将CSS样式代码单独放在一个外部文件中，再由网页进行调用。多个网页可以调用一个样式文件表，这样能够实现代码的最大限度的重用及网站文件的最优化配置，如下所示：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>外部样式表<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">rev</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"style.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>外部CSS样式。<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在style.css中的代码为</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@charset</span> <span class="string">"UTF-8"</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span>&#123;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#000FFF</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们在<head><meta name="generator" content="Hexo 3.9.0">中使用了<link>标签来调用外部样式表文件。将link指定为stylesheet方式，并使用了href=”style.css”指明样式表文件的路径便可将该页面应用到在style.css中定义的样式。</head></p>
+<p>现在你已经知道了CSS的三种形式，那么它们和在JavaScript中获取元素又又怎样的关系呢？下面揭晓答案。</p>
+<h3 id="获取元素样式方法之style"><a href="#获取元素样式方法之style" class="headerlink" title="获取元素样式方法之style"></a>获取元素样式方法之style</h3><p>style是通过JavaScript语言来获取CSS的样式的一种最基本的方法，也是最为人所知的方法，它的使用方法是element.style.attr，可读可写。需要注意的是（前方高能），style只能获取元素的内联样式，内部样式和外部样式使用style是获取不到的。<br>神马？（童话里都是骗人的）。下面是验证代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>CSS样式<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"css/style.css"</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line"><span class="css">  <span class="selector-id">#container</span>&#123;</span></span><br><span class="line">    width: 300px;</span><br><span class="line">  &#125;</span><br><span class="line">  h1&#123;</span><br><span class="line">    font-size: 13px;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span> <span class="attr">style</span>=<span class="string">"width: 400px;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">"font-size: 14px;"</span>&gt;</span>CSS学习笔记之获取元素样式<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/task.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>style.css</strong></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#container</span>&#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">h1</span>&#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>task.js</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oDiv= <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>);</span><br><span class="line">  <span class="keyword">var</span> h1=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"h1"</span>)[<span class="number">0</span>];</span><br><span class="line">  <span class="built_in">console</span>.log(oDiv.style.width); <span class="comment">//400px</span></span><br><span class="line">  <span class="built_in">console</span>.log(h1.style.fontSize); <span class="comment">//14px</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，我们分别使用CSS的三种形式对container和h1设置不同的样式，通过js来获取具体值，最后得到的都是内联样式的值。而最终在网页中生效的也是内联样式的值，也表明三种方式中内联样式的优先级最高。</p>
+<h3 id="获取元素样式方法之currentStyle"><a href="#获取元素样式方法之currentStyle" class="headerlink" title="获取元素样式方法之currentStyle"></a>获取元素样式方法之currentStyle</h3><p>说到currentStyle，表示很遗憾，它只兼容IE浏览器，使用currentStyle返回的是元素当前应用的最终CSS属性值（包括外联CSS文件，页面中嵌入的style属性等）。<br>currentStyle的使用方法是element.currentStyle[“attr’]或者element.currentStyle.attr。<br>我们对js代码进行修改如下：</p>
+<p><strong>task.js</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oDiv= <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>);</span><br><span class="line">  <span class="keyword">var</span> h1=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"h1"</span>)[<span class="number">0</span>];</span><br><span class="line">  <span class="built_in">console</span>.log(oDiv.currentStyle.width); <span class="comment">//400px</span></span><br><span class="line">  <span class="built_in">console</span>.log(h1.currentStyle.fontSize); <span class="comment">//14px</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>通过测试，IE显示正常，Edge浏览器报错，Chrome报错如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Uncaught <span class="built_in">TypeError</span>: Cannot read property <span class="string">'width'</span> <span class="keyword">of</span> <span class="literal">undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="获取元素样式方法之getComputedStyle"><a href="#获取元素样式方法之getComputedStyle" class="headerlink" title="获取元素样式方法之getComputedStyle"></a>获取元素样式方法之getComputedStyle</h3><p>getComputedStyle是一个可以获取当前元素所有最终使用的CSS属性值。返回的是一个CSS样式声明对象([object CSSStyleDeclaration])，如果没有设置css样式，会读取默认样式，只读。它的使用方法是：<br>window.getComputedStyle(element, pseudoElt)[“attr’]或window.getComputedStyle(element, pseudoElt).attr。其中，pseudoElt表示如 :after,:before之类的伪类，如果不用伪类的话设置为null即可，不是必需参数。</p>
+<p>getComputedStyle同currentStyle作用相同，但是适用于Firefox、Opera、Safari、Chrome。<br>关于兼容性，getComputedStyle在IE6-8是不支持的。<br>我们修改代码如下：</p>
+<p><strong>task.js</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oDiv= <span class="built_in">document</span>.getElementById(<span class="string">'container'</span>);</span><br><span class="line">  <span class="keyword">var</span> h1=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"h1"</span>)[<span class="number">0</span>];</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">window</span>.getComputedStyle(oDiv).width); <span class="comment">//400px</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">window</span>.getComputedStyle(h1).fontSize); <span class="comment">//14px</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>经过测试在Chrome和IE9以上正常，IE8报错：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">对象不支持“getComputedStyle”属性或方法</span><br></pre></td></tr></table></figure>
+<h3 id="获取元素样式方法之关于属性"><a href="#获取元素样式方法之关于属性" class="headerlink" title="获取元素样式方法之关于属性"></a>获取元素样式方法之关于属性</h3><p>说点有趣又涨姿势的，当我们使用js获取元素属性值的时候，传入的属性可能跟你想象的不太一样，比如上面驼峰式的fontSize。或者看看下面这个奇葩的浮动属性：<br>Chrome浏览器下是cssFloat和float，<br>FireFox浏览器下是cssFloat，IE7浏览器下则是styleFloat，而IE9浏览器下则是cssFloat和styleFloat都有，简直很变态啊有木有。</p>
+<p>那我们再来谈谈获取元素属性的另一个方法，getAttribute，它可以获取CSS样式申明对象上的属性值（直接属性名称），可以访问CSS样式对象的属性。<br>使用getAttribute方法也不需要cssFloat与styleFloat的怪异写法与兼容性处理，但是属性名需要驼峰式写法。比如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">element.getAttribute(<span class="string">"float"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">element.getAttribute(<span class="string">"fontSize"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="封装getStyle"><a href="#封装getStyle" class="headerlink" title="封装getStyle"></a>封装getStyle</h3><p>经过上面的了解，相信你已经可以写出一个封装获取样式的兼容写法，下面是一个简洁版：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取样式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStyle</span>(<span class="params">obj, attr</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, <span class="literal">false</span>)[attr];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#CSS" >
+    <span class="tag-code">CSS</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/07/16/深入理解JavaScript之变量提升/">
+        <span class="nav-arrow">← </span>
+        
+          深入理解JavaScript之变量提升
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2016/09/24/深入理解JavaScript之克隆/">
+        
+          深入理解JavaScript之克隆
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#从CSS样式说起"><span class="toc-nav-text">从CSS样式说起</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#获取元素样式方法之style"><span class="toc-nav-text">获取元素样式方法之style</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#获取元素样式方法之currentStyle"><span class="toc-nav-text">获取元素样式方法之currentStyle</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#获取元素样式方法之getComputedStyle"><span class="toc-nav-text">获取元素样式方法之getComputedStyle</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#获取元素样式方法之关于属性"><span class="toc-nav-text">获取元素样式方法之关于属性</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#封装getStyle"><span class="toc-nav-text">封装getStyle</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanyuanfe.github.io/2016/07/20/CSS学习笔记之获取元素CSS方法/';
+    var banner = 'http://img.yanyuanfe.cn/css.png'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "CSS学习笔记之获取元素Style方法",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

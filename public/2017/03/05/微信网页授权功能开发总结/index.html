@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      微信网页授权功能开发总结 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>微信网页授权功能开发总结</h2>
+  <p class="post-date">2017-03-05</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>在进行微信开发的时候，必须要输入外网域名，我们本地没法进行调试，这给我们造成很大的不方便，系统在开发阶段容易出现bug，如果服务器上的版本已经在运行了，我们不能在那基础上进行开发调试，所以能够在本地进行微信开发很重要。</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/wechat.png" alt="image"></p>
+<a id="more"></a>
+<div class="tip"><br>    最近h5项目中需要增加微信网页授权用户登陆的功能，在开发过程中遇到的一些问题总结如下。<br></div>
+
+<h3 id="微信web开发者工具"><a href="#微信web开发者工具" class="headerlink" title="微信web开发者工具"></a>微信web开发者工具</h3><p>微信推出了一个web开发工具，支持在本地开发环境调试授权登录、 模拟JSSDK权限校验、移动调试，用过之后感觉方便。</p>
+<p>微信web开发者工具地址：<a href="https://mp.weixin.qq.com/wiki/10/e5f772f4521da17fa0d7304f68b97d7e.html" target="_blank" rel="noopener">https://mp.weixin.qq.com/wiki/10/e5f772f4521da17fa0d7304f68b97d7e.html</a></p>
+<p>下面推荐一个Linux用户的微信开发者工具，虽然没有微信自家的功能完备，基本的功能还是有的，使用过也不错。  </p>
+<p><a href="https://github.com/yuan1994/wechat_web_devtools" target="_blank" rel="noopener">微信开发者工具（wechat_web_devtools）Linux版，微信小程序Linux版，支持最新微信小程序开发和微信网页开发</a></p>
+<p>微信官方讲解很详细了，这里分享一些自己遇到的坑和技巧。</p>
+<h3 id="关注公众号"><a href="#关注公众号" class="headerlink" title="关注公众号"></a>关注公众号</h3><p>如果你使用微信Web调试工具进行网页开发，首先你需要关注你所调试的公众号和公众号安全助手两个公众号。</p>
+<h3 id="绑定开发者账号"><a href="#绑定开发者账号" class="headerlink" title="绑定开发者账号"></a>绑定开发者账号</h3><p>你必须成为相应公众号的开发者才能进行调试。</p>
+<p>这个可能容易忘记，如果要用该工具，需要绑定开发者账号。</p>
+<p>登录微信公众平台，在微信公众号后台的左下侧进入开发者工具，进入微信Web开发者工具后，点击绑定开发者微信号，就可以绑定开发者账号了。</p>
+<h3 id="网页授权域名"><a href="#网页授权域名" class="headerlink" title="网页授权域名"></a>网页授权域名</h3><p>这次开发的功能是用户通过微信授权进行登录，需要在公众平台配置网页授权域名。  </p>
+<p>登录微信公众平台，在微信公众号后台的左下侧进入开发&gt;接口权限,找到网页授权获取用户基本信息的接口，点击修改，设置网页授权，首先需要上传微信提供的一个验证文件，然后才能填写域名。</p>
+<p>微信的授权回调域名的设置有一些限制：</p>
+<p>用户在网页授权页同意授权给公众号后，微信会将授权数据传给一个回调页面，回调页面需在此域名下，以确保安全可靠。<br>注意事项：</p>
+<ol>
+<li>回调页面域名或路径需使用字母、数字及“-”的组合（例：wx.qq.com或wx.qq.com/mp），不支持IP地址、端口号及短链域名。填写的域名或路径需与实际回调URL中的域名或路径相同。</li>
+<li>填写的域名须通过ICP备案的验证。</li>
+<li>将文件MP_verify_j9vcNn6PYoEcuoBT.txt（点击下载）上传至填写域名或路径指向的web服务器（或虚拟主机）的目录（若填写域名，将文件放置在域名根目录下，例如wx.qq.com/MP_verify_j9vcNn6PYoEcuoBT.txt；若填写路径，将文件放置在路径目录下，例如wx.qq.com/mp/MP_verify_j9vcNn6PYoEcuoBT.txt），并确保可以访问。<br>如果要结合web开发工具在本地测试授权登录，需要将回调域名指向到本地，在类unix系统下可以通过修改/etc/hosts实现。</li>
+</ol>
+<h3 id="修改-host-文件"><a href="#修改-host-文件" class="headerlink" title="修改 host 文件"></a>修改 host 文件</h3><p>微信有JS接口安全域名和网页授权域名的限制，所以想要本地调试最重要的是解决这个问题。具体在右上角公众号名称-公众号设置-功能设置里面。</p>
+<p>想要把域名映射到本地显然是改 host 文件方便一些，因为你不太可能把线上的域名改成本地。</p>
+<p>Linux 下修改host：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo vi /etc/hosts</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#127.0.0.1	localhost</span><br><span class="line">127.0.0.1   ***.com</span><br></pre></td></tr></table></figure>
+<p>改完 host 之后保存，你就可以在微信Web开发者工具中调试本地代码了，如果是HTTPS的域名，你还需要在本机安装相关证书，然后再项目目录下的nginx.conf文件中设置:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">	server &#123;</span><br><span class="line">		listen       443 ssl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ngrok"><a href="#ngrok" class="headerlink" title="ngrok"></a>ngrok</h3><p>这是什么鬼？它是国外开源的一款可实现内网穿透工具（服务端+客户端），即，开启后，访问公网ip或域名，将TCP链接转发到内网。所以，通过ngrok，可实现：<br>访问域名，最终指向本地服务，那么修改本地代码，立即就可以看到效果，微信SDK要求的域名也能够满足了，微信SDK终于可以舒服的调试了。<br>另外，ngrok可以和微信开发者工具一起使用。<br>国内   <a href="http://qydev.com/" target="_blank" rel="noopener">http://qydev.com/</a><br> 这个站点提供了免费服务，但还是希望大家能适当捐助，以帮助作者维持服务器费用，或者选择自行搭建ngrok服务。</p>
+<p>优点：</p>
+<p>任何人访问ngrok绑定的域名，都可以看到效果  </p>
+<p>缺点：</p>
+<p>公众号后台需要设置域名为ngrok绑定的域名<br>依赖ngrok服务端+客户端，搭建这样一个调试环境成本略高</p>
+<p><a href="https://natapp.cn/" target="_blank" rel="noopener">NATAPP</a>  </p>
+<p>  一个基于ngrok的国内高速内网穿透服务,适用于微信开发调试,简单方便。</p>
+<h3 id="如何区分微信浏览器"><a href="#如何区分微信浏览器" class="headerlink" title="如何区分微信浏览器"></a>如何区分微信浏览器</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isWexin</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">const</span> ua = navigator.userAgent.toLowerCase();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="regexp">/micromessenger/</span>.test(ua)) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#微信" >
+    <span class="tag-code">微信</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2017/02/02/理解ES6之箭头函数/">
+        <span class="nav-arrow">← </span>
+        
+          理解ES6之箭头函数
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2017/03/18/CSS3实现文字流光渐变动画/">
+        
+          CSS3实现文字流光渐变动画
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#微信web开发者工具"><span class="toc-nav-text">微信web开发者工具</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#关注公众号"><span class="toc-nav-text">关注公众号</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#绑定开发者账号"><span class="toc-nav-text">绑定开发者账号</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#网页授权域名"><span class="toc-nav-text">网页授权域名</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#修改-host-文件"><span class="toc-nav-text">修改 host 文件</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#ngrok"><span class="toc-nav-text">ngrok</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#如何区分微信浏览器"><span class="toc-nav-text">如何区分微信浏览器</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanyuanfe.github.io/2017/03/05/微信网页授权功能开发总结/';
+    var banner = 'http://img.yanyuanfe.cn/wechat.png'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "微信网页授权功能开发总结",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
