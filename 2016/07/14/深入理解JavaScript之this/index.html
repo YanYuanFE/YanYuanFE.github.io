@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      深入理解JavaScript之this | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>深入理解JavaScript之this</h2>
+  <p class="post-date">2016-07-14</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>JavaScript非常重要。这并不总是如此，但现在确实如此</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/js.png" alt="image"></p>
+<a id="more"></a>
+<p>this是JavaScript中的一个很特别的关键字，同时，它也是JavaScript中最复杂的机制之一，重要性同闭包、原型不相伯仲。如果你缺乏对this的清晰认识，this的指向足以让你眼花缭乱，这完全就是一种魔法。</p>
+<h3 id="this是什么"><a href="#this是什么" class="headerlink" title="this是什么"></a>this是什么</h3><p>当一个函数被调用时，除了传入了函数的显式参数以外，名为this的隐式参数也被传入了函数。this引用了与该函数调用进行隐式关联的一个对象，被称之为函数上下文。函数上下文包含了函数在哪里被调用（调用栈）、函数的调用方式、传入的参数等信息。this在函数运行时进行绑定，并不是在编写时绑定，它的上下文取决于函数调用时得各种条件。this的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式，而this则指的是调用函数的那个对象。</p>
+<p>现在，我们来看看在具体的调用方式中this是怎样的。</p>
+<h3 id="一-作为函数进行调用"><a href="#一-作为函数进行调用" class="headerlink" title="一. 作为函数进行调用"></a>一. 作为函数进行调用</h3><p>当一个函数作为函数进行调用时，是区别于其他调用机制：方法、构造器以及apply、call。</p>
+<p>使用这种方式进行调用通常在函数上使用了()操作符，使用了()操作符的表达式并没有将函数作为对象的一个属性。<br>下面是一个示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a=<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">foo();<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>如你所见，a是声明在全局作用域中的变量，a也是全局对象的一个同名属性。当foo()被调用时，this.a被解析称为了全局变量a，因此this指向全局对象，函数的上下文是全局上下文——window对象。</p>
+<p>如果使用严格模式(strict mode)，则this并不能指向全局对象，this此时将会指向undefined：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="meta">	"use strict"</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a=<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">foo();</span><br><span class="line"><span class="comment">//TypeError: Cannot read property 'a' of undefined(…)</span></span><br></pre></td></tr></table></figure>
+<h3 id="二-作为方法进行调用"><a href="#二-作为方法进行调用" class="headerlink" title="二. 作为方法进行调用"></a>二. 作为方法进行调用</h3><p>当一个函数被赋值为对象的一个属性，并使用引用该函数的这个属性进行调用时，那么函数就是作为对象的一个方法进行调用的。</p>
+<p>示例如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">	a:<span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line">obj.foo=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;;</span><br><span class="line">obj.foo();<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>如果你对面向对象了解的话，你肯定知道，一个方法所属的对象在该方法体内可以以this的形式进行引用。在这里，将函数作为对象的一个方法进行调用时，该对象就变成了函数的上下文，并且在函数内部可以以this参数的形式进行访问。</p>
+<p>请看下面示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">	a:<span class="number">2</span>,</span><br><span class="line">	foo:foo</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> bar=obj.foo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a=<span class="string">"two"</span>;</span><br><span class="line">bar();<span class="comment">//"two"</span></span><br></pre></td></tr></table></figure>
+<p>在这里，虽然bar是obj.foo的一个引用，但是实际上，它引用的是foo函数本身，因此此时的bar()其实是一个不带任何修饰的函数调用，因此this指向全局对象。当使用严格模式时，this指向undefined。</p>
+<h3 id="三-作为构造器进行调用"><a href="#三-作为构造器进行调用" class="headerlink" title="三. 作为构造器进行调用"></a>三. 作为构造器进行调用</h3><p>将函数进行构造器(constructor)进行调用，我们要在函数进行调用前使用new关键字。 </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> foo();</span><br></pre></td></tr></table></figure>
+<p>将函数作为构造器进行调用，或者说使用new来调用函数，会自动执行下面的操作。</p>
+<ul>
+<li>创建一个新的空对象。</li>
+<li>传递给构造器的对象是this参数，从而成为构造器的函数上下文。</li>
+<li>如果没有显式的返回值，新创建的对象则作为构造器的返回值进行返回。</li>
+</ul>
+<p>请看下面代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">this</span>.a=a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bar=<span class="keyword">new</span> foo(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(bar.a);</span><br></pre></td></tr></table></figure>
+<p>作为构造函数调用时foo()时，我们会构造一个新对象并把它绑定到foo(…)调用中的this上。</p>
+<h3 id="四-使用apply-call-方法进行调用"><a href="#四-使用apply-call-方法进行调用" class="headerlink" title="四. 使用apply()/call()方法进行调用"></a>四. 使用apply()/call()方法进行调用</h3><p>在函数调用的时候，JavaScript为我们提供了一种方式，可以显式指定任何一个对象作为其函数上下文。JavaScript的每个函数都有apply()和call()方法，它们的功能相同，仅仅是传入参数不同。</p>
+<p>通过函数的apply()方法来调用函数，我们要给apply()传入两个参数：一个是作为函数上下文的对象，另外一个是作为函数参数所组成的数组。call()方法的使用方式类似，唯一不同的是，给函数传入的参数是一个参数列表，而不是单个数组。</p>
+<p>请看示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">	a:<span class="number">2</span>,</span><br><span class="line">&#125;;</span><br><span class="line">foo.call(obj);</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，通过foo.call(…),我们在调用foo时强制把它的this绑定到obj上。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>如果要判断一个运行中函数的this绑定，就需要找到这个函数的直接调用位置，然后根据其调用方式来判断this的绑定对象。</p>
+<ol>
+<li>作为构造器进行调用，this指向新创建的对象。</li>
+<li>使用call/apply方法调用时，this指向指定的对象。</li>
+<li>作为方法进行调用时，this指向拥有该方法的对象</li>
+<li>作为普通函数进行调用时，this指向全局对象window，严格模式下指向undefined。</li>
+</ol>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#JavaScript" >
+    <span class="tag-code">JavaScript</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/07/10/你不知道的CSS-一/">
+        <span class="nav-arrow">← </span>
+        
+          你不知道的CSS(一)
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2016/07/16/深入理解JavaScript之变量提升/">
+        
+          深入理解JavaScript之变量提升
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#this是什么"><span class="toc-nav-text">this是什么</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#一-作为函数进行调用"><span class="toc-nav-text">一. 作为函数进行调用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#二-作为方法进行调用"><span class="toc-nav-text">二. 作为方法进行调用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#三-作为构造器进行调用"><span class="toc-nav-text">三. 作为构造器进行调用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#四-使用apply-call-方法进行调用"><span class="toc-nav-text">四. 使用apply()/call()方法进行调用</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#总结"><span class="toc-nav-text">总结</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanyuanfe.github.io/2016/07/14/深入理解JavaScript之this/';
+    var banner = 'http://img.yanyuanfe.cn/js.png'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "深入理解JavaScript之this",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

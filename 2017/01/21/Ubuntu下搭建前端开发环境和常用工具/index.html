@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="生如逆旅，一苇以航">
+  <meta name="keyword" content="合拾, 前端, FE">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Ubuntu下搭建前端开发环境和常用工具 | 合拾
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/dracula.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?c8d6cdf0afa74827b1f06d751a403910";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>    
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png">
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>合拾</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Ubuntu下搭建前端开发环境和常用工具</h2>
+  <p class="post-date">2017-01-21</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>现在越来越多的公司都要求开发熟悉Linux环境下开发，常用的Linux版本为Ubuntu，在Ubuntu下开发需要的一些环境和工具是必然要了解的。</p>
+</blockquote>
+<p><img src="http://img.yanyuanfe.cn/isodesk.jpg" alt="image"></p>
+<a id="more"></a>
+<div class="tip"><br>    距离刚开始入职实习到现在已经一个月，还记得刚领到公司配的电脑，打开发现是Ubuntu，整个人都是懵逼的，之前虽然在虚拟机跑过Ubuntu，但是也还没有完全使用它来开发，所以还是吃惊不小，不过心里也有些激动，毕竟Ubuntu要是用的6也挺装逼的不是吗？后来经过一周的熟悉，也掌握了一些基本的操作，也曾踩过许多坑，所以写下这篇文章来总结一下。<br></div>
+
+
+<h3 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h3><p>科学上网应该是每个开发者的必备技能吧，在一台新电脑上，上不了Google简直浑身难受。而且科学上网后上Github的速度都是杠杠的。</p>
+<p>目前所知科学上网的几种姿势里，蓝灯最简单方便，shadowsocks最好用，下面分别讲解下其安装方法：</p>
+<p>PS：Ubuntu下最常用的快捷键是打开终端：Ctrl+Alt+T。<br>Win键：快速打开Dash Home应用搜索。</p>
+<ul>
+<li>Lantern：蓝灯。<br>蓝灯的Github：<a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">https://github.com/getlantern/lantern</a><br>进去直接下载Ubuntu的deb安装包，下载后双击打开按提示安装即可。<br>安装完成后可以按win键进入Dash Home搜索lantern找到蓝灯，或者在命令行输入lantern即可自动打开浏览器，看下是不是能上谷歌了。</li>
+<li>shadowsocks<br>shadowsocks应该是现在最稳定可靠的科学上网利器了，在Ubuntu下安装和配置我也是捣鼓了好几天。<br>在Ubuntu下使用shadowsocks最好安装其GUI图形客户端——shadowsocks-qt5，这样以后每次操作会很方便。</li>
+</ul>
+<p>shadowsocks-qt5的安装指南：<a href="https://github.com/carvenli/shadowsocks-qt5-wiki" target="_blank" rel="noopener">https://github.com/carvenli/shadowsocks-qt5-wiki</a></p>
+<p><strong>Ubuntu</strong></p>
+<p>通过PPA源安装，仅支持Ubuntu 14.04或更高版本。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:hzwhuang/ss-qt5</span><br><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install shadowsocks-qt5</span><br></pre></td></tr></table></figure>
+<p>我在安装的时候就出问题了，在运行sudo apt-get update的时候报错hash校验和不符，我百度谷歌试了N种解决方案都没用，甚至重装了一遍系统也一样，最后在同事电脑上安装也不行，后面发现好像是系统问题，于是我在自己的Win10笔记本的虚拟机上试了下，16.06版本的居然可以安装，而公司电脑默认安装的都是Ubuntu14.04的版本的，后来我果断装了Ubuntu16.06才解决这个问题。</p>
+<p>shadowsocks不是像lantern那样安装了就能用的，它需要你有服务器节点，在客户端界面进行相关配置，具体资源需要自己去发掘了，最简便的是导入配置文件就好了，然后连接节点，这时候还不能科学上网，Ubuntu需要配置Sockt5代理，打开设置&gt;网络&gt;代理，选择手动，设置Socket5，地址一般是127.0.0.1，端口为8080。然后确定输入密码就可以尽情上Google了。</p>
+<div class="tip"><br>Ubuntu16.04的软件中心应该是有bug，安装不了第三方.deb文件，我们只有使用dpkg -i 或者gdebi的方式安装，我使用的是后者，因为后者功能更加强大。要使用gdebi命令先要安装它：<br>打开终端并使用下面的命令:<br><br><br> sudo apt-get install gdebi<br><br><br>然后就可以安装.deb文件了。安装过程如下：先切换到你下载的lantern的安装文件目录下，直接使用：<br><br><br> sudo gdebi lantern-installer-beta-64-bit.deb<br><br></div>
+
+
+<h3 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h3><p>Chrome是我钟爱的浏览器，没有之一。新电脑首先安装的软件就是Chrome，安装Chrome直接进入百度搜索Chrome进入官网下载deb包安装即可。</p>
+<h3 id="Sublime"><a href="#Sublime" class="headerlink" title="Sublime"></a>Sublime</h3><p>终于轮到开发工具了，Sublime应该是最轻量级的编辑器了吧，她最大的特点就是秒开，配合其强大的插件库也是如有神助。<br>进入Sublime的官网：<a href="http://www.sublimetext.com/，可直接下载其deb安装包。" target="_blank" rel="noopener">http://www.sublimetext.com/，可直接下载其deb安装包。</a><br>当然，你也可以通过终端，仅需三行命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:webupd8team/sublime-text-3</span><br><span class="line"></span><br><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">$ sudo apt-get install sublime-text-installer</span><br></pre></td></tr></table></figure>
+<p>最后可在Dash Home中见到Sublime-text的软件图标，点击就可使用了.<br>你也可以从命令行启动：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ subl</span><br></pre></td></tr></table></figure>
+<div class="tip"><br>    在使用Sublime时遇到的问题：首先我们都会去安装自己常用的插件来提高自己的开发效率，在安装packge的时候经常遇到安装失败的问题，因为Sublime Text的很多package repository都在托管在github上，但是github在国内的网络环境下有时……。因此在使用Package Control安装插件时，会出现下面的Prompt：<br>    <img src="http://img.yanyuanfe.cn/130046_LhBu_243155.png" alt="image"><br>    解决方案如下：<br>    1.  命令行输入：<br><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ dig @8.8.8.8 -t A sublime.wbond.net +noall +answer</span><br></pre></td></tr></table></figure><br><br>输出如下：<br><br>  ; &lt;&lt;&gt;&gt; DiG 9.9.5-3-Ubuntu &lt;&lt;&gt;&gt; @8.8.8.8 -t A<br>  sublime.wbond.net +noall +answer<br>  ; (1 server found)<br>  ;; global options: +cmd<br>  sublime.wbond.net.  82  IN  A   50.116.34.243<br>  那么IPv4 地址就是50.116.34.243.<br>  2.  命令行输入<br><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo vim /etc/hosts</span><br></pre></td></tr></table></figure><br><br>打开 /etc/hosts文件，然后用上面的IPV4地址将{}替换掉就OK了。<br>{IPv4 address}    sublime.wbond.net<br><br></div>
+
+
+<h3 id="WebStorm"><a href="#WebStorm" class="headerlink" title="WebStorm"></a>WebStorm</h3><p>WebStorm被成为前端开发神器，我在项目开发的过程中使用的也是这个IDE，值得一提的是它的Git工具，很强大，特别是在处理代码冲突的时候，你会被它折服的。</p>
+<p><strong>安装</strong></p>
+<p>下载：<a href="http://www.jetbrains.com/webstorm/" target="_blank" rel="noopener">http://www.jetbrains.com/webstorm/</a></p>
+<p>解压下载的 gz 包，命令行下运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> bin</span><br><span class="line">$ ./webstorm.sh</span><br></pre></td></tr></table></figure>
+<p>然后就安装成功了，不过 WebStorm 默认情况下是需要收费的，你可以去找找密钥试试。</p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>Node也应该是前端工程化必备的一个工具了。<br>安装Node先安装nvm。<br>nvm 的全称是 Node Version Manager，之所以需要这个工具，是因为 Node.js 的各种特性都没有稳定下来，所以我们经常由于老项目或尝新的原因，需要切换各种版本。<br><strong>安装</strong><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash</span><br></pre></td></tr></table></figure></p>
+<p><strong>配置</strong><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">export</span> NVM_DIR=<span class="string">"<span class="variable">$HOME</span>/.nvm"</span></span><br><span class="line">[ -s <span class="string">"<span class="variable">$NVM_DIR</span>/nvm.sh"</span> ] &amp;&amp; . <span class="string">"<span class="variable">$NVM_DIR</span>/nvm.sh"</span> <span class="comment"># This loads nvm</span></span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，你的 shell 里面应该就有个 nvm 命令了，调用它试试。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nvm</span><br></pre></td></tr></table></figure>
+<p>当看到有输出时，则 nvm 安装成功。</p>
+<p>使用 nvm 的命令安装 Node.js 最新版：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nvm install node</span><br></pre></td></tr></table></figure>
+<p>然后在任何新的shell只是使用已安装的版本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nvm use node</span><br></pre></td></tr></table></figure>
+<p>安装特定版本Node：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nvm run node --version</span><br></pre></td></tr></table></figure>
+<p>安装完成后，查看一下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nvm ls</span><br></pre></td></tr></table></figure>
+<p>这时候可以看到自己安装的所有 Node.js 版本，那个绿色小箭头的意思就是现在正在使用的版本。<br>如果你那里没有出现绿色小箭头的话，告诉 nvm 你要使用 7.4.0 版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nvm use 7.4.0</span><br></pre></td></tr></table></figure>
+<p>然后再次查看，这时候小箭头应该出现了。</p>
+<p>OK，我们在终端中输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ node</span><br></pre></td></tr></table></figure>
+<p>REPL(read–eval–print loop) 应该就出来了，那我们就成功了。</p>
+<p>随便敲两行命令玩玩吧。</p>
+<h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。通过使用git工具，我们可以实现团队间合作开发统一管理，可以从远程仓库中提取代码，也可以把代码上传到远程仓库，从而实现代码的同步更新。<br><strong>安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
+<p>配置git用户名和邮箱，之后就可以使用git工具了。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name  <span class="string">"用户名或者用户ID"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.email  <span class="string">"邮箱"</span></span><br></pre></td></tr></table></figure>
+<h3 id="zsh"><a href="#zsh" class="headerlink" title="zsh"></a>zsh</h3><p>一开始我不知道还有zsh这个东东的，后来看到同事的终端怎么比我的漂亮，就去琢磨了下，原来这就是zsh——传说中的终极Shell。<br>Linux发行版通常默认的Shell就是Bash。也就是你刚开始打开的终端。</p>
+<p>Bash确实是不错的Shell，但仍有用很多不尽人意的地方，如自动补全的功能不够强大，定位较长路径不够方便，命令历史管理不够完善等。</p>
+<p>使用zsh，你会变得很Geek。</p>
+<p>想知道你的系统有几种shell，可以通过以下命令查看：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat /etc/shells</span><br></pre></td></tr></table></figure>
+<p><strong>安装zsh</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get install zsh</span><br></pre></td></tr></table></figure>
+<p>安装完成后设置当前用户使用 zsh：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<p>根据提示输入当前用户的密码然后<strong>重启</strong>就可以了（一开始安装了没重启就用发现还是Bash还以为安装错了）。</p>
+<p><strong>安装oh my zsh</strong></p>
+<p>因为 zsh 的默认配置及其复杂繁琐,让人望而却步,直到有了oh-my-zsh这个开源项目,让zsh配置降到0门槛.而且它完全兼容 bash .</p>
+<p>地址:<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="noopener">https://github.com/robbyrussell/oh-my-zsh</a></p>
+<p>它就是为配置你的 zsh 而生的.</p>
+<p>安装「oh my zsh」可以自动安装也可以手动安装。</p>
+<p>自动安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span><br></pre></td></tr></table></figure>
+<p>手动安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh</span><br><span class="line">cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br></pre></td></tr></table></figure>
+<p>安装 oh-my-zsh 时,它自动读取你的环境变量并且自动帮 zsh 进行设置.</p>
+<h3 id="微信"><a href="#微信" class="headerlink" title="微信"></a>微信</h3><p><strong>Electronic-wechat</strong></p>
+<p><strong>Ubuntu微信客户端下载</strong></p>
+<p>开箱即用的稳定版应用：<br><a href="https://github.com/geeeeeeeeek/electronic-wechat/releases" target="_blank" rel="noopener">https://github.com/geeeeeeeeek/electronic-wechat/releases</a> </p>
+<p><strong>项目地址</strong></p>
+<p><a href="https://github.com/geeeeeeeeek/electronic-wechat" target="_blank" rel="noopener">https://github.com/geeeeeeeeek/electronic-wechat</a></p>
+<p><strong>如何使用</strong></p>
+<p>在下载和运行这个项目之前，你需要在电脑上安装 Git 和 Node.js (来自 npm)。</p>
+<p>在命令行中输入:<br><strong>下载仓库</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/geeeeeeeeek/electronic-wechat.git</span><br></pre></td></tr></table></figure>
+<p><strong>进入仓库</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> electronic-wechat</span><br></pre></td></tr></table></figure>
+<p><strong>安装依赖, 运行应用</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install &amp;&amp; npm start</span><br></pre></td></tr></table></figure>
+<p>根据你的平台打包应用:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm run build:osx</span><br><span class="line">$ npm run build:linux</span><br><span class="line">$ npm run build:win</span><br></pre></td></tr></table></figure>
+<p>提示: 如果 npm install 下载缓慢，你可以使用 淘宝镜像(cnpm) 替代 npm 。</p>
+<h3 id="Shutter"><a href="#Shutter" class="headerlink" title="Shutter"></a>Shutter</h3><p><strong>Ubuntu下的截图利器Shutter</strong></p>
+<ol>
+<li>打开Ubuntu软件中心,搜索Shutter并安装</li>
+<li>搜索系统中安装的Shutter并使用</li>
+<li>体验功能齐全的截图工具吧，包括全屏幕截图，区域截图，下拉菜单截图等超多功能 </li>
+</ol>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3><p>到此为止，介绍了一些Ubuntu下前端开发环境的搭建和常用的工具，后续有好的工具会再次更新的。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Linux" >
+    <span class="tag-code">Linux</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/10/15/正则表达式必知必会/">
+        <span class="nav-arrow">← </span>
+        
+          正则表达式必知必会
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2017/01/24/理解React组件生命周期/">
+        
+          理解React组件生命周期
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#科学上网"><span class="toc-nav-text">科学上网</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Chrome"><span class="toc-nav-text">Chrome</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Sublime"><span class="toc-nav-text">Sublime</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#WebStorm"><span class="toc-nav-text">WebStorm</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Node"><span class="toc-nav-text">Node</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Git"><span class="toc-nav-text">Git</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#zsh"><span class="toc-nav-text">zsh</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#微信"><span class="toc-nav-text">微信</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Shutter"><span class="toc-nav-text">Shutter</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#End"><span class="toc-nav-text">End</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanyuanfe.github.io/2017/01/21/Ubuntu下搭建前端开发环境和常用工具/';
+    var banner = 'http://img.yanyuanfe.cn/isodesk.jpg'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanyuanfe";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Ubuntu下搭建前端开发环境和常用工具",
+        owner: "yanyuanfe",
+        repo: "YanYuanFE.github.io",
+        oauth: {
+          client_id: "00c0950e46847a4acbc6",
+          client_secret: "d8bd99572bbb807db2aae40bb13de8e3c2ee9049"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
