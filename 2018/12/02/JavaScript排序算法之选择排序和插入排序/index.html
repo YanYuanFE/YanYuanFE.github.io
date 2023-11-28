@@ -135,7 +135,7 @@
     <section class="markdown-content"><blockquote>
 <p>学习数据结构和算法有助于写出性能更优的代码。</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/algorithm.jpg" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/algorithm.749ekhhmg4w0.webp" alt="image"></p>
 <a id="more"></a>
 <blockquote>
 <p>基础决定你可能达到的高度，而业务决定了你的最低瓶颈</p>
@@ -162,7 +162,7 @@
 <p>下面是测试代码：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> array = getRandom(<span class="number">1</span>, <span class="number">10000</span>, <span class="number">1000</span>);</span><br><span class="line"><span class="keyword">let</span> array2 = [...array];</span><br><span class="line"></span><br><span class="line">testFuncTime(<span class="string">'selectionSort'</span>, selectionSort, array);</span><br><span class="line">testFuncTime(<span class="string">'insertionSort'</span>, insertionSort, array2);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(array);</span><br><span class="line"><span class="built_in">console</span>.log(array2);</span><br></pre></td></tr></table></figure>
 <p>在上述代码中，生成了一个范围在1-10000，长度为1000的随机数数组array，并且拷贝一份赋值给array2，然后运行testFuncTime进行测试，最终输出排序结果。<br>结果如下：</p>
-<p><img src="http://img.yanyuanfe.cn/sortTest1.png" alt="排序测试"><br>可以看到插入排序的耗时大约是选择排序的三倍，恰恰和预期相反，那究竟是为什么呢？</p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/sortTest1.1zme84s9c0m8.webp" alt="排序测试"><br>可以看到插入排序的耗时大约是选择排序的三倍，恰恰和预期相反，那究竟是为什么呢？</p>
 <p>原因就是：选择排序内层遍历一次取到最小值的索引，每次只需要一次交换（swap）操作。但是插入排序在内层遍历的时候，会从右向左依次比较大小再交换，而<br>交换操作又是最耗时的。</p>
 <p>下面我们对插入排序的实现进行优化。</p>
 <h3 id="优化插入排序"><a href="#优化插入排序" class="headerlink" title="优化插入排序"></a>优化插入排序</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertionSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 从1开始</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>, len = arr.length; i &lt; len; i ++) &#123;</span><br><span class="line">    <span class="comment">// 寻找元素合适的插入位置</span></span><br><span class="line">    <span class="keyword">let</span> e = arr[i];</span><br><span class="line">    <span class="keyword">let</span> j; <span class="comment">// j保存元素e应该插入的位置</span></span><br><span class="line">    <span class="keyword">for</span> (j = i; j &gt; <span class="number">0</span> &amp;&amp; arr[j - <span class="number">1</span>] &gt; e; j --) &#123;</span><br><span class="line">      arr[j] = arr[j - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    arr[j] = e;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -259,7 +259,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2018/12/02/JavaScript排序算法之选择排序和插入排序/';
-    var banner = 'http://img.yanyuanfe.cn/algorithm.jpg'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/algorithm.749ekhhmg4w0.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
