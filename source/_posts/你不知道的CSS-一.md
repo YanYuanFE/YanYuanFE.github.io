@@ -2,7 +2,7 @@
 title: 你不知道的CSS(一)
 date: 2016-07-10 17:21:08
 categories: 前端
-banner: http://img.yanyuanfe.cn/css%20module.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/css-module.57o4h7xq63w0.webp
 tags:
 	- CSS
 
@@ -14,7 +14,7 @@ tags:
 > “像是语言的进化，它让CSS更强大”。                 
 — Nicole Sullivan
 
-![image](http://img.yanyuanfe.cn/css%20module.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/css-module.57o4h7xq63w0.webp)
 
 <!--more-->
 

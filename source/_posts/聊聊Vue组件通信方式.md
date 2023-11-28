@@ -8,7 +8,7 @@ tags:
 
 > 组件是现代前端框架最强大的功能，但是组件的作用域是相互独立的，那么不同组件之间如何传递数据呢？
 
-![image](http://img.yanyuanfe.cn/vue.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/vue.4zot14zvfyg0.webp)
 
 <!--more-->
 

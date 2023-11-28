@@ -1,7 +1,7 @@
 ---
 title: 基于HTML5实现跨文档通信
 date: 2017-8-25 20:56:14
-banner: http://img.yanyuanfe.cn/Creating-a-HTML5-Flipbook.jpg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/Creating-a-HTML5-Flipbook.6xve51mzrw80.webp
 tags:
 	- HTML5
 ---
@@ -9,7 +9,7 @@ tags:
 
 > 当我们谈论Web通信的时候，实际上谈论的是两个略有不同的系统：跨文档通信(cross-document messaging)和通道通信(channel messaging)。跨文档通信就是我们国内更为熟知的HTML5 window.postMessage()应用的那种通信；通道通信也被称为”MessageChannel”. 伴随着server-sent事件以及web sockets, 跨文档通信和通道通信成为HTML5 通信接口“套件”中有用的一部分。
 
-![image](http://img.yanyuanfe.cn/Creating-a-HTML5-Flipbook.jpg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/Creating-a-HTML5-Flipbook.6xve51mzrw80.webp)
 
 <!--more-->
 
@@ -118,7 +118,7 @@ app.html位于本地localhost，在此文件中，嵌入位于云服务器上的
 在WebStorm中预览app.html，点击iframe中的按钮，控制台打印出如下信息。
  
 从控制台打印出的log可以看到，MessageEvent主要有三个属性：
-![image](http://img.yanyuanfe.cn/console.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/console.64b6z72yoh80.webp)
 
 data： 传递的消息；
 
@@ -152,6 +152,6 @@ function handleMessage(event) {
  
 ### 最后
 HTML5的postMessage不仅仅可以实现跨文档通信，跨域通信、多窗口通信、当前页和新窗口之间的通信都可以用如此简单的方式实现。如此强大的功能，那么其兼容性如何呢？如下：
-![image](http://img.yanyuanfe.cn/caniuse.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/caniuse.4zddugcpr7c0.webp)
  
 可以看出，postMessage已经支持大部分浏览器，需要注意的是，在IE8、9和Firefox6及其以下版本只支持字符串作为传递的消息数据。

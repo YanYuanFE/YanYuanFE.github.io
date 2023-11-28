@@ -1,13 +1,13 @@
 ---
 title: 编写高性能的React代码
 date: 2018-9-25 21:56:56
-banner: http://img.yanyuanfe.cn/react.jpg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react.vrvfir1nugw.webp
 tags:
 - React
 ---
 > 本文总结了一些编写React代码的建议，有助于理解React的渲染机制，主要是通过减少不必要的重新渲染来提升React性能。
 
-![image](http://img.yanyuanfe.cn/react.jpg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react.vrvfir1nugw.webp)
 
 <!--more-->
 

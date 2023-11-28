@@ -1,13 +1,13 @@
 ---
 title: 浅析HTTP缓存
 date: 2018-8-22 22:18:58
-banner: http://img.yanyuanfe.cn/photo-1462331940025-496dfbfc7564.jpeg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1462331940025-496dfbfc7564.31axm51pcfm0.webp
 tags:
 	- HTTP
 ---
 > HTTP缓存，面试必问，总结了一波。
 
-![image](http://img.yanyuanfe.cn/photo-1462331940025-496dfbfc7564.jpeg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1462331940025-496dfbfc7564.31axm51pcfm0.webp)
 
 <!--more-->
 

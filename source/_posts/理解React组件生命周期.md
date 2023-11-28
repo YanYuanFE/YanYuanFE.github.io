@@ -2,7 +2,7 @@
 title: 理解React组件生命周期
 date: 2017-01-24 22:10:27
 categories: 前端
-banner: http://img.yanyuanfe.cn/react_illo_800x600_1x.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react_illo_800x600_1x.2mcmptriwyy0.webp
 tags:
 	- React
 ---
@@ -10,7 +10,7 @@ tags:
 
 > 了解组件生命周期将使你能够在创建或销毁组件时执行某些操作。 此外，它让您有机会决定是否应该首先更新组件，并相应地对属性（props）或状态（state）更改做出反应。
 
-![image](http://img.yanyuanfe.cn/react_illo_800x600_1x.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react_illo_800x600_1x.2mcmptriwyy0.webp)
 
 <!--more-->
 
@@ -24,7 +24,7 @@ React通过调用React.createClass（）方法来创建组件，React.createClas
 为了清楚地理解生命周期，我们需要区分组件被创建的初始创建阶段，状态和属性变化触发的更新阶段以及组件被卸载的阶段。
 
 ### 初始化（Initialization）
-![image](http://img.yanyuanfe.cn/initial.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/initial.248srxls9ips.webp)
 
 从上面的图我们可以看到，前两个方法被调用的是getDefaultProps和getInitialState。这两个方法只在最初渲染组件时调用一次。 getInitialState方法允许设置初始状态值，这是通过this.state在组件内部可访问的。
 
@@ -55,7 +55,7 @@ getDefaultProps: function(){
 
 ### 状态变化（State Changes）
 状态更改将触发许多钩子函数。
-![image](http://img.yanyuanfe.cn/statechange.png)  
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/statechange.4yinwc51ro00.webp)  
 
 **shouldComponentUpdate**总是在render方法之前调用，并允许定义是否需要或跳过重新渲染。显然，这种方法从来没有在初始渲染时调用。必须返回布尔值。  
 
@@ -84,7 +84,7 @@ componentDidUpdate: function(prevProps, prevState){
 ```
 ### 属性变更（Props Changes）
 对props对象的任何更改也将触发生命周期函数，并且几乎与状态更改相同，且有一个额外的方法被调用。
-![image](http://img.yanyuanfe.cn/changeprops.png)  
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/changeprops.550bhbn7bp40.webp)  
 **componentWillReceiveProps**仅在属性已更改并且不是初始渲染时调用。 componentWillReceiveProps允许根据现在和即将到来的属性来更新状态，而不触发另一个渲染。这里需要记住的一个有趣的事情是，没有等效的状态的方法，因为状态变化不应该触发任何属性的变化。
 
 ```js
@@ -97,7 +97,7 @@ componentWillReceiveProps: function(nextProps) {
 剩余的生命周期函数与状态改变触发方法相同，在这里没有什么不同。
 
 ### 卸载（Unmounting）
-![image](http://img.yanyuanfe.cn/unmount.png)  
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/unmount.tdf6ifmjlsw.webp)  
 
 组件卸载会触发的唯一一个方法是**componentWillUnmount**，当组件从DOM中移除之前调用componentWillUnmount。当需要执行清理操作时，该方法可能是有益的。删除componentDidMount中定义的任何计时器。
 

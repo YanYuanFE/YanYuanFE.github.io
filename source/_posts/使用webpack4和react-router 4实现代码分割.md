@@ -1,7 +1,7 @@
 ---
 title: 使用webpack4和react-router 4实现代码分割
 date: 2018-03-30 14:05:16
-banner: http://img.yanyuanfe.cn/photo-1416339442236-8ceb164046f8.jpeg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1416339442236-8ceb164046f8.2vwnww6auku0.webp
 tags:
 - React
 - react-router
@@ -10,7 +10,7 @@ tags:
 
 > Webpack的Code Splitting特性能够把代码分离到不同的bundle中，然后可以按需加载或并行加载这些文件。
 
-![image](http://img.yanyuanfe.cn/banner_1025.jpg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/banner_1025.4flvtamjo160.webp)
 
 <!--more-->
 
@@ -233,10 +233,10 @@ export default class Detail extends React.Component {
 然后运行npm start启动项目：
 打开浏览器访问localhost：8080
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_217.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_217.wk4rejsghxs.webp)
 
 可以看到页面先加载了main.js和0.js，点击详情按钮跳转到http://localhost:8080/detail。
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_218.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_218.3a27r9z5g0c0.webp)
 
 马上加载了1.js，这样就实现了代码分割，每个路由都是动态加载的。提升了首屏渲染速度。

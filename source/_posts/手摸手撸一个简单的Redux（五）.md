@@ -1,7 +1,7 @@
 ---
 title: 手摸手撸一个简单的Redux（五）
 date: 2018-04-04 21:30:00
-banner: http://img.yanyuanfe.cn/photo-1432821596592-e2c18b78144f.jpeg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1432821596592-e2c18b78144f.f3ca3jsspa0.webp
 tags:
  - Redux
  - React
@@ -9,7 +9,7 @@ tags:
 
 > Redux使用CombineReducer来组合多个reducer函数。
 
-![image](http://img.yanyuanfe.cn/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.glzlaco1kn4.webp)
 
 <!--more-->
 
@@ -124,7 +124,7 @@ import { connect } from '../react-redux'
 
 然后运行项目，开始报错：
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_220.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_220.5s770zwmeek0.webp)
 
 emm。
 
@@ -180,7 +180,7 @@ const stateProps = mapStateToProps(store.getState(), this.props);
 
 然后，没有报错了，但是页面好像有点问题，下面的筛选按钮没有显示出来。
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_221.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_221.76k0kqa32fo0.webp)
 
 使用React开发者工具查看，是因为props没有传递下去。修改上述代码，将ConectComponent
 中的this.props也传递下去。
@@ -198,7 +198,7 @@ this.setState({
 
 再查看界面，显示好了，下面尝试新增一个to do。输入提交后又报错了。
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_222.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_222.pdkd939kdls.webp)
 
 查看报错信息：
 ``` js
@@ -256,7 +256,7 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps) =>
 一个dispatch方法。
 再次尝试添加todo，添加成功，但是出来了两条数据，可能是连续触发了两次dispatch，点击筛选按钮试试，报错了。
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_223.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_223.7908mpgeq1c0.webp)
 查看报错信息：
 
 ``` js
@@ -307,7 +307,7 @@ if (typeof mapDispatchToProps === 'function') {
 
 这样，下面对mapDispatch进行判断后，会返回一个对象，包含dispatch方法。
 重新添加todo，成功，数据正确。如下图。
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_224.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_224.5e8xhpetkk00.webp)
 
 细心的你发现了吗？在右边的控制台一直会出现警告，大概意思是我们的组件props参数应该是一些数值但是实际上
 是undefined，因为在组件内部定义了PropTypes。
@@ -345,7 +345,7 @@ componentWillMount() {
 
 最终效果如下，没有报错信息，尝试添加todo和修改，功能都正常。
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_225.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_225.3vfezijete40.webp)
 
 
 

@@ -2,7 +2,7 @@
 title: 深入理解JavaScript之克隆
 date: 2016-09-24 13:43:41
 categories: 前端
-banner: http://img.yanyuanfe.cn/js001.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/js001.5nfdioko1r00.webp
 tags:
 	- JavaScript
 ---
@@ -11,7 +11,7 @@ tags:
 
 > JavaScript中万物皆是对象，这显然是错误的。
 
-![image](http://img.yanyuanfe.cn/js001.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/js001.5nfdioko1r00.webp)
 
 <!--more-->
 

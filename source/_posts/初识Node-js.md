@@ -2,14 +2,14 @@
 title: 初识Node.js
 date: 2016-10-06 08:53:52
 categories: 前端
-banner: http://img.yanyuanfe.cn/nodejs.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/nodejs.2bcetsysxdlw.webp
 tags:
 	- Node
 ---
 
 > 任何可以使用JavaScript来编写的应用，最终会由JavaScript编写。
 
-![image](http://img.yanyuanfe.cn/nodejs.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/nodejs.2bcetsysxdlw.webp)
 
 <!--more-->
 

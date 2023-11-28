@@ -1,14 +1,14 @@
 ---
 title: 谈谈React中的组件
 date: 2018-03-19 21:00:56
-banner: http://img.yanyuanfe.cn/photo-1454165804606-c3d57bc86b40%20%281%29.jpeg
+banner: hhttps://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1454165804606-c3d57bc86b40-(1).3jxklf3d9am0.webp
 tags:
 - React
 ---
 
 > React的核心思想是一切皆组件
 
-![image](http://img.yanyuanfe.cn/react.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react.5a3ut5fgsbw0.webp)
 
 <!--more-->
 

@@ -1,7 +1,7 @@
 ---
 title: 手摸手撸一个简单的Redux（三）
 date: 2018-03-8 10:36:15
-banner: http://img.yanyuanfe.cn/photo-1432821596592-e2c18b78144f.jpeg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1432821596592-e2c18b78144f.f3ca3jsspa0.webp
 tags:
  - Redux
  - React
@@ -10,7 +10,7 @@ tags:
 > It provides a third-party extension point between dispatching an
 action, and the moment it reaches the reducer. ---中间件
 
-![image](http://img.yanyuanfe.cn/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.glzlaco1kn4.webp)
 
 <!--more-->
 
@@ -301,4 +301,4 @@ function incrementAsync() {
 
 下面来验证一下实现的thunk中间件，在src下替换redux-thunk为./thunk。在浏览器依次点击三个按钮，结果如下，达到预期效果。
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_197.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_197.1awh6tz3s4w0.webp)

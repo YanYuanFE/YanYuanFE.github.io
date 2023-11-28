@@ -1,7 +1,7 @@
 ---
 title: 手摸手撸一个简单的Redux（二）
 date: 2018-03-6 17:32:05
-banner: http://img.yanyuanfe.cn/photo-1432821596592-e2c18b78144f.jpeg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1432821596592-e2c18b78144f.f3ca3jsspa0.webp
 tags:
  - Redux
  - React
@@ -9,7 +9,7 @@ tags:
 
 > 理解Redux的原理有助于我们更好的使用它。本文实现react-redux的功能。
 
-![image](http://img.yanyuanfe.cn/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.glzlaco1kn4.webp)
 
 <!--more-->
 
@@ -527,4 +527,4 @@ ReactDOM.render(
 
 最后，npm start运行项目，打开浏览器界面如下，对其进行操作，符合预期效果：
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_191.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_191.6pxcrvvgjq40.webp)

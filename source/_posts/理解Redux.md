@@ -1,7 +1,7 @@
 ---
 title: 理解Redux
 date: 2018-02-06 14:30:55
-banner: http://img.yanyuanfe.cn/stock-photo-245270081.jpg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/stock-photo-245270081.750kwnzhcyk0.webp
 tags:
   - React
   - Redux
@@ -9,7 +9,7 @@ tags:
 
 > Redux的核心思想是Web应用是一个状态机，视图与状态是一一对应的。
 
-![image](http://img.yanyuanfe.cn/redux.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/redux.6gcc4q3ijd40.webp)
 
 <!--more-->
 

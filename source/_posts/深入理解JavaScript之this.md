@@ -2,7 +2,7 @@
 title: 深入理解JavaScript之this
 date: 2016-07-14 16:50:13
 categories: 前端
-banner: http://img.yanyuanfe.cn/js.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/js.29ijf5e7lwkk.webp
 tags:
 	- JavaScript
 ---
@@ -11,7 +11,7 @@ tags:
 
 > JavaScript非常重要。这并不总是如此，但现在确实如此
 
-![image](http://img.yanyuanfe.cn/js.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/js.29ijf5e7lwkk.webp)
 
 <!--more-->
 
