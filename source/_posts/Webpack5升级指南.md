@@ -7,7 +7,7 @@ tags:
 
 > Webpack5最近发布了正式版，带来了很多优化和新功能，前端工程的构建效率将会大大提升，并且，相比于Webpack4，v5的升级也更加平滑，不会有很多破坏性的变更。
 
-![image](http://img.yanyuanfe.cn/webpack.jpeg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/webpack.2q3bvf07s6k0.webp)
 
 <!--more-->
 Webpack5最近发布了正式版，带来了很多优化和新功能，前端工程的构建效率将会大大提升，并且，相比于Webpack4，v5的升级也更加平滑，不会有很多破坏性的变更。

@@ -1,14 +1,14 @@
 ---
 title: "React Native 封装HTTP请求"
 date: 2018-01-04 17:45:06
-banner: http://img.yanyuanfe.cn/QQ20160705-3.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/QQ20160705-3.4tzwi2z1pyc0.webp
 tags:
  - React Native
 ---
 
 > 作为一个前端开发者，我觉得React Native也是一个很酷的东西，本文不涉及React Native的开发相关，只是总结了开发中的一些最佳实践。不仅仅适合React Native。
 
-![image](http://img.yanyuanfe.cn/react_1_1x.jpg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react_1_1x.wnktqbvq51c.webp)
 
 <!--more-->
 

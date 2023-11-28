@@ -2,7 +2,7 @@
 title: Ubuntu下搭建前端开发环境和常用工具
 date: 2017-01-21 15:52:25
 categories: 前端
-banner: http://img.yanyuanfe.cn/isodesk.jpg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/isodesk.6oi92msedkg0.webp
 tags:
 	- Linux
 ---
@@ -10,7 +10,7 @@ tags:
 
 > 现在越来越多的公司都要求开发熟悉Linux环境下开发，常用的Linux版本为Ubuntu，在Ubuntu下开发需要的一些环境和工具是必然要了解的。
 
-![image](http://img.yanyuanfe.cn/isodesk.jpg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/isodesk.6oi92msedkg0.webp)
 
 <!--more-->
 

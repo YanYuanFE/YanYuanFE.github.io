@@ -1,14 +1,14 @@
 ---
 title: Redux实现简单计数器
 date: 2018-02-7 20:37:16
-banner: http://img.yanyuanfe.cn/photo-1453928582365-b6ad33cbcf64.jpeg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1453928582365-b6ad33cbcf64.2f0qwrqaery8.webp
 tags:
  - Redux
 ---
 
 > redux专注于状态管理，和react解耦，redux也可以结合Angular一起使用。本文结合实例讲解Redux的使用，可以更好的理解Redux。
 
-![image](http://img.yanyuanfe.cn/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.glzlaco1kn4.webp)
 
 <!--more-->
 
@@ -184,7 +184,7 @@ npm start
 
 启动应用，打开浏览器，最终效果如下：
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_208.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_208.6dmk8n2njg00.webp)
 
 点击+、-按钮可以控制数字的加减，而且数字是实时更新的。
 

@@ -8,7 +8,7 @@ tags:
 
 > Hook 是 React 16.8 的新增特性。它可以让你在不编写 Class 的情况下使用 state 以及其他的 React 特性。
 
-![image](http://img.yanyuanfe.cn/hooks.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/hooks.2rpwyz9rc2k0.webp)
 
 <!--more-->
 

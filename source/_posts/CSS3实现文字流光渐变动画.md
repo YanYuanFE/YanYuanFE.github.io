@@ -2,14 +2,14 @@
 title: CSS3实现文字流光渐变动画
 date: 2017-03-18 12:29:46
 categories: 前端
-banner: http://img.yanyuanfe.cn/QQ%E6%88%AA%E5%9B%BE20170318121942.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/QQ截图20170318121942.2ds8pce9cobo.webp
 tags:
 	- CSS
 ---
 
 > 来自百度前端技术学院的实践任务：有趣的鼠标悬浮模糊效果，参考：http://ife.baidu.com/course/detail/id/14，用CSS3实现了一下，顺便复习下CSS的基础。
 
-![image](http://img.yanyuanfe.cn/QQ%E6%88%AA%E5%9B%BE20170318121942.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/QQ截图20170318121942.2ds8pce9cobo.webp)
 
 <!--more-->
 

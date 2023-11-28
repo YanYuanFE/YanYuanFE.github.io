@@ -1,7 +1,7 @@
 ---
 title: react-redux开发简单的To do应用
 date: 2018-02-23 16:44:49
-banner: http://img.yanyuanfe.cn/photo-1454165804606-c3d57bc86b40%20%281%29.jpeg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1454165804606-c3d57bc86b40-(1).3jxklf3d9am0.webp
 tags:
  - Redux
  - React
@@ -9,7 +9,7 @@ tags:
 
 > redux专注于状态管理，和react解耦，为了方便使用，redux的作者封装了一个react专用的库react-redux。
 
-![image](http://img.yanyuanfe.cn/bg2016092101.jpg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/bg2016092101.1tuft6q7ko9s.webp)
 
 <!--more-->
 
@@ -155,7 +155,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 整个应用实现的界面如下：
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_183.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_183.67nf27n9tlg0.webp)
 
 功能主要有，输入文字添加todo事项，显示todo list，点击todo项切换状态，点击tab筛选不同的todo 状态。
 
@@ -554,7 +554,7 @@ document.getElementById('root')
 ```
 浏览器运行效果如下：
 
-![image](http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_209.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_209.1brhrrzx6wg0.webp)
 
 至此，整个To do应用就开发完毕了，对比使用redux开发，react-redux让我们开发react应用的时候更加简单。
 

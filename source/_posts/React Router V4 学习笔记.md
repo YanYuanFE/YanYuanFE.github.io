@@ -1,7 +1,7 @@
 ---
 title: React Router V4学习笔记
 date: 2018-02-02 11:27:57
-banner: http://img.yanyuanfe.cn/stock-photo-245282361.jpg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/stock-photo-245282361.9sbjyl1yc64.webp
 tags:
  - React Router
  - React
@@ -9,7 +9,7 @@ tags:
 
 > React Router现在已经是React开发单页应用必备技能，自升级V4版本以来，许多核心API都进行了重写，践行路由即组件的概念，本文是我学习React Router V4以来的一些总结。
 
-![image](http://img.yanyuanfe.cn/recatrouter.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/recatrouter.qg5w48a5ybk.webp)
 
 <!--more-->
 

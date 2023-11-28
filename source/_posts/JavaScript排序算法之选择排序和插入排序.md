@@ -1,14 +1,14 @@
 ---
 title: JavaScript排序算法之选择排序和插入排序
 date: 2018-12-2 20:01:37
-banner: http://img.yanyuanfe.cn/algorithm.jpg
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/algorithm.749ekhhmg4w0.webp
 tags:
  - 算法
 ---
 
 > 学习数据结构和算法有助于写出性能更优的代码。
 
-![image](http://img.yanyuanfe.cn/algorithm.jpg)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/algorithm.749ekhhmg4w0.webp)
 
 <!--more-->
 
@@ -141,7 +141,7 @@ console.log(array2);
 在上述代码中，生成了一个范围在1-10000，长度为1000的随机数数组array，并且拷贝一份赋值给array2，然后运行testFuncTime进行测试，最终输出排序结果。
 结果如下：
 
-![排序测试](http://img.yanyuanfe.cn/sortTest1.png)
+![排序测试](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/sortTest1.1zme84s9c0m8.webp)
 可以看到插入排序的耗时大约是选择排序的三倍，恰恰和预期相反，那究竟是为什么呢？
 
 原因就是：选择排序内层遍历一次取到最小值的索引，每次只需要一次交换（swap）操作。但是插入排序在内层遍历的时候，会从右向左依次比较大小再交换，而

@@ -1,13 +1,13 @@
 ---
 title: Webpack之构建速度优化
 date: 2018-10-29 21:33:46
-banner: http://img.yanyuanfe.cn/webpack.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/webpack.515s2yvjyjo0.webp
 tags:
 - Webpack
 ---
 > 本文是我在使用Webpack4过程中的一些总结，介绍一些优化Webpack构建速度的方法。
 
-![image](http://img.yanyuanfe.cn/webpack.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/webpack.515s2yvjyjo0.webp)
 
 <!--more-->
 

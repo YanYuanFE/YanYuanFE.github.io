@@ -1,13 +1,13 @@
 ---
 title: Webpack之打包体积优化
 date: 2018-10-30 22:39:51
-banner: http://img.yanyuanfe.cn/webpack.png
+banner: https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/webpack.515s2yvjyjo0.webp
 tags:
 - Webpack
 ---
 > 本文是我在使用Webpack4过程中的一些总结，介绍一些优化Webpack打包体积的方法。
 
-![image](http://img.yanyuanfe.cn/webpack.png)
+![image](https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/webpack.515s2yvjyjo0.webp)
 
 <!--more-->
 Webpack是当前大型项目的主流打包方案，自从将react的脚手架升级Webpack4以来，我也在不断尝试摸索webpack打包优化的一些方案。本文将从以下几个方面，对于如何优化Webpack的打包体积，进行一些总结。
