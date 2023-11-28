@@ -135,7 +135,7 @@
     <section class="markdown-content"><blockquote>
 <p>本文总结了一些解决深拷贝的常用方法，没有银弹，每种方法都有其优劣，使用时要区分其场景。</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/js3.jpg" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/js3.38dyecsf5u60.webp" alt="image"></p>
 <a id="more"></a>
 <p>在 JavaScript 中，深拷贝已经是一个老生常谈的问题，也无数次被面试官用来考核一个前端的 JS 水平，同时，在开发中，如果对深拷贝理解不够深刻，也会出现很难发现的 BUG。此前，我已经写过一篇文章《深入理解 JavaScript 之克隆》，其中分析了深拷贝的概念，但是其解决方法还很粗浅，这篇文章，记录了一些解决深拷贝的常用方法，没有银弹，每种方法都有其优劣，使用时要区分其场景。</p>
 <h3 id="递归拷贝"><a href="#递归拷贝" class="headerlink" title="递归拷贝"></a>递归拷贝</h3><p>递归拷贝应该是最开始了解深拷贝时遇到的解决办法，其原理是对引用类型进行遍历，判断其值是否为引用类型，如果为引用类型则递归调用该函数并传入该值，否则为简单数据类型则执行常规赋值拷贝。</p>
@@ -260,7 +260,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2018/11/06/深拷贝探秘/';
-    var banner = 'http://img.yanyuanfe.cn/js3.jpg'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/js3.38dyecsf5u60.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
@@ -345,7 +345,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2023 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>

@@ -135,13 +135,13 @@
     <section class="markdown-content"><blockquote>
 <p>了解组件生命周期将使你能够在创建或销毁组件时执行某些操作。 此外，它让您有机会决定是否应该首先更新组件，并相应地对属性（props）或状态（state）更改做出反应。</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/react_illo_800x600_1x.png" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react_illo_800x600_1x.2mcmptriwyy0.webp" alt="image"></p>
 <a id="more"></a>
 <div class="tip"><br>    在公司实习已经一个月了，第一个项目是使用React+React-Redux架构的Webapp，在项目过程中对React的理解从入门到逐渐加深，所以写下这篇文章总结一下心得。<br></div>
 
 <h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>React通过调用React.createClass（）方法来创建组件，React.createClass（）方法需要一个render方法，并触发一个生命周期，它可以通过一些所谓的生命周期方法来实现。</p>
 <p>为了清楚地理解生命周期，我们需要区分组件被创建的初始创建阶段，状态和属性变化触发的更新阶段以及组件被卸载的阶段。</p>
-<h3 id="初始化（Initialization）"><a href="#初始化（Initialization）" class="headerlink" title="初始化（Initialization）"></a>初始化（Initialization）</h3><p><img src="http://img.yanyuanfe.cn/initial.png" alt="image"></p>
+<h3 id="初始化（Initialization）"><a href="#初始化（Initialization）" class="headerlink" title="初始化（Initialization）"></a>初始化（Initialization）</h3><p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/initial.248srxls9ips.webp" alt="image"></p>
 <p>从上面的图我们可以看到，前两个方法被调用的是getDefaultProps和getInitialState。这两个方法只在最初渲染组件时调用一次。 getInitialState方法允许设置初始状态值，这是通过this.state在组件内部可访问的。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">getInitialState: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="comment">/* something here */</span>&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>类似地，getDefaultProps可以用于定义可以通过this.props访问的任何默认属性。</p>
@@ -150,7 +150,7 @@
 <p>  <strong>componentWillMount</strong>在执行render方法之前被调用。重要的是要注意，在此阶段中设置状态不会触发重新渲染。  </p>
 <p><strong>render</strong>方法返回所需的组件标记，它可以是单个子组件或null或false（以防您不想要任何渲染）。<br>这是生命周期中解释属性和状态值以创建正确输出的部分。在这个函数里面不应该修改属性和状态。这一点很重要，因为根据定义，render必须是纯函数，这意味着每次调用该方法时返回相同的结果。  </p>
 <p>  一旦render方法被执行，<strong>componentDidMount</strong>函数被调用。在此方法中可以访问DOM，从而能够定义DOM操作或数据请求操作。任何DOM交互应该总是发生在这个阶段，而不是render方法内部。</p>
-<h3 id="状态变化（State-Changes）"><a href="#状态变化（State-Changes）" class="headerlink" title="状态变化（State Changes）"></a>状态变化（State Changes）</h3><p>状态更改将触发许多钩子函数。<br><img src="http://img.yanyuanfe.cn/statechange.png" alt="image">  </p>
+<h3 id="状态变化（State-Changes）"><a href="#状态变化（State-Changes）" class="headerlink" title="状态变化（State Changes）"></a>状态变化（State Changes）</h3><p>状态更改将触发许多钩子函数。<br><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/statechange.4yinwc51ro00.webp" alt="image">  </p>
 <p><strong>shouldComponentUpdate</strong>总是在render方法之前调用，并允许定义是否需要或跳过重新渲染。显然，这种方法从来没有在初始渲染时调用。必须返回布尔值。  </p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">shouldComponentUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps, nextState</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// return a boolean value</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>此方法可以访问当前以及即将到来的属性和状态确保可以检测到可能的改变以确定是否需要渲染。<br>shouldComponentUpdate方法 允许我们手动地判断是否要进行组件更新，根据组件的应用场景设置函数的合理返回值能够帮我们避免不必要的更新。很多人不了解这个方法而不知道它的重要性。</p>
@@ -158,10 +158,10 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">componentWillUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps, nextState</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// perform any preparations for an upcoming update</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>最后，在render方法之后调用<strong>componentDidUpdate</strong>。与componentDidMount类似，此方法可用于在数据更新后执行DOM操作。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">componentDidUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">prevProps, prevState</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="属性变更（Props-Changes）"><a href="#属性变更（Props-Changes）" class="headerlink" title="属性变更（Props Changes）"></a>属性变更（Props Changes）</h3><p>对props对象的任何更改也将触发生命周期函数，并且几乎与状态更改相同，且有一个额外的方法被调用。<br><img src="http://img.yanyuanfe.cn/changeprops.png" alt="image"><br><strong>componentWillReceiveProps</strong>仅在属性已更改并且不是初始渲染时调用。 componentWillReceiveProps允许根据现在和即将到来的属性来更新状态，而不触发另一个渲染。这里需要记住的一个有趣的事情是，没有等效的状态的方法，因为状态变化不应该触发任何属性的变化。</p>
+<h3 id="属性变更（Props-Changes）"><a href="#属性变更（Props-Changes）" class="headerlink" title="属性变更（Props Changes）"></a>属性变更（Props Changes）</h3><p>对props对象的任何更改也将触发生命周期函数，并且几乎与状态更改相同，且有一个额外的方法被调用。<br><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/changeprops.550bhbn7bp40.webp" alt="image"><br><strong>componentWillReceiveProps</strong>仅在属性已更改并且不是初始渲染时调用。 componentWillReceiveProps允许根据现在和即将到来的属性来更新状态，而不触发另一个渲染。这里需要记住的一个有趣的事情是，没有等效的状态的方法，因为状态变化不应该触发任何属性的变化。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">componentWillReceiveProps: <span class="function"><span class="keyword">function</span>(<span class="params">nextProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    <span class="comment">// set something </span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>剩余的生命周期函数与状态改变触发方法相同，在这里没有什么不同。</p>
-<h3 id="卸载（Unmounting）"><a href="#卸载（Unmounting）" class="headerlink" title="卸载（Unmounting）"></a>卸载（Unmounting）</h3><p><img src="http://img.yanyuanfe.cn/unmount.png" alt="image">  </p>
+<h3 id="卸载（Unmounting）"><a href="#卸载（Unmounting）" class="headerlink" title="卸载（Unmounting）"></a>卸载（Unmounting）</h3><p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/unmount.tdf6ifmjlsw.webp" alt="image">  </p>
 <p>组件卸载会触发的唯一一个方法是<strong>componentWillUnmount</strong>，当组件从DOM中移除之前调用componentWillUnmount。当需要执行清理操作时，该方法可能是有益的。删除componentDidMount中定义的任何计时器。</p>
 <h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><blockquote>
 <p>在生命周期中的哪一步你应该发起 AJAX 请求？  </p>
@@ -264,7 +264,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2017/01/24/理解React组件生命周期/';
-    var banner = 'http://img.yanyuanfe.cn/react_illo_800x600_1x.png'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react_illo_800x600_1x.2mcmptriwyy0.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
@@ -349,7 +349,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2023 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>

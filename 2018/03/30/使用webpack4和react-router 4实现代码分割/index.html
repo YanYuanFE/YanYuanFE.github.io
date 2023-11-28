@@ -135,7 +135,7 @@
     <section class="markdown-content"><blockquote>
 <p>Webpack的Code Splitting特性能够把代码分离到不同的bundle中，然后可以按需加载或并行加载这些文件。</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/banner_1025.jpg" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/banner_1025.4flvtamjo160.webp" alt="image"></p>
 <a id="more"></a>
 <h3 id="什么是代码分割（code-splitting）"><a href="#什么是代码分割（code-splitting）" class="headerlink" title="什么是代码分割（code splitting）"></a>什么是代码分割（code splitting）</h3><p>我们知道，在使用webpack打包react应用时，webpack将整个应用打包成一个js文件，当用户访问首屏时，会一次性加载整个js文件，这就造成了首屏渲染速度变慢的问题。于是，webpack开发了代码分割的特性，<br>此特性能够把代码分离到不同的 bundle 中，然后可以按需加载或并行加载这些文件。代码分离可以用于获取更小的 bundle，以及控制资源加载优先级，如果使用合理，会极大影响加载时间。<br>有三种常用的代码分离方法：</p>
 <ul>
@@ -176,9 +176,9 @@
 <p>在根目录下package.json配置启动脚本：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"webpack-dev-server --mode development"</span>,</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"webpack --mode production"</span></span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
 <p>然后运行npm start启动项目：<br>打开浏览器访问localhost：8080</p>
-<p><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_217.png" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_217.wk4rejsghxs.webp" alt="image"></p>
 <p>可以看到页面先加载了main.js和0.js，点击详情按钮跳转到<a href="http://localhost:8080/detail。" target="_blank" rel="noopener">http://localhost:8080/detail。</a></p>
-<p><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_218.png" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_218.3a27r9z5g0c0.webp" alt="image"></p>
 <p>马上加载了1.js，这样就实现了代码分割，每个路由都是动态加载的。提升了首屏渲染速度。</p>
 </section>
     <!-- Tags START -->
@@ -276,7 +276,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2018/03/30/使用webpack4和react-router 4实现代码分割/';
-    var banner = 'http://img.yanyuanfe.cn/photo-1416339442236-8ceb164046f8.jpeg'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1416339442236-8ceb164046f8.2vwnww6auku0.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
@@ -361,7 +361,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2023 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>

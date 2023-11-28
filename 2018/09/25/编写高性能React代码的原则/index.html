@@ -135,7 +135,7 @@
     <section class="markdown-content"><blockquote>
 <p>本文总结了一些编写React代码的建议，有助于理解React的渲染机制，主要是通过减少不必要的重新渲染来提升React性能。</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/react.jpg" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react.vrvfir1nugw.webp" alt="image"></p>
 <a id="more"></a>
 <p>回顾使用React开发的经历，已有接近两年了，一直想要写一篇文章来介绍如何编写高性能的React代码，又或者是性能调优之类的，于是，我总结了一些编写高性能React代码的实践，或许能让你对React的理解更加深刻。</p>
 <h3 id="影响React性能的主要因素"><a href="#影响React性能的主要因素" class="headerlink" title="影响React性能的主要因素"></a>影响React性能的主要因素</h3><p>React专注于构建用户界面，内部通过VirtualDOM和Diff算法实现视图的更新，本身拥有很高的性能。当组件的state和props改变的时候，React就会重新render，进而更新视图。在render过程中，react会将JSX语法转换为虚拟DOM，同时进行Diff算法比较新旧DOM的变化，从而对视图进行局部更新。试想，当render执行后，JSX转换虚拟DOM，然后Diff，最后发现新旧DOM是一样的，最后并没有更新视图。那么，就导致了不必要的render，造成了性能的浪费。所以，减少不必要的render，成为优化React性能的主要因素。</p>
@@ -263,7 +263,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2018/09/25/编写高性能React代码的原则/';
-    var banner = 'http://img.yanyuanfe.cn/react.jpg'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/react.vrvfir1nugw.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
@@ -348,7 +348,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2023 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>

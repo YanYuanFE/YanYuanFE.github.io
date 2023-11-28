@@ -135,7 +135,7 @@
     <section class="markdown-content"><blockquote>
 <p>当我们谈论Web通信的时候，实际上谈论的是两个略有不同的系统：跨文档通信(cross-document messaging)和通道通信(channel messaging)。跨文档通信就是我们国内更为熟知的HTML5 window.postMessage()应用的那种通信；通道通信也被称为”MessageChannel”. 伴随着server-sent事件以及web sockets, 跨文档通信和通道通信成为HTML5 通信接口“套件”中有用的一部分。</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/Creating-a-HTML5-Flipbook.jpg" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/Creating-a-HTML5-Flipbook.6xve51mzrw80.webp" alt="image"></p>
 <a id="more"></a>
 <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>曾经在Web开发中遇到这样一个需求，你的网页中需要嵌入一个跨域的iframe页面，iframe提供了点击的按钮，点击按钮触发事件，需要调用你的网页的一个方法来处理点击事件。但是，基于浏览器的同源策略，Web浏览器不允许窗口间的通信。同源策略指的是：在页面中，从某一个域加载的脚本不能访问从另一个域加载的窗口内容。虽说同源策略在很多情况下能保护我们的信息安全，但是在很多情况下，我们确实需要在网页中嵌入来自其他网站的内容。HTML5利用跨文档通信满足了这种复杂需求。借助跨文档通信API中的postMessage方法与message事件，能在两个页面之间创建一个受控制的通信通道。</p>
 <h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>从MDN(<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)的文档里可以详细了解postMessage的用法：" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage)的文档里可以详细了解postMessage的用法：</a></p>
@@ -163,7 +163,7 @@
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"http://123.206.14.146/postmessage.page.html"</span> <span class="attr">frameborder</span>=<span class="string">"0"</span> <span class="attr">id</span>=<span class="string">"external-frame"</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">height</span>=<span class="string">"500px"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, handleMessage, <span class="literal">false</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">handleMessage</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(event);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> origin = event.origin;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">window</span>.frames[<span class="number">0</span>].postmessage(<span class="string">'ok'</span>, origin);</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>app.html位于本地localhost，在此文件中，嵌入位于云服务器上的iframe页面page.html,iframe向app.html发送消息，那么app.html该如何接收消息呢？在window上监听message事件。当接收到消息时，使用postMessage对iframe再发送一个回复消息。</p>
 <p>在WebStorm中预览app.html，点击iframe中的按钮，控制台打印出如下信息。</p>
-<p>从控制台打印出的log可以看到，MessageEvent主要有三个属性：<br><img src="http://img.yanyuanfe.cn/console.png" alt="image"></p>
+<p>从控制台打印出的log可以看到，MessageEvent主要有三个属性：<br><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/console.64b6z72yoh80.webp" alt="image"></p>
 <p>data： 传递的消息；</p>
 <p>origin： 发送消息的源，由协议+主机名+端口号组成；</p>
 <p>source： 发送消息的窗口对象；</p>
@@ -172,7 +172,7 @@
 <p>1、 otherWindow.postMessage（message, targetOrigin, [transfer]）;<br>targetOrigin参数最好不要使用通配符”*”,应该使用受信任的域名；</p>
 <p>2、处理message事件时，需要对发送消息的源event.origin进行校验 ，避免产生安全问题。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, handleMessage, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleMessage</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(event);</span><br><span class="line">    <span class="keyword">var</span> origin = event.origin || event.originalEvent.orgin;</span><br><span class="line">    <span class="keyword">if</span>(origin ! == <span class="string">'http://example.org:8080'</span>) <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>HTML5的postMessage不仅仅可以实现跨文档通信，跨域通信、多窗口通信、当前页和新窗口之间的通信都可以用如此简单的方式实现。如此强大的功能，那么其兼容性如何呢？如下：<br><img src="http://img.yanyuanfe.cn/caniuse.png" alt="image"></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>HTML5的postMessage不仅仅可以实现跨文档通信，跨域通信、多窗口通信、当前页和新窗口之间的通信都可以用如此简单的方式实现。如此强大的功能，那么其兼容性如何呢？如下：<br><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/caniuse.4zddugcpr7c0.webp" alt="image"></p>
 <p>可以看出，postMessage已经支持大部分浏览器，需要注意的是，在IE8、9和Firefox6及其以下版本只支持字符串作为传递的消息数据。</p>
 </section>
     <!-- Tags START -->
@@ -262,7 +262,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2017/08/25/基于HTML5实现跨文档通信/';
-    var banner = 'http://img.yanyuanfe.cn/Creating-a-HTML5-Flipbook.jpg'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/Creating-a-HTML5-Flipbook.6xve51mzrw80.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
@@ -347,7 +347,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2023 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>

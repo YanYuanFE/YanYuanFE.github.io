@@ -135,7 +135,7 @@
     <section class="markdown-content"><blockquote>
 <p>理解Redux的原理有助于我们更好的使用它。本文实现Redux的基本API。</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.png" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.glzlaco1kn4.webp" alt="image"></p>
 <a id="more"></a>
 <p>Redux 试图让 state 的变化变得可预测。</p>
 <p>redux已经被越来越多的人使用，理解其原理有助于更好的使用它。阅读redux源码是一个不错的办法，当我们了解了其原理之后，现在来实现一个简单的redux吧。</p>
@@ -165,7 +165,7 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> currentState;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> currentListeners = [];</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getState</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> currentState;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">subscribe</span>(<span class="params">listener</span>) </span>&#123;</span><br><span class="line">    currentListeners.push(listener);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">    currentState = reducer(currentState, action);</span><br><span class="line">    currentListeners.forEach(<span class="function"><span class="params">v</span> =&gt;</span> v());</span><br><span class="line">    <span class="keyword">return</span> action;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  dispatch(&#123;<span class="attr">type</span>: <span class="string">'@@REDUX/INIT'</span>&#125;); <span class="comment">//初始化</span></span><br><span class="line">  <span class="keyword">return</span> &#123; getState, subscribe, dispatch &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>下面结合之前的计数器例子来验证上述redux是否正确。<br>在前面计数器例子中，打开src下index.js，修改如下代码：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'./redux'</span>;</span><br></pre></td></tr></table></figure>
-<p>替换redux为刚刚编写的redux.js文件。查看浏览器运行结果。<br><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_184.png" alt="image"></p>
+<p>替换redux为刚刚编写的redux.js文件。查看浏览器运行结果。<br><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_184.5kmnabgatkg0.webp" alt="image"></p>
 <p>如图，与redux的效果一致，达到预期效果。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本文实现了一个简单的redux，完成其基本API的实现，这有助于你理解redux的原理，后面会逐步对其扩展，编写react-redux以及中间件的实现。</p>
 </section>
@@ -260,7 +260,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2018/02/26/手摸手撸一个简单的Redux（一）/';
-    var banner = 'http://img.yanyuanfe.cn/photo-1432821596592-e2c18b78144f.jpeg'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1432821596592-e2c18b78144f.f3ca3jsspa0.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
@@ -345,7 +345,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2023 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>

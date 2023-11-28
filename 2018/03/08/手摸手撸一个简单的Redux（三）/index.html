@@ -135,7 +135,7 @@
     <section class="markdown-content"><blockquote>
 <p>It provides a third-party extension point between dispatching an<br>action, and the moment it reaches the reducer. —中间件</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.png" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/687474703a2f2f692e696d6775722e636f6d2f4a65567164514d2e706e67.glzlaco1kn4.webp" alt="image"></p>
 <a id="more"></a>
 <blockquote>
 <p>本文完整代码请查看Github：<a href="https://github.com/YanYuanFE/redux-app" target="_blank" rel="noopener">https://github.com/YanYuanFE/redux-app</a></p>
@@ -172,7 +172,7 @@
 <p>这就是redux-thunk的代码，很简单吧，首先判断传入的action是否为fuction，如果是function就执行该action，并传入dispatch和getState， 如下，在incrementAsync的返回函数的参数中，可以接受dispatch和getState两个参数：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incrementAsync</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(onIncrement());</span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>下面来验证一下实现的thunk中间件，在src下替换redux-thunk为./thunk。在浏览器依次点击三个按钮，结果如下，达到预期效果。</p>
-<p><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_197.png" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_197.1awh6tz3s4w0.webp" alt="image"></p>
 </section>
     <!-- Tags START -->
     
@@ -265,7 +265,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2018/03/08/手摸手撸一个简单的Redux（三）/';
-    var banner = 'http://img.yanyuanfe.cn/photo-1432821596592-e2c18b78144f.jpeg'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1432821596592-e2c18b78144f.f3ca3jsspa0.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
@@ -350,7 +350,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2023 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>

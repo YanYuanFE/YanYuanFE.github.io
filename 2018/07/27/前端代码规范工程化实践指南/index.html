@@ -135,7 +135,7 @@
     <section class="markdown-content"><blockquote>
 <p>代码是写给人看的，顺便让机器运行。遵循统一的代码规范在团队协作中可以极大提高开发效率，降低代码维护成本。本文介绍了ESLint规范、EditorConfig配置、Git控制代码规范等工程化实践在代码规范中的运用。</p>
 </blockquote>
-<p><img src="http://img.yanyuanfe.cn/photo-1432821596592-e2c18b78144f.jpeg" alt="image"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1432821596592-e2c18b78144f.f3ca3jsspa0.webp" alt="image"></p>
 <a id="more"></a>
 <p>现代前端技术飞速发展，前端已进入了以效率和质量为核心的工程化时代，各种自动化工具和技术的使用大大提高了开发效率。在团队协作中，编码规范至关重要，统一的编码规范可以降低代码维护的成本，但是，纯手工检查代码规范费时费力且难以保证准确性，因此，针对代码规范的自动化工具应运而生，从最早的JSLint，到JSHint，再到今天的ESLint，代码规范工具变得越来越成熟。再结合WebStorm、VSCode等编辑器可以在编写代码的时候自动提醒错误，在开发阶段就避免错误，提高开发效率。本文主要讨论前端工程化在代码规范上的一些实践。</p>
 <h3 id="ESLint"><a href="#ESLint" class="headerlink" title="ESLint"></a>ESLint</h3><p>ESLint是当前最流行的代码规范检查工具，随着ECMAScript版本一直更新，通过配置检查规则来对代码进行规范检查，具有丰富的插件生态，也可以使用已有的规范以及进行自定义规则，可以满足大部分团队的需求。</p>
@@ -166,7 +166,7 @@
 <blockquote>
 <p>File -&gt; Settings<br>Languages &amp; Frameworks -&gt; JavaScript -&gt; Code Quality Tools -&gt; ESLint</p>
 </blockquote>
-<p>勾选Enable即可。WebStorm就会在编写代码的时候进行提示，如果不符合ESLint规则则会进行颜色标注，让你更早发现代码问题。<br><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_472.png" alt="eslint"><br>VSCode需要安装eslint插件才能对代码进行提示，在此不做赘述。</p>
+<p>勾选Enable即可。WebStorm就会在编写代码的时候进行提示，如果不符合ESLint规则则会进行颜色标注，让你更早发现代码问题。<br><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_472.7fq9ihkhxhc0.webp" alt="eslint"><br>VSCode需要安装eslint插件才能对代码进行提示，在此不做赘述。</p>
 <h3 id="EditorConfig"><a href="#EditorConfig" class="headerlink" title="EditorConfig"></a>EditorConfig</h3><p>不同的操作系统和编辑器对于文本的格式的支持会有一定的区别，如果不统一一些规范，可能在团队协作的时候每次更新下来别人的代码就会一大堆报错。<br>EditorConfig是一种多编辑器插件，用于帮助开发者在不同的操作系统、编辑器和IDE之间定义和维护统一的代码风格。EditorConfig包含一个用于定义代码风格的配置文件和对应的编辑器插件，编辑器插件可以读取配置文件并对代码进行格式化。<br>EditorConfig的配置文件是.editorconfig，通常放置在项目根目录下。EdtorConfig插件对在文件夹的每一级目录下查找.editorconfig文件，直到查找到.editorconfig中包含root=true。<br>下面是一份.editorconfig配置文件：（注意：不是每种插件都支持下列所有属性）</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root = true</span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line">charset = utf-8</span><br><span class="line">indent_style = space</span><br><span class="line">indent_size = 2</span><br><span class="line">end_of_line = lf</span><br><span class="line">insert_final_newline = true</span><br><span class="line">trim_trailing_whitespace = true</span><br></pre></td></tr></table></figure>
 <p>root为true表示是最顶层的配置文件，<br>[*]用于匹配需要格式化的代码，charset指定编码格式为utf-8,intent_style指定缩进风格为空格，还可以选择tab，indent_size用于指定缩进的列数，end_of_line指定换行符为lf，在Linux和Windows下可能会因为换行符lf和crlf的不一致导致代码在版本管理工具下报错，insert_final_newline设为true表示文件以一个空白行结尾，<br>trim_trailing_whitespace设为true会去除换行行首的任意空白字符。</p>
@@ -178,7 +178,7 @@
 <p>修改package.json，增加script配置：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">      &quot;precommit&quot;: &quot;eslint client/**/*.js&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>尝试Git提交，会自动使用eslint进行校验：</p>
-<p><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_468.png" alt="husky"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_468.2j7argreb4q0.webp" alt="husky"></p>
 <p>但是这样会出现新的问题：如果一个老项目刚开始使用这种方式进行代码校验，势必会出现很多代码校验不通过的情况。那么最好的实现应该是开发者在commit代码的时候只校验自己提交的部分，lint-staged解决了这个问题，statged指Git中的待提交区，使用git add然后git commit的时候，你的代码会经过待提交区。<br>lint-staged使用方法如下：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install lint-staged --save-dev</span><br></pre></td></tr></table></figure>
 <p>修改package.json中的script配置：</p>
@@ -186,7 +186,7 @@
 <p>也可以使用如下配置自动修复错误：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;precommit&quot;: &quot;lint-staged&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;lint-staged&quot;: &#123;</span><br><span class="line">    &quot;client/**/*.js&quot;: [&quot;eslint --fix&quot;, &quot;git add&quot;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>husky会在.git/hooks中添加pre-commit钩子，当开发者执行git add将代码提交到暂存区后，再执行git commit操作时，触发pre-commit钩子，开始执行npm run precommit命令，即lint-staged命令，lint-staged利用配置的文件过滤路径如（src/*<em>/</em>.js），对暂存区文件依次进行匹配，运行eslint –fix自动修复错误，并将修改添加到暂存区。</p>
-<p><img src="http://img.yanyuanfe.cn/%E9%80%89%E5%8C%BA_473.png" alt="lint"></p>
+<p><img src="https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/选区_473.1gel4udgrxls.webp" alt="lint"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>代码是写给人看的，顺便让机器运行。遵循统一的代码规范在团队协作中可以极大提高开发效率，降低代码维护成本，而前端工程化可以让这件事情变得更简单。</p>
 </section>
     <!-- Tags START -->
@@ -276,7 +276,7 @@
 <script>
   (function () {
     var url = 'http://yoursite.com/2018/07/27/前端代码规范工程化实践指南/';
-    var banner = 'http://img.yanyuanfe.cn/photo-1432821596592-e2c18b78144f.jpeg'
+    var banner = 'https://cdn.statically.io/gh/YanYuanFE/picx-images-hosting@master/20231128/photo-1432821596592-e2c18b78144f.f3ca3jsspa0.webp'
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
@@ -361,7 +361,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2022 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2023 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>
